@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/h"
+    tools:context=".Activity.Select_currency_Activity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:background="@drawable/shape_for_toolbar"
+        android:id="@+id/toolbarSelect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+<!--        <ImageButton-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:background="@android:color/transparent"-->
+<!--            android:src="@drawable/arrow_back"/>-->
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searceViewS"
+            android:background="@drawable/shape_for_editext"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_width="match_parent"
+            android:hint="@string/search_currency_name"
+            android:layout_height="40dp"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerviewSelect"
+        android:layout_below="@+id/toolbarSelect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>

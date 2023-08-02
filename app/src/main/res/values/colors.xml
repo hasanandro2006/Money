@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="whit">#FD8749</color>
+    <color name="hole">#FD8749 </color>
+    <color name="hole_s">#94FD8749</color>
+    <color name="hol">#4965FD </color>
+    <color name="hl">#BEBEBE</color>
+    <color name="h">#DEEEEE</color>
+    <color name="green">#00FF20</color>
+    <color name="red">#FF0000</color>
+
+    <color name="blue">#2196F3</color>
+    <color name="one">#F44336</color>
+    <color name="tow">#9C27B0</color>
+    <color name="four">#8BC34A</color>
+    <color name="five">#2196F3</color>
+    <color name="six">#FFC107</color>
+</resources>

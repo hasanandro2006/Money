@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Final Money Manager</string>
+    <string name="money_manager">Money Manager</string>
+    <string name="choose_a_name_and_country_currency">Choose a name and country currency</string>
+    <string name="add_account">Add Account</string>
+    <string name="name">Your name</string>
+    <string name="select_currency">Select country currency</string>
+    <string name="next">NEXT</string>
+    <string name="select_your_country_currency">Select your country currency</string>
+    <string name="search_currency_name">Search currency name...</string>
+    <string name="here_hame">Here Hame</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="save_transaction">Save Transaction</string>
+    <string name="note">Note</string>
+    <string name="category">Category</string>
+    <string name="amount">Amount</string>
+    <string name="select_date">Select date</string>
+    <string name="expense">Expense</string>
+    <string name="income">Income</string>
+    <string name="account">Account</string>
+    <string name="_0_0">0.0</string>
+    <string name="_12_may_2023">12 May, 2023</string>
+    <string name="textview">TextView</string>
+    <string name="daily">Daily</string>
+    <string name="year">Year</string>
+    <string name="month">Month</string>
+    <string name="all_data">All Data</string>
+    <string name="monthly">Monthly</string>
+</resources>
