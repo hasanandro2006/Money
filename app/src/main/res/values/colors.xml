@@ -6,8 +6,9 @@
     <color name="hole">#FD8749 </color>
     <color name="hole_s">#94FD8749</color>
     <color name="hol">#4965FD </color>
-    <color name="hl">#BEBEBE</color>
+    <color name="hl">#DADADA</color>
     <color name="h">#DEEEEE</color>
+    <color name="he">#A4A4A4</color>
     <color name="green">#00FF20</color>
     <color name="red">#FF0000</color>
 
@@ -17,4 +18,8 @@
     <color name="four">#8BC34A</color>
     <color name="five">#2196F3</color>
     <color name="six">#FFC107</color>
+
+    <color name="sx">#FFC300</color>
+    <color name="s">#FFC300</color>
+
 </resources>

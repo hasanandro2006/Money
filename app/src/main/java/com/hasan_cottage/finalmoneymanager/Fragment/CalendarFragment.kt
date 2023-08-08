@@ -3,16 +3,17 @@ package com.hasan_cottage.finalmoneymanager.Fragment
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hasan_cottage.finalmoneymanager.Adapter.Adapter_mainrecyclerview
 import com.hasan_cottage.finalmoneymanager.Helper.HelperClass
+import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.Roomdatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.Roomdatabase.ModelM
 import com.hasan_cottage.finalmoneymanager.Roomdatabase.Repostry
@@ -113,6 +114,8 @@ lateinit var binding: FragmentCalendarBinding
             )
             binding.recyclerView.layoutManager= LinearLayoutManager(context)
         })
+
+
 
 
     }

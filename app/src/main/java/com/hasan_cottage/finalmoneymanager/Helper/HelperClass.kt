@@ -12,17 +12,25 @@ class HelperClass {
         var INCOME = "Income"
         var EXPENSE = "Expense"
 
-       lateinit var arrayList: ArrayList<Catagory_model>
-       lateinit var arrayListA: ArrayList<Account_model>
+        var Home = "Home"
+        var Business = "Business"
+        var Loan = "Loan"
+        var Investment = "Investment"
+        var Planing = "Planing"
+        var Rent = "Rent"
+        var Other = "Other"
 
-      fun catagoryItem(): ArrayList<Catagory_model> {
+        lateinit var arrayList: ArrayList<Catagory_model>
+        lateinit var arrayListA: ArrayList<Account_model>
+
+        fun catagoryItem(): ArrayList<Catagory_model> {
             arrayList = ArrayList<Catagory_model>()
             arrayList.add(Catagory_model(R.drawable.assets, "Home", R.color.one))
             arrayList.add(Catagory_model(R.drawable.bars, "Business", R.color.tow))
             arrayList.add(Catagory_model(R.drawable.database, "Loan", R.color.four))
             arrayList.add(Catagory_model(R.drawable.investment, "Investment", R.color.five))
             arrayList.add(Catagory_model(R.drawable.planning, "Planing", R.color.six))
-            arrayList.add(Catagory_model(R.drawable.reduction, "Rent", R.color.hol))
+            arrayList.add(Catagory_model(R.drawable.deal, "Rent", R.color.hol))
             arrayList.add(Catagory_model(R.drawable.reduction, "Other", R.color.hole_s))
             return arrayList
         }
@@ -38,27 +46,30 @@ class HelperClass {
         }
 
         fun dateFormet(date: Date): String {
-            val dateFormat =SimpleDateFormat("dd MMM yyyy")
+            val dateFormat = SimpleDateFormat("dd MMM yyyy")
             return dateFormat.format(date)
         }
 
         fun getColorCatogory(catogory: String): Catagory_model? {
-            arrayList.forEach{ item ->
-                if (item.name.equals(catogory)){
+            arrayList.forEach { item ->
+                if (item.name.equals(catogory)) {
                     return item
                 }
             }
             return null
         }
 
-            fun getColorAccount(account :String): Int?{
-                   when(account){
-                       "Case" ->return R.color.one
-                       "Bank" -> return R.color.tow
-                       "Bkash" ->return R.color.four
-                       "Nagad" ->return R.color.five
-                       "Other" ->return R.color.six
-               }
-                return null
+        fun getColorAccount(account: String): Int? {
+            when (account) {
+                "Case" -> return R.color.one
+                "Bank" -> return R.color.tow
+                "Bkash" -> return R.color.four
+                "Nagad" -> return R.color.five
+                "Other" -> return R.color.six
+            }
+            return null
         }
-}}
+
+    }
+
+}

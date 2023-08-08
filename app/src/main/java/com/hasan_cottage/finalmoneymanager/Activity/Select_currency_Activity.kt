@@ -25,8 +25,7 @@ class Select_currency_Activity : AppCompatActivity() {
     lateinit var viewmodelAll: Appviewmodel
     lateinit var dao: DatabaseDao
     lateinit var repostry: Repostry
-    lateinit var adaptrAll:AdatperCurrency
-
+    lateinit var adaptrAll: AdatperCurrency
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +36,7 @@ class Select_currency_Activity : AppCompatActivity() {
         // Initialize  database
         dao = DatabaseAll.getInstanceAll(application).getAllDao()
         val daoM = DatabaseAll.getInstanceAll(applicationContext).getAllDaoM()
-        repostry = Repostry(dao,daoM)
+        repostry = Repostry(dao, daoM)
         viewmodelAll =
             ViewModelProvider(this, ViewmodelFactory(repostry)).get(Appviewmodel::class.java)
 
@@ -50,7 +49,6 @@ class Select_currency_Activity : AppCompatActivity() {
         searchViewEvent()
 
     }
-
 
 
     private fun getCurrency() {
@@ -85,7 +83,7 @@ class Select_currency_Activity : AppCompatActivity() {
 
 
         binding.recyclerviewSelect.setHasFixedSize(true)
-        adaptrAll= AdatperCurrency(
+        adaptrAll = AdatperCurrency(
             dao,
             this,
             arrayListCurrency!!,
@@ -98,17 +96,18 @@ class Select_currency_Activity : AppCompatActivity() {
     }
 
     private fun searchViewEvent() {
-      binding.searceViewS.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
-          override fun onQueryTextSubmit(query: String?): Boolean {
-              return false
-          }
-          override fun onQueryTextChange(newText: String?): Boolean {
-              adaptrAll.filter.filter(newText)
+        binding.searceViewS.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
 
-              return true
-          }
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adaptrAll.filter.filter(newText)
 
-      })
+                return true
+            }
+
+        })
 
     }
 

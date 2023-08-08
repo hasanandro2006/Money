@@ -35,7 +35,7 @@ class Signup_Activity : AppCompatActivity() {
         // Initialize  database
         dao = DatabaseAll.getInstanceAll(application).getAllDao()
         val daoM = DatabaseAll.getInstanceAll(applicationContext).getAllDaoM()
-        val repostry = Repostry(dao,daoM)
+        val repostry = Repostry(dao, daoM)
         viewmodelAll =
             ViewModelProvider(this, ViewmodelFactory(repostry)).get(Appviewmodel::class.java)
 
@@ -75,9 +75,9 @@ class Signup_Activity : AppCompatActivity() {
                 if (it.isNullOrEmpty()) {
 
                 } else {
-                    dataBinding.text1.text = it[it.size - 1].currencyCode+" "
+                    dataBinding.text1.text = it[it.size - 1].currencyCode + " "
                     dataBinding.text2.text = it[it.size - 1].currencyName
-                    dataBinding.steText2.text = "("+it[it.size - 1].currencySymbol+")"
+                    dataBinding.steText2.text = "(" + it[it.size - 1].currencySymbol + ")"
                     dataBinding.myModel = it[it.size - 1].name
                     redioposition = it[it.size - 1].position
 
