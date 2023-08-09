@@ -19,9 +19,6 @@
             android:name=".Activity.Store_activiyy"
             android:exported="false" />
         <activity
-            android:name=".Activity.Calender_Activity"
-            android:exported="false" />
-        <activity
             android:name=".Activity.MainActivity"
             android:exported="false" />
         <activity
