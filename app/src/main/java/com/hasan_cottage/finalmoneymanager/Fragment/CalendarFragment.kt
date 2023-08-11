@@ -11,9 +11,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.hasan_cottage.finalmoneymanager.Activity.MainActivity
 import com.hasan_cottage.finalmoneymanager.Adapter.Adapter_mainrecyclerview
 import com.hasan_cottage.finalmoneymanager.Helper.HelperClass
-import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.Roomdatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.Roomdatabase.ModelM
 import com.hasan_cottage.finalmoneymanager.Roomdatabase.Repostry
@@ -44,8 +44,7 @@ lateinit var binding: FragmentCalendarBinding
 
         // room database
         val daoM= DatabaseAll.getInstanceAll(context).getAllDaoM()
-        val dao= DatabaseAll.getInstanceAll(context).getAllDao()
-        val repostryM= Repostry(dao,daoM)
+        val repostryM= Repostry(daoM)
         viewmodelM= ViewModelProvider(this, ViewmodelFactory(repostryM)).get(Appviewmodel::class.java)
 
 

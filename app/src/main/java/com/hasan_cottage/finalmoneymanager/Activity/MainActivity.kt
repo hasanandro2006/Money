@@ -1,13 +1,18 @@
 package com.hasan_cottage.finalmoneymanager.Activity
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.hasan_cottage.finalmoneymanager.BottomFragment.BottomSheetFragment
 import com.hasan_cottage.finalmoneymanager.Fragment.CalendarFragment
 import com.hasan_cottage.finalmoneymanager.Fragment.MainFragment
 import com.hasan_cottage.finalmoneymanager.Fragment.MoreFragment
 import com.hasan_cottage.finalmoneymanager.Fragment.StatasFragment
 import com.hasan_cottage.finalmoneymanager.R
+import com.hasan_cottage.finalmoneymanager.RoomdataNot.DatabaseTow
+import com.hasan_cottage.finalmoneymanager.Roomdatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

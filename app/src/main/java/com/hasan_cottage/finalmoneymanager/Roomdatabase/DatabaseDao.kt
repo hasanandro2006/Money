@@ -7,23 +7,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.hasan_cottage.finalmoneymanager.RoomdataNot.DataSignup
 
-
-@Dao
-interface DatabaseDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(data: DataSignup)
-
-    @Update
-    fun update(data: DataSignup)
-
-    @Delete
-    fun delete(data: DataSignup)
-
-    @Query("select * from databasesignup order by id asc")
-    fun getData():LiveData<List<DataSignup>>
-
-}
 @Dao
 interface DatabaseDaoM{
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -35,6 +20,9 @@ interface DatabaseDaoM{
     @Delete
     fun deleteM(data: ModelM)
 
+    @Query("select * from mainTable where id=:Id")
+    fun getIdData(Id:Int):LiveData<List<ModelM>>
+
     @Query("select * from mainTable order by id asc")
     fun getDataM():LiveData<List<ModelM>>
 
@@ -43,6 +31,8 @@ interface DatabaseDaoM{
 
     @Query("SELECT * FROM mainTable WHERE date= :day")
     fun getDataDily(day:String):LiveData<List<ModelM>>
+
+
 
 
 }

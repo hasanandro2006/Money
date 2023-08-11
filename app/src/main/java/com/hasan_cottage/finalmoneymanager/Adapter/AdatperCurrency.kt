@@ -18,18 +18,12 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.hasan_cottage.finalmoneymanager.Activity.Signup_Activity
 import com.hasan_cottage.finalmoneymanager.Model.myModel
 import com.hasan_cottage.finalmoneymanager.R
-import com.hasan_cottage.finalmoneymanager.Roomdatabase.DataSignup
-import com.hasan_cottage.finalmoneymanager.Roomdatabase.DatabaseDao
-import com.hasan_cottage.finalmoneymanager.viewmodelclass.Appviewmodel.Appviewmodel
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.util.Locale
 
 class AdatperCurrency(
-    val dao: DatabaseDao,
+
     val context: Context,
     var arrayList: ArrayList<myModel>,
-    val viemodel: Appviewmodel,
     val nameCome: String,
     var selectedPosition: Int,
 ) : RecyclerView.Adapter<AdatperCurrency.viewHolder>(), Filterable {
@@ -63,22 +57,18 @@ class AdatperCurrency(
         holder.redio.isChecked = (selectedPosition == position)// for radio button selected
 
         holder.layout.setOnClickListener {
+            val sharedPreferencesC = context.getSharedPreferences("Currency", Context.MODE_PRIVATE)
+            val editor = sharedPreferencesC.edit()
+            editor.putString("cName", arrayList[position].currencyName)
+            editor.putString("cCode", arrayList[position].currencyCode)
+            editor.putString("cSymble", arrayList[position].currencySymbol)
+            editor.putString("name", nameCome)
+            editor.putInt("oldPosition", position)
+            editor.apply() // Use apply() to save changes asynchronously
 
-            GlobalScope.launch {
-                viemodel.insert(
-                    DataSignup(
-                        arrayList[position].currencyCode,
-                        arrayList[position].currencyName,
-                        arrayList[position].currencySymbol,
-                        nameCome,
-                        position
-                    )
-                )
-
-
-            }
-            context.startActivity(Intent(context, Signup_Activity::class.java))
-            (context as Activity).finish() // Finish the current activity
+            val intent = Intent(context, Signup_Activity::class.java)
+            context.startActivity(intent)
+            (context as Activity).finish()
         }
     }
 

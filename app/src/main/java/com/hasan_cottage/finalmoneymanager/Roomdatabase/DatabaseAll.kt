@@ -1,32 +1,31 @@
 package com.hasan_cottage.finalmoneymanager.Roomdatabase
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [DataSignup::class,ModelM::class], version = 25)
-abstract class DatabaseAll:RoomDatabase() {
+@Database(entities = [ModelM::class], version = 28)
+abstract class DatabaseAll : RoomDatabase() {
 
-    abstract fun getAllDao():DatabaseDao// call dao
-    abstract fun getAllDaoM():DatabaseDaoM
+    abstract fun getAllDaoM(): DatabaseDaoM
 
-    companion object{
-        private var INSTANCE:DatabaseAll?=null
+    companion object {
 
-        fun getInstanceAll(contex:Context):DatabaseAll{ // call instance database
-            if (INSTANCE == null){
-                synchronized(this){
-                    INSTANCE=Room.databaseBuilder(
-                        contex,
+        @Volatile
+        private var INSTANCE: DatabaseAll? = null
+        fun getInstanceAll(context: Context): DatabaseAll {
+            if (INSTANCE == null) {
+                synchronized(this) {
+                    INSTANCE = Room.databaseBuilder(
+                        context,
                         DatabaseAll::class.java,
-                        "allDatabase"
+                        "databaseName"
                     ).fallbackToDestructiveMigration().build()
                 }
             }
             return INSTANCE!!
         }
-
-
     }
 }

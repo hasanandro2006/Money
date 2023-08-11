@@ -1,4 +1,4 @@
-package com.hasan_cottage.finalmoneymanager.Roomdatabase
+package com.hasan_cottage.finalmoneymanager.RoomdataNot
 
 import androidx.room.Entity
 import androidx.room.Ignore
@@ -8,15 +8,16 @@ import androidx.room.PrimaryKey
 data class DataSignup(
     @PrimaryKey(autoGenerate = true)
     val id:Int=1,
+
     val currencyName:String,
     val currencyCode:String,
     val currencySymbol:String,
     val name:String,
-    var position:Int
+
 
     ){
     @Ignore
-    constructor(currencyName:String, currencyCode:String, currencySymbol:String,name: String,position: Int):
-            this(0,currencyName, currencyCode, currencySymbol,name,position)
+    constructor(currencyName:String, currencyCode:String, currencySymbol:String,name: String):
+            this(0,currencyName, currencyCode, currencySymbol,name)
 
 }

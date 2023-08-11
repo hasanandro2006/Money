@@ -1,21 +1,10 @@
 package com.hasan_cottage.finalmoneymanager.Roomdatabase
 
-import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import com.hasan_cottage.finalmoneymanager.RoomdataNot.DataSignup
 
-class Repostry(val databaseDao: DatabaseDao, val databaseDaoM: DatabaseDaoM) {
+class Repostry( val databaseDaoM: DatabaseDaoM) {
 
-    // data for currency
-     fun insert(model:DataSignup){
-        databaseDao.insert(model)
-    }
-    fun update(model: DataSignup){
-        databaseDao.update(model)
-    }
-    fun getData():LiveData<List<DataSignup>>{
-        return databaseDao.getData()
-    }
 
 
     // dat for M
@@ -24,6 +13,9 @@ class Repostry(val databaseDao: DatabaseDao, val databaseDaoM: DatabaseDaoM) {
     }
     fun updateM(model: ModelM){
         databaseDaoM.updateM(model)
+    }
+    fun getIdData(Id:Int):LiveData<List<ModelM>>{
+        return databaseDaoM.getIdData(Id)
     }
     fun getDataM():LiveData<List<ModelM>>{
         return databaseDaoM.getDataM()

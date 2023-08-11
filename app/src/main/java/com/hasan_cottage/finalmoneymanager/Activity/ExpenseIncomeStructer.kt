@@ -14,9 +14,11 @@ import com.github.mikephil.charting.data.PieEntry
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.hasan_cottage.finalmoneymanager.Adapter.Adapter_statas
+import com.hasan_cottage.finalmoneymanager.Fragment.MainFragment
 import com.hasan_cottage.finalmoneymanager.Helper.HelperClass
 import com.hasan_cottage.finalmoneymanager.Model.Statas_model
 import com.hasan_cottage.finalmoneymanager.R
+import com.hasan_cottage.finalmoneymanager.RoomdataNot.DatabaseTow
 import com.hasan_cottage.finalmoneymanager.Roomdatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.Roomdatabase.Repostry
 import com.hasan_cottage.finalmoneymanager.databinding.ActivityExpenseIncomeStructerBinding
@@ -43,11 +45,10 @@ class ExpenseIncomeStructer : AppCompatActivity() {
         binding = ActivityExpenseIncomeStructerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         val daoM = DatabaseAll.getInstanceAll(this).getAllDaoM()
-        val dao = DatabaseAll.getInstanceAll(this).getAllDao()
-        val repostryM = Repostry(dao, daoM)
-        viewmodelM =
-            ViewModelProvider(this, ViewmodelFactory(repostryM)).get(Appviewmodel::class.java)
+        val repostryM = Repostry(daoM)
+        viewmodelM = ViewModelProvider(this, ViewmodelFactory(repostryM)).get(Appviewmodel::class.java)
 
 
         tabBoolean = intent.getBooleanExtra("isFalse", true)
