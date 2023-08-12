@@ -17,6 +17,9 @@ class Repostry( val databaseDaoM: DatabaseDaoM) {
     fun getIdData(Id:Int):LiveData<List<ModelM>>{
         return databaseDaoM.getIdData(Id)
     }
+    fun deletDataId(Id:Int){
+        return databaseDaoM.deletDataId(Id)
+    }
     fun getDataM():LiveData<List<ModelM>>{
         return databaseDaoM.getDataM()
     }
@@ -29,6 +32,9 @@ class Repostry( val databaseDaoM: DatabaseDaoM) {
         return databaseDaoM.getDataDily(day)
     }
 
+    fun updataAllData(Type:String,Catagory:String,Account:String,Datee:String,Amount:Double,DateMOnth:String,Id:Int,Note:String){
+        return databaseDaoM.updataAllData(Type,Catagory,Account,Datee,Amount,DateMOnth,Id,Note)
+    }
 
 
 

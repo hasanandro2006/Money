@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -104,7 +105,7 @@ lateinit var binding: FragmentCalendarBinding
             binding.expanseS.text="- "+expenseT.toString()
 
 
-            val adapter= Adapter_mainrecyclerview(context,it)
+            val adapter= Adapter_mainrecyclerview(requireActivity()as AppCompatActivity,it)
             binding.recyclerView.adapter=adapter
             binding.recyclerView.setHasFixedSize(true)
             binding.recyclerView.addItemDecoration(
@@ -113,9 +114,6 @@ lateinit var binding: FragmentCalendarBinding
             )
             binding.recyclerView.layoutManager= LinearLayoutManager(context)
         })
-
-
-
 
     }
 

@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -32,7 +33,9 @@ import java.util.Locale
 class MainFragment : Fragment() {
 
     lateinit var binding: FragmentMainBinding
-    lateinit var viewmodelM:Appviewmodel
+    companion object{
+        lateinit var viewmodelM:Appviewmodel
+    }
     val arrayListRecyclerview: ArrayList<ModelM> = ArrayList()
     private val calenderM=Calendar.getInstance()
     private val calenderD=Calendar.getInstance()
@@ -42,6 +45,7 @@ class MainFragment : Fragment() {
         binding=FragmentMainBinding.inflate(inflater)
 
         val context=requireContext().applicationContext
+
 
         HelperClass.catagoryItem()// HelperClass initilize in main activity . for this wheme open app automatic set recyclerview image color
 
@@ -135,7 +139,7 @@ class MainFragment : Fragment() {
             binding.expanseS.text="- "+expenseT.toString()
 
 
-            val adapter= Adapter_mainrecyclerview(context,it)
+            val adapter= Adapter_mainrecyclerview(requireActivity() as AppCompatActivity,it)
             binding.recyclerView.adapter=adapter
             binding.recyclerView.setHasFixedSize(true)
             binding.recyclerView.addItemDecoration(
@@ -172,7 +176,7 @@ class MainFragment : Fragment() {
             binding.expanseS.text="- "+expenseT.toString()
 
 
-            val adapter= Adapter_mainrecyclerview(context,it)
+            val adapter= Adapter_mainrecyclerview(requireActivity() as AppCompatActivity,it)
             binding.recyclerView.adapter=adapter
             binding.recyclerView.setHasFixedSize(true)
             binding.recyclerView.addItemDecoration(
@@ -207,7 +211,7 @@ class MainFragment : Fragment() {
             binding.expanseS.text="- "+expenseT.toString()
 
 
-            val adapter= Adapter_mainrecyclerview(context,it)
+            val adapter= Adapter_mainrecyclerview(requireActivity() as AppCompatActivity,it)
             binding.recyclerView.adapter=adapter
             binding.recyclerView.setHasFixedSize(true)
             binding.recyclerView.addItemDecoration(

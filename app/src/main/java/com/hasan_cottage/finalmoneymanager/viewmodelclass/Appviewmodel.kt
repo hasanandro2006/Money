@@ -19,6 +19,9 @@ class Appviewmodel(val repostry: Repostry): ViewModel(){
     fun getIdData(Id:Int):LiveData<List<ModelM>>{
         return repostry.getIdData(Id)
     }
+    fun deletDataId(Id:Int){
+        return repostry.deletDataId(Id)
+    }
     fun getDataM():LiveData<List<ModelM>>{
         return repostry.getDataM()
     }
@@ -28,6 +31,9 @@ class Appviewmodel(val repostry: Repostry): ViewModel(){
     }
     fun getDataDily(day:String):LiveData<List<ModelM>>{
         return repostry.getDataDily(day)
+    }
+    fun updataAllData(Type:String,Catagory:String,Account:String,Datee:String,Amount:Double,DateMOnth:String,Id:Int,Note:String){
+        return repostry.updataAllData(Type,Catagory,Account,Datee,Amount,DateMOnth,Id,Note)
     }
 
 }

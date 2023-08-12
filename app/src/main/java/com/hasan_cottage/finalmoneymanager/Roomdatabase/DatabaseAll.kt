@@ -6,7 +6,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [ModelM::class], version = 28)
+@Database(entities = [ModelM::class], version = 29)
 abstract class DatabaseAll : RoomDatabase() {
 
     abstract fun getAllDaoM(): DatabaseDaoM

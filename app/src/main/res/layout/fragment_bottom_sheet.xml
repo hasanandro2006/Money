@@ -75,8 +75,8 @@
                 android:layout_weight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
                     android:id="@+id/amount"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/amount"
                     android:inputType="number" />
@@ -97,23 +97,21 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:layout_weight="1">
 
+                <com.google.android.material.textfield.TextInputEditText
 
+                    android:id="@+id/account"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:hint="@string/account" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_margin="8dp"
-                            android:layout_weight="1">
-
-                            <com.google.android.material.textfield.TextInputEditText
-
-                                android:id="@+id/account"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:focusable="false"
-                                android:hint="@string/account" />
-                        </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -123,21 +121,21 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/note"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
+                    android:gravity="top"
                     android:hint="@string/note" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/button"
-                android:layout_gravity="center"
                 style="@style/Widget.AppCompat.Button.Colored"
-                android:background="@color/red"
-                android:backgroundTint="@color/six"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_margin="8dp"
-                android:text="@string/save_transaction"
-                 />
+                android:background="@color/red"
+                android:backgroundTint="@color/six"
+                android:text="@string/save_transaction" />
 
         </LinearLayout>
     </ScrollView>

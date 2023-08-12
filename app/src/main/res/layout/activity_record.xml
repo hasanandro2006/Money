@@ -30,7 +30,7 @@
                 android:layout_toStartOf="@+id/edit">
 
                 <TextView
-                    android:id="@+id/Name"
+                    android:id="@+id/NameR"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -38,11 +38,11 @@
                     android:singleLine="true"
                     android:text="Record"
                     android:textColor="@color/black"
-                    android:textSize="22sp" />
+                    android:textSize="25sp" />
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/delet"
+                android:id="@+id/delete"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_alignParentEnd="true"
@@ -57,7 +57,7 @@
                 android:layout_height="22dp"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="15dp"
-                android:layout_toStartOf="@+id/delet"
+                android:layout_toStartOf="@+id/delete"
                 android:src="@drawable/baseline_edit"
                 app:tint="@color/black" />
 
@@ -66,7 +66,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -77,12 +77,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5">
+            app:layout_constraintVertical_bias="0.0">
 
             <LinearLayout
                 android:id="@+id/linearLayout8"
@@ -101,8 +102,8 @@
                     android:layout_width="55dp"
                     android:layout_height="55dp"
                     android:layout_weight="1"
-                    android:padding="5dp"
                     android:background="@drawable/shape_for_monyrecy"
+                    android:padding="5dp"
                     android:src="@drawable/img"
                     app:tint="@color/white" />
 
@@ -117,11 +118,11 @@
                     android:text="Transportation"
                     android:textSize="30sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/linearLayout7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -137,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto"
-                    android:text="Category     "
+                    android:text="Category"
                     android:textSize="17sp" />
 
                 <TextView
@@ -147,14 +148,13 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto"
                     android:text="TextView"
-                    android:textSize="17sp" />
+                    android:textSize="19sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayout6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -179,14 +179,13 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto"
                     android:text="TextView"
-                    android:textSize="17sp" />
+                    android:textSize="19sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -210,14 +209,13 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto"
                     android:text="TextView"
-                    android:textSize="17sp" />
+                    android:textSize="19sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLyout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -241,14 +239,13 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto"
                     android:text="TextView"
-                    android:textSize="17sp" />
+                    android:textSize="19sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -260,7 +257,6 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:fontFamily="@font/roboto"
                     android:text="Type"
                     android:textSize="17sp" />
@@ -269,41 +265,41 @@
                     android:id="@+id/TypeR"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:fontFamily="@font/roboto"
                     android:text="TextView"
-                    android:textSize="17sp" />
+                    android:textSize="19sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/lineLout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLout">
+                app:layout_constraintTop_toBottomOf="@+id/linearLout"
+                app:layout_constraintVertical_bias="1.0">
 
 
                 <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto"
                     android:text="Note"
                     android:textSize="17sp" />
 
                 <TextView
-                    android:id="@+id/NoteR"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:id="@+id/NoteR"
+                    android:layout_width="376dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:fontFamily="@font/roboto"
-                    android:text="TextView "
-                    android:textSize="17sp" />
+                    android:text="I apologize for any misunderstanding. If you want the hint to be displayed at the top corner of the TextInputEditText itself, you should adjust the layout as follows: "
+                    android:textSize="19sp" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

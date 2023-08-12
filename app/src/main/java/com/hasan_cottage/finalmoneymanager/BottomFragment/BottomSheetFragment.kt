@@ -3,20 +3,20 @@ package com.hasan_cottage.finalmoneymanager.BottomFragment
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.hasan_cottage.finalmoneymanager.Activity.MainActivity
 import com.hasan_cottage.finalmoneymanager.Adapter.Adapter_acount
 import com.hasan_cottage.finalmoneymanager.Adapter.Adapter_catogory
-import com.hasan_cottage.finalmoneymanager.Fragment.MainFragment
 import com.hasan_cottage.finalmoneymanager.Helper.HelperClass
 import com.hasan_cottage.finalmoneymanager.Model.Account_model
 import com.hasan_cottage.finalmoneymanager.Model.Catagory_model
@@ -34,8 +34,8 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class BottomSheetFragment : BottomSheetDialogFragment(), Adapter_catogory.CatagoryClick,
-    Adapter_acount.ClickItem {
+class BottomSheetFragment(val intId: Int) : BottomSheetDialogFragment(),
+    Adapter_catogory.CatagoryClick, Adapter_acount.ClickItem {
 
 
     lateinit var binding: FragmentBottomSheetBinding
@@ -49,38 +49,37 @@ class BottomSheetFragment : BottomSheetDialogFragment(), Adapter_catogory.Catago
     var getDateMonth: String? = null
     var getAmount: Double? = null
     var dataType: String? = null
+    var getmonth: String? = null
 
 
     lateinit var viewmodelM: Appviewmodel
 
+
     @SuppressLint("ResourceAsColor", "SuspiciousIndentation")
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentBottomSheetBinding.inflate(inflater)
 
-        // For ViewModelM
         val applicationContext = requireContext().applicationContext
 
         val daoM = DatabaseAll.getInstanceAll(applicationContext).getAllDaoM()
-        val repostryM = Repostry (daoM)
-        viewmodelM = ViewModelProvider(this, ViewmodelFactory(repostryM)).get(Appviewmodel::class.java)
+        val repostryM = Repostry(daoM)
+        viewmodelM =
+            ViewModelProvider(this, ViewmodelFactory(repostryM)).get(Appviewmodel::class.java)
 
 
-
+        // income expense button click
         binding.incomeBtn.setOnClickListener {
-            binding.incomeBtn.background = context?.getDrawable(R.drawable.income_value)
-            binding.expensivBtn.background = context?.getDrawable(R.drawable.diffult_value)
-            dataType = binding.incomeBtn.text.toString()
+            incomeSetButton()
         }
         binding.expensivBtn.setOnClickListener {
-            binding.incomeBtn.background = context?.getDrawable(R.drawable.diffult_value)
-            binding.expensivBtn.background = context?.getDrawable(R.drawable.expanse_value)
-            dataType = binding.expensivBtn.text.toString()
-
+            expenseSetButton()
         }
+        binding.incomeBtn.background = context?.getDrawable(R.drawable.diffult_value)
+        binding.expensivBtn.background = context?.getDrawable(R.drawable.expanse_value)
+        dataType = binding.expensivBtn.text.toString()
+
 
         // date pick .....
         binding.date.setOnClickListener {
@@ -96,14 +95,17 @@ class BottomSheetFragment : BottomSheetDialogFragment(), Adapter_catogory.Catago
                 val dateFormat = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
                 getDateMonth = dateFormat.format(calendar.time)
 
-
-
                 getDate = HelperClass.dateFormet(calendar.time)
-
                 binding.date.setText(getDate)
             }
             datePickerDialog!!.show()
         }
+        val currentDate = Calendar.getInstance().time
+        val dateFormat = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
+        getDateMonth = dateFormat.format(currentDate.time)
+        getDate = HelperClass.dateFormet(currentDate)
+        binding.date.setText(getDate)
+
 
         // Category Click Lisner ...........
         binding.category.setOnClickListener {
@@ -115,12 +117,11 @@ class BottomSheetFragment : BottomSheetDialogFragment(), Adapter_catogory.Catago
             random.randomRecyclerview.layoutManager = GridLayoutManager(context, 3)
 
 
-            alertDialog = AlertDialog.Builder(context)
-                .setView(random.root)
-                .create()
+            alertDialog = AlertDialog.Builder(context).setView(random.root).create()
             alertDialog.show()
 
         }
+
 
         // Account Click Lisener .........
         binding.account.setOnClickListener {
@@ -133,9 +134,7 @@ class BottomSheetFragment : BottomSheetDialogFragment(), Adapter_catogory.Catago
             random.randomRecyclerview.layoutManager = LinearLayoutManager(context)
             random.randomRecyclerview.setHasFixedSize(true)
 
-            alertDialogAccount = AlertDialog.Builder(context)
-                .setView(random.root)
-                .create()
+            alertDialogAccount = AlertDialog.Builder(context).setView(random.root).create()
             alertDialogAccount.window?.setGravity(Gravity.CENTER)
             alertDialogAccount.show()
 
@@ -143,36 +142,107 @@ class BottomSheetFragment : BottomSheetDialogFragment(), Adapter_catogory.Catago
         }
 
 
-        // Save Data in room database ...
+
+
+        clickButtonSev(applicationContext)
+        if (intId != -1) {
+            updateAllWork()
+        }
+        return binding.root
+    }
+
+
+    fun updateAllWork() {
+
+        viewmodelM.getIdData(intId!!).observe(viewLifecycleOwner, Observer {
+            it.forEach {
+                binding.date.setText(it.date)
+                binding.amount.setText(it.amount.toString())
+                binding.category.setText(it.catagory)
+                binding.account.setText(it.account)
+                if (!it.note.equals("Not any note")) {
+                    binding.note.setText(it.note)
+                }
+                if (it.type.equals(HelperClass.INCOME)) {
+                    incomeSetButton()
+                } else {
+                    expenseSetButton()
+                }
+                getmonth = it.dateMonth
+
+                // come updata data set
+                dataType = it.type
+                catagorName = it.catagory
+                accountName = it.account
+                getDate = it.date
+                getAmount = it.amount
+                getDateMonth = it.dateMonth
+            }
+        })
+
+    }
+
+    fun clickButtonSev(applictioncontext: Context) {
         binding.button.setOnClickListener {
-
-            val getEditext = binding.amount.text.toString()
-            getAmount = getEditext.toDoubleOrNull()
-
-            GlobalScope.launch {
-                viewmodelM.insertM(
-                    ModelM(
+            // set update .........
+            if (intId != -1) {
+                val getEditext = binding.amount.text.toString()
+                getAmount = getEditext.toDoubleOrNull()
+                var getNote = binding.note.text.toString()
+                if (getNote.isEmpty()) {
+                    getNote = "Not any note"
+                }
+                GlobalScope.launch {
+                    viewmodelM.updataAllData(
                         dataType!!,
                         catagorName!!,
                         accountName!!,
                         getDate!!,
                         getAmount!!,
-                        getDateMonth!!
+                        getDateMonth!!,
+                        intId,
+                        getNote
                     )
-                )
+                }
             }
-            dismiss()
+            // Add item
+            else {
+                val getEditext = binding.amount.text.toString()
+                getAmount = getEditext.toDoubleOrNull()
+                var getNote = binding.note.text.toString()
+                if (getNote.isEmpty()) {
+                    getNote = "Not any note"
+                }
+
+                if (catagorName == null || accountName == null || getAmount == null) {
+                    Toast.makeText(applictioncontext, "Please add Value", Toast.LENGTH_SHORT).show()
+                } else {
+                    GlobalScope.launch {
+                        viewmodelM.insertM(
+                            ModelM(
+                                dataType!!,
+                                catagorName!!,
+                                accountName!!,
+                                getDate!!,
+                                getAmount!!,
+                                getDateMonth!!,
+                                getNote!!
+                            )
+                        )
+                    }
+                    dismiss()
+                }
+
+
+            }
         }
-
-
-        return binding.root
     }
+
 
     // catagory data come
     override fun clck(category: Catagory_model) {
         binding.category.setText(category.name)
         catagorName = category.name
-//        catagorImage=category.image
         alertDialog.dismiss()
 
     }
@@ -182,6 +252,18 @@ class BottomSheetFragment : BottomSheetDialogFragment(), Adapter_catogory.Catago
         binding.account.setText(accountModel.account)
         accountName = accountModel.account
         alertDialogAccount.dismiss()
+    }
+
+    fun incomeSetButton() {
+        binding.incomeBtn.background = context?.getDrawable(R.drawable.income_value)
+        binding.expensivBtn.background = context?.getDrawable(R.drawable.diffult_value)
+        dataType = binding.incomeBtn.text.toString()
+    }
+
+    fun expenseSetButton() {
+        binding.incomeBtn.background = context?.getDrawable(R.drawable.diffult_value)
+        binding.expensivBtn.background = context?.getDrawable(R.drawable.expanse_value)
+        dataType = binding.expensivBtn.text.toString()
     }
 
 
