@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.Calender_Activity">
+    tools:context=".activity.Calender_Activity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

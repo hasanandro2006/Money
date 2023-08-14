@@ -1,4 +1,4 @@
-package com.hasan_cottage.finalmoneymanager.Activity
+package com.hasan_cottage.finalmoneymanager.activity
 
 import android.content.Context
 import android.content.Intent

@@ -16,9 +16,10 @@ data class ModelM(
     val date:String,
     val amount:Double,
     val dateMonth:String,
-    val note:String
+    val note:String,
+    val year:String
 ){
     @Ignore
-    constructor( type: String, catagor: String, account: String, date:String,amount: Double,dateMonth: String,note: String)
-            : this(0,type,catagor,account,date,amount,dateMonth,note)
+    constructor( type: String, catagor: String, account: String, date:String,amount: Double,dateMonth: String,note: String,year: String)
+            : this(0,type,catagor,account,date,amount,dateMonth,note,year)
 }

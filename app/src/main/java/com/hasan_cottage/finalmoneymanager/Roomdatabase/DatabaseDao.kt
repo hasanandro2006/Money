@@ -22,11 +22,16 @@ interface DatabaseDaoM{
 
 
 
+
+
     @Query("select * from mainTable order by id asc")
     fun getDataM():LiveData<List<ModelM>>
 
     @Query("SELECT * FROM mainTable WHERE dateMonth= :year")
     fun getDataMonth(year:String):LiveData<List<ModelM>>
+
+    @Query("select * from mainTable where year=:Year")
+    fun getDataYear(Year: String):LiveData<List<ModelM>>
 
     @Query("SELECT * FROM mainTable WHERE date= :day")
     fun getDataDily(day:String):LiveData<List<ModelM>>
@@ -36,8 +41,8 @@ interface DatabaseDaoM{
     @Query("delete  from mainTable where id=:Id")
     fun deletDataId(Id:Int)
 
-    @Query("update mainTable set type= :Type, catagory=:Catagory, account=:Account,date=:Datee,amount=:Amount,dateMonth=:DateMOnth,note=:Note where id=:Id")
-    fun updataAllData(Type:String,Catagory:String,Account:String,Datee:String,Amount:Double,DateMOnth:String,Id:Int,Note:String)
+    @Query("update mainTable set type= :Type, catagory=:Catagory, account=:Account,date=:Datee,amount=:Amount,dateMonth=:DateMOnth,note=:Note,year=:Year where id=:Id")
+    fun updataAllData(Type:String,Catagory:String,Account:String,Datee:String,Amount:Double,DateMOnth:String,Id:Int,Note:String,Year:String)
 
 
 

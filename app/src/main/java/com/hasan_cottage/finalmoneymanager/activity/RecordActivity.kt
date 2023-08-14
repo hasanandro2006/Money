@@ -1,4 +1,4 @@
-package com.hasan_cottage.finalmoneymanager.Activity
+package com.hasan_cottage.finalmoneymanager.activity
 
 import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.github.mikephil.charting.utils.ColorTemplate
 import com.hasan_cottage.finalmoneymanager.BottomFragment.BottomSheetFragment
 import com.hasan_cottage.finalmoneymanager.Helper.HelperClass
 import com.hasan_cottage.finalmoneymanager.R
@@ -43,12 +42,12 @@ class RecordActivity : AppCompatActivity() {
                 if (it.type.equals(HelperClass.EXPENSE)){
                     binding.AmountR.text="-"+it.amount.toString()
                     binding.AmountR.setTextColor(ContextCompat.getColor(this, R.color.red))
-                    binding.topCatagory.setTextColor(ContextCompat.getColor(this, R.color.red))
+                    binding.TypeR.setTextColor(ContextCompat.getColor(this, R.color.red))
 
                 }else{
                     binding.AmountR.text=it.amount.toString()
                     binding.AmountR.setTextColor(ContextCompat.getColor(this, R.color.blue))
-                    binding.topCatagory.setTextColor(ContextCompat.getColor(this, R.color.blue))
+                    binding.TypeR.setTextColor(ContextCompat.getColor(this, R.color.blue))
 
                 }
                 binding.TypeR.text=it.type
@@ -78,6 +77,9 @@ class RecordActivity : AppCompatActivity() {
         binding.edit.setOnClickListener {
             val bottomSheetFragment = BottomSheetFragment(Id)
             bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+        }
+        binding.back.setOnClickListener {
+            onBackPressed()
         }
 
 

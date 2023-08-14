@@ -13,26 +13,26 @@
         android:theme="@style/Theme.FinalMoneyManager"
         tools:targetApi="31">
         <activity
-            android:name=".Activity.RecordActivity"
+            android:name=".activity.RecordActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.ExpenseIncomeStructer"
+            android:name=".activity.ExpenseIncomeStructer"
             android:exported="false" />
         <activity
-            android:name=".Activity.Store_activiyy"
+            android:name=".activity.Store_activiyy"
             android:exported="false" />
         <activity
-            android:name=".Activity.MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.Select_currency_Activity"
+            android:name=".activity.Select_currency_Activity"
             android:exported="false" />
         <activity
-            android:name=".Activity.Signup_Activity"
+            android:name=".activity.Signup_Activity"
             android:exported="false"
             android:noHistory="true" />
         <activity
-            android:name=".Activity.Splash_Activity"
+            android:name=".activity.Splash_Activity"
             android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>

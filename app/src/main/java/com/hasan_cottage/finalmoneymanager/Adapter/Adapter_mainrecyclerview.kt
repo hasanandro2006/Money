@@ -2,10 +2,7 @@ package com.hasan_cottage.finalmoneymanager.Adapter
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -14,14 +11,11 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getColor
 import androidx.recyclerview.widget.RecyclerView
-import com.hasan_cottage.finalmoneymanager.Activity.RecordActivity
+import com.hasan_cottage.finalmoneymanager.activity.RecordActivity
 import com.hasan_cottage.finalmoneymanager.BottomFragment.BottomSheetFragment
 import com.hasan_cottage.finalmoneymanager.Fragment.MainFragment
 import com.hasan_cottage.finalmoneymanager.Helper.HelperClass
-import com.hasan_cottage.finalmoneymanager.Model.Catagory_model
 import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.Roomdatabase.ModelM
 import com.hasan_cottage.finalmoneymanager.databinding.DegineForMainactivityBinding

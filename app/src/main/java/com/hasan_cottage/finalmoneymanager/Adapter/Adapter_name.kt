@@ -6,10 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.hasan_cottage.finalmoneymanager.Activity.MainActivity
+import com.hasan_cottage.finalmoneymanager.activity.MainActivity
 import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.RoomdataNot.DataSignup
+import com.hasan_cottage.finalmoneymanager.RoomdataNot.DatabaseTow
 import com.hasan_cottage.finalmoneymanager.databinding.DegineForNameBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class Adapter_name(
     val context: Context,
@@ -46,11 +49,15 @@ class Adapter_name(
         holder.binding.carrencyNameR.text = arrayList[position].currencySymbol
 
         holder.binding.redioName.isChecked = (oldposition == position)
+        holder.binding.closeItem.setOnClickListener {
+            val databaseDaoTow=DatabaseTow.getInstanceAllTow(context)
+            GlobalScope.launch {
+                databaseDaoTow.getAllDaoTow().deleteId(arrayList[position].id)
+            }
+        }
 
         holder.itemView.setOnClickListener {
-
             dataaaa.click(currentItem)
-
             val sharedPreferences = context.getSharedPreferences("Name", Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
             editor.putInt("oldPosition", position)
@@ -60,7 +67,7 @@ class Adapter_name(
             val intent = Intent(context, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(intent)
-
         }
+
     }
 }

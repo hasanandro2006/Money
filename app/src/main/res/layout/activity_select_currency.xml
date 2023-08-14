@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/h"
-    tools:context=".Activity.Select_currency_Activity">
+    tools:context=".activity.Select_currency_Activity">
 
     <androidx.appcompat.widget.Toolbar
         android:background="@drawable/shape_for_toolbar"

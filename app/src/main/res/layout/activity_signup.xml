@@ -16,7 +16,7 @@
         android:background="@color/six"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Activity.Signup_Activity">
+        tools:context=".activity.Signup_Activity">
 
 
         <TextView

@@ -15,7 +15,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.hasan_cottage.finalmoneymanager.Activity.Signup_Activity
+import com.hasan_cottage.finalmoneymanager.activity.Signup_Activity
 import com.hasan_cottage.finalmoneymanager.Model.myModel
 import com.hasan_cottage.finalmoneymanager.R
 import java.util.Locale

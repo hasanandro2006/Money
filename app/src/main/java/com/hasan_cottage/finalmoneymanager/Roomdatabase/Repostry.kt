@@ -31,9 +31,12 @@ class Repostry( val databaseDaoM: DatabaseDaoM) {
     fun getDataDily(day:String):LiveData<List<ModelM>>{
         return databaseDaoM.getDataDily(day)
     }
+    fun getDataYear(Year: String):LiveData<List<ModelM>>{
+        return databaseDaoM.getDataYear(Year)
+    }
 
-    fun updataAllData(Type:String,Catagory:String,Account:String,Datee:String,Amount:Double,DateMOnth:String,Id:Int,Note:String){
-        return databaseDaoM.updataAllData(Type,Catagory,Account,Datee,Amount,DateMOnth,Id,Note)
+    fun updataAllData(Type:String,Catagory:String,Account:String,Datee:String,Amount:Double,DateMOnth:String,Id:Int,Note:String,Year:String){
+        return databaseDaoM.updataAllData(Type,Catagory,Account,Datee,Amount,DateMOnth,Id,Note,Year)
     }
 
 

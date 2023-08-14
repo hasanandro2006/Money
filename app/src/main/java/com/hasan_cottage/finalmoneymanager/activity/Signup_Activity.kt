@@ -1,9 +1,8 @@
-package com.hasan_cottage.finalmoneymanager.Activity
+package com.hasan_cottage.finalmoneymanager.activity
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -61,25 +60,24 @@ class Signup_Activity : AppCompatActivity() {
 
     private fun getDataFromRoom() {
         var sharedPreferencesC =getSharedPreferences("Currency", Context.MODE_PRIVATE)
-       cName = sharedPreferencesC.getString("cName", "Hasan")
-         cCode = sharedPreferencesC.getString("cCode", "Hasan")
-        cSymbols = sharedPreferencesC.getString("cSymble", "Hasan")
-       name = sharedPreferencesC.getString("name", "Hasan")
+
+        dataBinding.text2.text = sharedPreferencesC.getString("cName", "select_your")
+        dataBinding.text1.text  = sharedPreferencesC.getString("cCode", "_country")
+        dataBinding.steText2.text =  "(" +sharedPreferencesC.getString("cSymble", "_currency")+ ")"
+        var name = sharedPreferencesC.getString("name", "Hasan")
+        dataBinding.appCompatEditText.setText(name)
         var oldposition = sharedPreferencesC.getInt("oldPosition", 21)
-
-        Log.d("TTTTTTTTT","$cName $cCode $cSymbols $name $oldposition")
-
-                    dataBinding.text1.text = cCode
-                    dataBinding.text2.text =cName
-                    dataBinding.steText2.text = "(" +cSymbols+ ")"
-                    dataBinding.appCompatEditText.setText(name)
-                    redioposition = oldposition
+        redioposition = oldposition
     }
     private fun nextButtonClick() {
         dataBinding.linearlayout.setOnClickListener {
 
-            val databaseTow= DatabaseTow.getInstanceAllTow(this)
+            name= dataBinding.appCompatEditText.text.toString()
+            cName= dataBinding.text2.text.toString()
+            cCode= dataBinding.text1.text.toString()
+            cSymbols= dataBinding.steText2.text.toString()
 
+            val databaseTow= DatabaseTow.getInstanceAllTow(this)
             GlobalScope.launch {
                 databaseTow.getAllDaoTow().insert(DataSignup(cName!!,cCode!!,cSymbols!!,name!!))
 

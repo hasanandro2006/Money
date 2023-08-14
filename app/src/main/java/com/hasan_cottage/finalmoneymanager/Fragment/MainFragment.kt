@@ -13,11 +13,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
-import com.hasan_cottage.finalmoneymanager.Activity.MainActivity
 import com.hasan_cottage.finalmoneymanager.Adapter.Adapter_mainrecyclerview
 import com.hasan_cottage.finalmoneymanager.BottomFragment.BottomSheetFragment_tow
 import com.hasan_cottage.finalmoneymanager.Helper.HelperClass
-import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.RoomdataNot.DatabaseTow
 import com.hasan_cottage.finalmoneymanager.Roomdatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.Roomdatabase.ModelM

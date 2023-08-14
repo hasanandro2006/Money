@@ -12,11 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.hasan_cottage.finalmoneymanager.Activity.MainActivity
-import com.hasan_cottage.finalmoneymanager.Activity.Signup_Activity
-import com.hasan_cottage.finalmoneymanager.Activity.Splash_Activity
+import com.hasan_cottage.finalmoneymanager.activity.Signup_Activity
+import com.hasan_cottage.finalmoneymanager.activity.Splash_Activity
 import com.hasan_cottage.finalmoneymanager.Adapter.Adapter_name
-import com.hasan_cottage.finalmoneymanager.Fragment.MainFragment
 import com.hasan_cottage.finalmoneymanager.RoomdataNot.DataSignup
 import com.hasan_cottage.finalmoneymanager.RoomdataNot.DatabaseTow
 import com.hasan_cottage.finalmoneymanager.Roomdatabase.DatabaseAll

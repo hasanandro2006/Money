@@ -1,18 +1,14 @@
-package com.hasan_cottage.finalmoneymanager.Activity
+package com.hasan_cottage.finalmoneymanager.activity
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
+import androidx.fragment.app.FragmentManager
 import com.hasan_cottage.finalmoneymanager.BottomFragment.BottomSheetFragment
 import com.hasan_cottage.finalmoneymanager.Fragment.CalendarFragment
 import com.hasan_cottage.finalmoneymanager.Fragment.MainFragment
 import com.hasan_cottage.finalmoneymanager.Fragment.MoreFragment
 import com.hasan_cottage.finalmoneymanager.Fragment.StatasFragment
 import com.hasan_cottage.finalmoneymanager.R
-import com.hasan_cottage.finalmoneymanager.RoomdataNot.DatabaseTow
-import com.hasan_cottage.finalmoneymanager.Roomdatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -37,6 +33,7 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.one -> {
                     bingraanstion.replace(R.id.frameLayout, MainFragment())
+                    fragmentManger.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                     bingraanstion.addToBackStack(null)
                     bingraanstion.commit()
                     true
@@ -44,6 +41,7 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.tow -> {
                     bingraanstion.replace(R.id.frameLayout, CalendarFragment())
+                    fragmentManger.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                     bingraanstion.addToBackStack(null)
                     bingraanstion.commit()
                     true
@@ -51,6 +49,7 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.three -> {
                     bingraanstion.replace(R.id.frameLayout, StatasFragment())
+                    fragmentManger.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                     bingraanstion.addToBackStack(null)
                     bingraanstion.commit()
                     true
@@ -58,6 +57,7 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.four -> {
                     bingraanstion.replace(R.id.frameLayout, MoreFragment())
+                    fragmentManger.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                     bingraanstion.addToBackStack(null)
                     bingraanstion.commit()
                     true

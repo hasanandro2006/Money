@@ -50,6 +50,7 @@ class BottomSheetFragment(val intId: Int) : BottomSheetDialogFragment(),
     var getAmount: Double? = null
     var dataType: String? = null
     var getmonth: String? = null
+    var yearC: String? = null
 
 
     lateinit var viewmodelM: Appviewmodel
@@ -95,12 +96,19 @@ class BottomSheetFragment(val intId: Int) : BottomSheetDialogFragment(),
                 val dateFormat = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
                 getDateMonth = dateFormat.format(calendar.time)
 
+                val yearFormat = SimpleDateFormat("yyyy", Locale.getDefault())
+                yearC = yearFormat.format(calendar.time)
+
                 getDate = HelperClass.dateFormet(calendar.time)
                 binding.date.setText(getDate)
+
+
             }
             datePickerDialog!!.show()
         }
         val currentDate = Calendar.getInstance().time
+        val yearFormat = SimpleDateFormat("yyyy", Locale.getDefault())
+        yearC = yearFormat.format(currentDate.time)
         val dateFormat = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
         getDateMonth = dateFormat.format(currentDate.time)
         getDate = HelperClass.dateFormet(currentDate)
@@ -177,6 +185,7 @@ class BottomSheetFragment(val intId: Int) : BottomSheetDialogFragment(),
                 getDate = it.date
                 getAmount = it.amount
                 getDateMonth = it.dateMonth
+                yearC = it.year
             }
         })
 
@@ -201,7 +210,8 @@ class BottomSheetFragment(val intId: Int) : BottomSheetDialogFragment(),
                         getAmount!!,
                         getDateMonth!!,
                         intId,
-                        getNote
+                        getNote,
+                        yearC!!
                     )
                 }
             }
@@ -226,7 +236,8 @@ class BottomSheetFragment(val intId: Int) : BottomSheetDialogFragment(),
                                 getDate!!,
                                 getAmount!!,
                                 getDateMonth!!,
-                                getNote!!
+                                getNote!!,
+                                yearC!!
                             )
                         )
                     }

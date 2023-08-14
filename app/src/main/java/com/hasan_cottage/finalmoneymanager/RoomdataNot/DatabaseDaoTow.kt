@@ -22,4 +22,6 @@ interface DatabaseDaoTow {
 
     @Query("select * from databasesignup order by id asc")
     fun getData(): LiveData<List<DataSignup>>
+    @Query("delete from databasesignup where id=:Id")
+    fun deleteId(Id:Int)
 }
