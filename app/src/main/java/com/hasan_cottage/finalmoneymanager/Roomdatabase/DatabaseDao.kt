@@ -36,6 +36,9 @@ interface DatabaseDaoM{
     @Query("SELECT * FROM mainTable WHERE date= :day")
     fun getDataDily(day:String):LiveData<List<ModelM>>
 
+    @Query("SELECT * FROM mainTable WHERE  weekNumber =:seekNumber")
+    fun getDataBetweenDates(seekNumber:Int): LiveData<List<ModelM>>
+
     @Query("select * from mainTable where id=:Id")
     fun getIdData(Id:Int):LiveData<List<ModelM>>
     @Query("delete  from mainTable where id=:Id")

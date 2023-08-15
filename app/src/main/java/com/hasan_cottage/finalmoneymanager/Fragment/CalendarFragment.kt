@@ -34,7 +34,10 @@ class CalendarFragment : Fragment() {
     lateinit var viewmodelM: Appviewmodel
     val arrayListRecyclerview: ArrayList<ModelM> = ArrayList()
     var store: String? = null
+    var weekNumber:Int?=null
     private val calendar = Calendar.getInstance()
+    private val calendar7=Calendar.getInstance()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,7 +67,8 @@ class CalendarFragment : Fragment() {
             }
 
             2 -> {
-
+                dateFormetWeek()
+                setForWeek()
             }
 
             3 -> {
@@ -95,7 +99,9 @@ class CalendarFragment : Fragment() {
                 }
 
                 2 -> {
-
+                    calendar7.add(Calendar.WEEK_OF_YEAR,-1)
+                    dateFormetWeek()
+                    setForWeek()
                 }
 
                 3 -> {
@@ -123,7 +129,9 @@ class CalendarFragment : Fragment() {
                 }
 
                 2 -> {
-
+                    calendar7.add(Calendar.WEEK_OF_YEAR,1)
+                    dateFormetWeek()
+                    setForWeek()
                 }
 
                 3 -> {
@@ -155,10 +163,24 @@ class CalendarFragment : Fragment() {
     }
 
 
+
     // set date format---------
     fun dateFormetDay() {
         store = HelperClass.dateFormet(calendar.time)
         binding.monthSet.text = store
+    }
+    private fun dateFormetWeek() {
+        val sdf = SimpleDateFormat("dd MMM", Locale.getDefault())
+
+        calendar7.set(Calendar.DAY_OF_WEEK, calendar7.firstDayOfWeek)
+        val firstDateOfWeek = sdf.format(calendar7.time)
+        calendar7.add(Calendar.DAY_OF_MONTH, 6)
+        val lastDateOfWeek = sdf.format(calendar7.time)
+
+        weekNumber=calendar7.get(Calendar.WEEK_OF_YEAR)
+
+        binding.monthSet.text=firstDateOfWeek+" - "+lastDateOfWeek
+
     }
 
     fun dateFormetMonth() {
@@ -189,6 +211,11 @@ class CalendarFragment : Fragment() {
             sameCodeSet(context, it)
         })
 
+    }
+    private fun setForWeek() {
+        viewmodelM.getDataBetweenDates(weekNumber!!).observe(viewLifecycleOwner, Observer {
+            sameCodeSet(context, it)
+        })
     }
 
     private fun setForYear() {

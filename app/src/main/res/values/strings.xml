@@ -28,4 +28,10 @@
     <string name="all_data">All Data</string>
     <string name="monthly">Monthly</string>
     <string name="transaction">Transaction</string>
+
+<!-- %s use for convert any symbol to string -->
+    <string name="amount_text">-%s</string>
+    <string name="currency_with_symbol">(%s)</string>
+    <string name="D">(%s)</string>
+
 </resources>

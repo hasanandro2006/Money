@@ -29,9 +29,9 @@ import java.util.Calendar
 import java.util.Locale
 
 
-class ExpenseIncomeStructer : AppCompatActivity() {
+class ExpenseIncomeChart : AppCompatActivity() {
     lateinit var binding: ActivityExpenseIncomeStructerBinding
-    private lateinit var viewmodelM: Appviewmodel
+    private lateinit var myViewModel: Appviewmodel
 
     private var calender = Calendar.getInstance()
 
@@ -39,6 +39,8 @@ class ExpenseIncomeStructer : AppCompatActivity() {
 
     var tabBoolean = true
     lateinit var storeAll: String
+    private var weekNumber: Int? = null
+    private var weekData: Int? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,16 +50,16 @@ class ExpenseIncomeStructer : AppCompatActivity() {
 
 
         val daoM = DatabaseAll.getInstanceAll(this).getAllDaoM()
-        val repostryM = Repostry(daoM)
-        viewmodelM =
-            ViewModelProvider(this, ViewmodelFactory(repostryM))[Appviewmodel::class.java]
+        val repository = Repostry(daoM)
+        myViewModel =
+            ViewModelProvider(this, ViewmodelFactory(repository))[Appviewmodel::class.java]
 
 
         val sharedPreferences = getSharedPreferences("Time", Context.MODE_PRIVATE)
         val daily: Int = sharedPreferences.getInt("Daily", 1)
 
 
-        // here sev boolean value which one save when buttom bar come and intent come value 1
+        // here sev boolean value which one save when button bar come and intent come value 1
         val sharedPreferencesTrueFalseCome = getSharedPreferences("SaveTrueFalse", MODE_PRIVATE)
         val work = intent.getIntExtra("work", 0)
 
@@ -69,10 +71,21 @@ class ExpenseIncomeStructer : AppCompatActivity() {
         }
 
         val timeData = intent.getStringExtra("nowData")
+        weekData = intent.getIntExtra("week", 1)
 
 
         // first time call .............
+        tabBoolean = if (tabBoolean) {
+            binding.tabLayout.getTabAt(0)?.select()
+            true
+        } else {
+            binding.tabLayout.getTabAt(1)?.select()
+            false
+        }
+
+
         when (daily) {
+
             1 -> {
                 val outputFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
                 if (timeData != null) {
@@ -86,12 +99,16 @@ class ExpenseIncomeStructer : AppCompatActivity() {
                     updateCalenderFirst(storeAll, daily, false)
                 }
 
-
             }
 
             2 -> {
-
-
+                calender.add(Calendar.WEEK_OF_YEAR, weekData!!)
+                newForWeek()
+                if (tabBoolean) {
+                    updateCalenderFirst(storeAll, daily, true)
+                } else {
+                    updateCalenderFirst(storeAll, daily, false)
+                }
             }
 
             3 -> {
@@ -130,20 +147,9 @@ class ExpenseIncomeStructer : AppCompatActivity() {
                 } else {
                     updateCalenderFirst(storeAll, daily, false)
                 }
-
             }
 
-        }
 
-
-
-
-        tabBoolean = if (tabBoolean) {
-            binding.tabLayout.getTabAt(0)?.select()
-            true
-        } else {
-            binding.tabLayout.getTabAt(1)?.select()
-            false
         }
 
 
@@ -185,7 +191,9 @@ class ExpenseIncomeStructer : AppCompatActivity() {
                 }
 
                 2 -> {
-
+                    calender.add(Calendar.WEEK_OF_YEAR, -1)
+                    newForWeek()
+                    updateCalender(storeAll, daily)
                 }
 
                 3 -> {
@@ -218,6 +226,9 @@ class ExpenseIncomeStructer : AppCompatActivity() {
                 }
 
                 2 -> {
+                    calender.add(Calendar.WEEK_OF_YEAR, 1)
+                    newForWeek()
+                    updateCalender(storeAll, daily)
 
                 }
 
@@ -240,7 +251,7 @@ class ExpenseIncomeStructer : AppCompatActivity() {
         }
 
 
-        // come bottom chose time and this time save boolean value and when refrash activity again this time save boolean value
+        // come bottom chose time and this time save boolean value and when refresh activity again this time save boolean value
         val sharedPreferencesTrueFalse = getSharedPreferences("SaveTrueFalse", MODE_PRIVATE)
         val editor = sharedPreferencesTrueFalse.edit()
         binding.moreItem.setOnClickListener {
@@ -260,6 +271,21 @@ class ExpenseIncomeStructer : AppCompatActivity() {
 
     }
 
+    private fun newForWeek() {
+
+        val sdf = SimpleDateFormat("dd MMM", Locale.getDefault())
+        calender.set(Calendar.DAY_OF_WEEK, calender.firstDayOfWeek)
+        val fN = sdf.format(calender.time)
+        calender.add(Calendar.DAY_OF_WEEK, 6)
+        val lN = sdf.format(calender.time)
+
+        weekNumber = calender.get(Calendar.WEEK_OF_YEAR)
+
+        val text = "$fN - $lN"
+        storeAll = text
+
+    }
+
     // End Main Method ................
 
     fun updateCalenderFirst(calendar: String, daily: Int, boolean: Boolean) {
@@ -276,7 +302,7 @@ class ExpenseIncomeStructer : AppCompatActivity() {
                 }
 
                 2 -> {
-
+                    chartWeekIncome()
                 }
 
                 3 -> {
@@ -303,6 +329,7 @@ class ExpenseIncomeStructer : AppCompatActivity() {
 
                 2 -> {
 
+                    chartWeekExpense()
                 }
 
                 3 -> {
@@ -334,6 +361,7 @@ class ExpenseIncomeStructer : AppCompatActivity() {
 
                 2 -> {
 
+                    chartWeekIncome()
                 }
 
                 3 -> {
@@ -356,6 +384,7 @@ class ExpenseIncomeStructer : AppCompatActivity() {
 
                 2 -> {
 
+                    chartWeekExpense()
                 }
 
                 3 -> {
@@ -373,56 +402,68 @@ class ExpenseIncomeStructer : AppCompatActivity() {
 
 
     private fun chartDayIncome(store: String) {
-        viewmodelM.getDataDily(store).observe(this) {
+        myViewModel.getDataDily(store).observe(this) {
             Log.d("day", it.toString())
             oneChartIncome(it)
         }
     }
 
     private fun chartDayExpense(store: String) {
-        viewmodelM.getDataDily(store).observe(this) {
+        myViewModel.getDataDily(store).observe(this) {
+            oneChartExpense(it)
+        }
+    }
+
+    private fun chartWeekIncome() {
+        myViewModel.getDataBetweenDates(weekNumber!!).observe(this) {
+            oneChartIncome(it)
+        }
+    }
+
+    private fun chartWeekExpense() {
+        myViewModel.getDataBetweenDates(weekNumber!!).observe(this) {
             oneChartExpense(it)
         }
     }
 
     private fun chartMonthIncome(store: String) {
 
-        viewmodelM.getMOnth(store).observe(this) {
+        myViewModel.getMOnth(store).observe(this) {
             oneChartIncome(it)
         }
     }
 
 
     private fun chartMonthExpense(store: String) {
-        viewmodelM.getMOnth(store).observe(this) {
+        myViewModel.getMOnth(store).observe(this) {
             oneChartExpense(it)
         }
     }
 
     private fun chartYearIncome(store: String) {
 
-        viewmodelM.getDataYear(store).observe(this) {
+        myViewModel.getDataYear(store).observe(this) {
             oneChartIncome(it)
         }
     }
 
 
     private fun chartYearExpense(store: String) {
-        viewmodelM.getDataYear(store).observe(this) {
+        myViewModel.getDataYear(store).observe(this) {
             oneChartExpense(it)
         }
     }
 
     private fun chartAllIncome() {
 
-        viewmodelM.getDataM().observe(this) {
+        myViewModel.getDataM().observe(this) {
             oneChartIncome(it)
         }
     }
 
 
     private fun chartAllExpense() {
-        viewmodelM.getDataM().observe(this) {
+        myViewModel.getDataM().observe(this) {
             oneChartExpense(it)
         }
     }
@@ -471,38 +512,38 @@ class ExpenseIncomeStructer : AppCompatActivity() {
             chart.legend.isEnabled = false // Hide legend
 
 
-            val arrlist = ArrayList<Statas_model>()
-            arrlist.add(
+            val arrayList = ArrayList<Statas_model>()
+            arrayList.add(
                 Statas_model(
                     R.drawable.assets, 0.0, "Home", 0.0, 0.toString(), R.color.one
                 )
             )
-            arrlist.add(
+            arrayList.add(
                 Statas_model(
                     R.drawable.bars, 0.0, "Business", 0.0, 0.toString(), R.color.tow
                 )
             )
-            arrlist.add(
+            arrayList.add(
                 Statas_model(
                     R.drawable.database, 0.0, "Loan", 0.0, 0.toString(), R.color.four
                 )
             )
-            arrlist.add(
+            arrayList.add(
                 Statas_model(
                     R.drawable.investment, 0.0, "Investment", 0.0, 0.toString(), R.color.five
                 )
             )
-            arrlist.add(
+            arrayList.add(
                 Statas_model(
                     R.drawable.planning, 0.0, "Planing", 0.0, 0.toString(), R.color.six
                 )
             )
-            arrlist.add(
+            arrayList.add(
                 Statas_model(
                     R.drawable.deal, 0.0, "Rent", 0.0, 0.toString(), R.color.hol
                 )
             )
-            arrlist.add(
+            arrayList.add(
                 Statas_model(
                     R.drawable.reduction, 0.0, "Other", 0.0, 0.toString(), R.color.hole_s
                 )
@@ -510,7 +551,7 @@ class ExpenseIncomeStructer : AppCompatActivity() {
 
 
             binding.statasRecyclerview.setHasFixedSize(true)
-            binding.statasRecyclerview.adapter = Adapter_statas(this, arrlist, 0)
+            binding.statasRecyclerview.adapter = Adapter_statas(this, arrayList, 0)
             binding.statasRecyclerview.layoutManager = LinearLayoutManager(this)
             binding.statasRecyclerview.addItemDecoration(
                 DividerItemDecoration(
@@ -568,8 +609,8 @@ class ExpenseIncomeStructer : AppCompatActivity() {
             val otherP = ((other / income) * 100).toInt()
 
 
-            val arrlist = ArrayList<Statas_model>()
-            arrlist.add(
+            val arrayList = ArrayList<Statas_model>()
+            arrayList.add(
                 Statas_model(
                     R.drawable.assets,
                     homeP.toDouble(),
@@ -579,7 +620,7 @@ class ExpenseIncomeStructer : AppCompatActivity() {
                     R.color.one
                 )
             )
-            arrlist.add(
+            arrayList.add(
                 Statas_model(
                     R.drawable.bars,
                     businessP.toDouble(),
@@ -589,7 +630,7 @@ class ExpenseIncomeStructer : AppCompatActivity() {
                     R.color.tow
                 )
             )
-            arrlist.add(
+            arrayList.add(
                 Statas_model(
                     R.drawable.database,
                     loanP.toDouble(),
@@ -599,7 +640,7 @@ class ExpenseIncomeStructer : AppCompatActivity() {
                     R.color.four
                 )
             )
-            arrlist.add(
+            arrayList.add(
                 Statas_model(
                     R.drawable.investment,
                     investmentP.toDouble(),
@@ -609,7 +650,7 @@ class ExpenseIncomeStructer : AppCompatActivity() {
                     R.color.five
                 )
             )
-            arrlist.add(
+            arrayList.add(
                 Statas_model(
                     R.drawable.planning,
                     planingP.toDouble(),
@@ -619,7 +660,7 @@ class ExpenseIncomeStructer : AppCompatActivity() {
                     R.color.six
                 )
             )
-            arrlist.add(
+            arrayList.add(
                 Statas_model(
                     R.drawable.deal,
                     rentP.toDouble(),
@@ -629,7 +670,7 @@ class ExpenseIncomeStructer : AppCompatActivity() {
                     R.color.hol
                 )
             )
-            arrlist.add(
+            arrayList.add(
                 Statas_model(
                     R.drawable.reduction,
                     otherP.toDouble(),
@@ -641,7 +682,7 @@ class ExpenseIncomeStructer : AppCompatActivity() {
             )
 
             binding.statasRecyclerview.setHasFixedSize(true)
-            binding.statasRecyclerview.adapter = Adapter_statas(this, arrlist, 0)
+            binding.statasRecyclerview.adapter = Adapter_statas(this, arrayList, 0)
             binding.statasRecyclerview.layoutManager = LinearLayoutManager(this)
             binding.statasRecyclerview.addItemDecoration(
                 DividerItemDecoration(
@@ -693,7 +734,7 @@ class ExpenseIncomeStructer : AppCompatActivity() {
             chart.setDrawEntryLabels(false)
 
             val l = chart.legend
-            l.isEnabled = false // to remove out site lable
+            l.isEnabled = false // to remove out site label
 
             // entry label styling
             chart.setEntryLabelColor(Color.WHITE)
@@ -753,38 +794,38 @@ class ExpenseIncomeStructer : AppCompatActivity() {
             chart.centerText = "Expense\n$expense" // Remove center text
             chart.setDrawEntryLabels(false) // Show labels outside the chart
             chart.legend.isEnabled = false // Hide legend
-            val arrlist = ArrayList<Statas_model>()
-            arrlist.add(
+            val arrayList = ArrayList<Statas_model>()
+            arrayList.add(
                 Statas_model(
                     R.drawable.assets, 0.0, "Home", 0.0, 0.toString(), R.color.one
                 )
             )
-            arrlist.add(
+            arrayList.add(
                 Statas_model(
                     R.drawable.bars, 0.0, "Business", 0.0, 0.toString(), R.color.tow
                 )
             )
-            arrlist.add(
+            arrayList.add(
                 Statas_model(
                     R.drawable.database, 0.0, "Loan", 0.0, 0.toString(), R.color.four
                 )
             )
-            arrlist.add(
+            arrayList.add(
                 Statas_model(
                     R.drawable.investment, 0.0, "Investment", 0.0, 0.toString(), R.color.five
                 )
             )
-            arrlist.add(
+            arrayList.add(
                 Statas_model(
                     R.drawable.planning, 0.0, "Planing", 0.0, 0.toString(), R.color.six
                 )
             )
-            arrlist.add(
+            arrayList.add(
                 Statas_model(
                     R.drawable.deal, 0.0, "Rent", 0.0, 0.toString(), R.color.hol
                 )
             )
-            arrlist.add(
+            arrayList.add(
                 Statas_model(
                     R.drawable.reduction, 0.0, "Other", 0.0, 0.toString(), R.color.hole_s
                 )
@@ -792,7 +833,7 @@ class ExpenseIncomeStructer : AppCompatActivity() {
 
 
             binding.statasRecyclerview.setHasFixedSize(true)
-            binding.statasRecyclerview.adapter = Adapter_statas(this, arrlist, 1)
+            binding.statasRecyclerview.adapter = Adapter_statas(this, arrayList, 1)
             binding.statasRecyclerview.layoutManager = LinearLayoutManager(this)
             binding.statasRecyclerview.addItemDecoration(
                 DividerItemDecoration(
@@ -852,8 +893,8 @@ class ExpenseIncomeStructer : AppCompatActivity() {
 
             Log.d("allP", "$homeP=$businessP=$loanP=$investmentP=$planingP=$rentP=$otherP")
 
-            val arrlist = ArrayList<Statas_model>()
-            arrlist.add(
+            val arrayList = ArrayList<Statas_model>()
+            arrayList.add(
                 Statas_model(
                     R.drawable.assets,
                     homeP.toDouble(),
@@ -863,7 +904,7 @@ class ExpenseIncomeStructer : AppCompatActivity() {
                     R.color.one
                 )
             )
-            arrlist.add(
+            arrayList.add(
                 Statas_model(
                     R.drawable.bars,
                     businessP.toDouble(),
@@ -873,7 +914,7 @@ class ExpenseIncomeStructer : AppCompatActivity() {
                     R.color.tow
                 )
             )
-            arrlist.add(
+            arrayList.add(
                 Statas_model(
                     R.drawable.database,
                     loanP.toDouble(),
@@ -883,7 +924,7 @@ class ExpenseIncomeStructer : AppCompatActivity() {
                     R.color.four
                 )
             )
-            arrlist.add(
+            arrayList.add(
                 Statas_model(
                     R.drawable.investment,
                     investmentP.toDouble(),
@@ -893,7 +934,7 @@ class ExpenseIncomeStructer : AppCompatActivity() {
                     R.color.five
                 )
             )
-            arrlist.add(
+            arrayList.add(
                 Statas_model(
                     R.drawable.planning,
                     planingP.toDouble(),
@@ -903,7 +944,7 @@ class ExpenseIncomeStructer : AppCompatActivity() {
                     R.color.six
                 )
             )
-            arrlist.add(
+            arrayList.add(
                 Statas_model(
                     R.drawable.deal,
                     rentP.toDouble(),
@@ -913,7 +954,7 @@ class ExpenseIncomeStructer : AppCompatActivity() {
                     R.color.hol
                 )
             )
-            arrlist.add(
+            arrayList.add(
                 Statas_model(
                     R.drawable.reduction,
                     otherP.toDouble(),
@@ -925,7 +966,7 @@ class ExpenseIncomeStructer : AppCompatActivity() {
             )
 
             binding.statasRecyclerview.setHasFixedSize(true)
-            binding.statasRecyclerview.adapter = Adapter_statas(this, arrlist, 1)
+            binding.statasRecyclerview.adapter = Adapter_statas(this, arrayList, 1)
             binding.statasRecyclerview.layoutManager = LinearLayoutManager(this)
             binding.statasRecyclerview.addItemDecoration(
                 DividerItemDecoration(
@@ -977,7 +1018,7 @@ class ExpenseIncomeStructer : AppCompatActivity() {
             chart.setDrawEntryLabels(false)
 
             val l = chart.legend
-            l.isEnabled = false // to remove out site lable
+            l.isEnabled = false // to remove out site label
 
             // entry label styling
             chart.setEntryLabelColor(Color.WHITE)

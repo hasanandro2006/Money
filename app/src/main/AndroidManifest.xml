@@ -16,7 +16,7 @@
             android:name=".activity.RecordActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.ExpenseIncomeStructer"
+            android:name=".activity.ExpenseIncomeChart"
             android:exported="false" />
         <activity
             android:name=".activity.Store_activiyy"
@@ -25,14 +25,14 @@
             android:name=".activity.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.Select_currency_Activity"
+            android:name=".activity.SelectCurrency"
             android:exported="false" />
         <activity
-            android:name=".activity.Signup_Activity"
+            android:name=".activity.SignupActivity"
             android:exported="false"
             android:noHistory="true" />
         <activity
-            android:name=".activity.Splash_Activity"
+            android:name=".activity.SplashActivity"
             android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>

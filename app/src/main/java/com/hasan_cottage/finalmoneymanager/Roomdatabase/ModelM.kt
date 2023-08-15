@@ -17,9 +17,11 @@ data class ModelM(
     val amount:Double,
     val dateMonth:String,
     val note:String,
-    val year:String
+    val year:String,
+    val weekNumber:Int
+
 ){
     @Ignore
-    constructor( type: String, catagor: String, account: String, date:String,amount: Double,dateMonth: String,note: String,year: String)
-            : this(0,type,catagor,account,date,amount,dateMonth,note,year)
+    constructor( type: String, catagor: String, account: String, date:String,amount: Double,dateMonth: String,note: String,year: String,weekNumber:Int)
+            : this(0,type,catagor,account,date,amount,dateMonth,note,year,weekNumber)
 }

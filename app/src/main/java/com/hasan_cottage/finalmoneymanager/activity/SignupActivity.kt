@@ -14,60 +14,59 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
-class Signup_Activity : AppCompatActivity() {
-    companion object {
-        lateinit var dataBinding: ActivitySignupBinding
+class SignupActivity : AppCompatActivity() {
 
-    }
+    private lateinit var dataBinding: ActivitySignupBinding
 
-    var cName :String? = null
-     var cCode :String? = null
-    var cSymbols :String? = null
+    private var cName :String? = null
+     private var cCode :String? = null
+    private var cSymbols :String? = null
     var name :String? = null
 
 
-    var redioposition: Int? = null
+    private var radioPosition: Int? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_signup)
 
 
-        automaticFocasinEditext()
+        automaticFocusEdittext()
         getDataFromRoom()
-        pass_Name_SelectedPosition()
+        passNameSelectedPosition()
         nextButtonClick()
     }
 
-    private fun automaticFocasinEditext() {
-        dataBinding!!.appCompatEditText.requestFocus()
+    private fun automaticFocusEdittext() {
+        dataBinding.appCompatEditText.requestFocus()
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
     }
 
-    private fun pass_Name_SelectedPosition() {
+    private fun passNameSelectedPosition() {
         dataBinding.spinnerFb.setOnClickListener {
 
-            var userInput = dataBinding.appCompatEditText.text.toString()
+            val userInput = dataBinding.appCompatEditText.text.toString()
 
-            if (userInput == null) {
-                userInput = " "
-            }
-            val intent = Intent(this, Select_currency_Activity::class.java)
+            val intent = Intent(this, SelectCurrency::class.java)
             intent.putExtra("CURRENCY_DATA_KEY", userInput)
-            intent.putExtra("CURRENCY_DATA_KEY_two", redioposition)
+            intent.putExtra("CURRENCY_DATA_KEY_two", radioPosition)
             startActivity(intent)
         }
     }
 
     private fun getDataFromRoom() {
-        var sharedPreferencesC =getSharedPreferences("Currency", Context.MODE_PRIVATE)
+        val sharedPreferencesC =getSharedPreferences("Currency", Context.MODE_PRIVATE)
 
         dataBinding.text2.text = sharedPreferencesC.getString("cName", "select_your")
         dataBinding.text1.text  = sharedPreferencesC.getString("cCode", "_country")
-        dataBinding.steText2.text =  "(" +sharedPreferencesC.getString("cSymble", "_currency")+ ")"
-        var name = sharedPreferencesC.getString("name", "Hasan")
+
+        val currencySymbol = sharedPreferencesC.getString("cSymbol", "_currency")
+        val formattedString = getString(R.string.currency_with_symbol, currencySymbol)
+        dataBinding.steText2.text = formattedString
+
+        val name = sharedPreferencesC.getString("name", "Your name")
         dataBinding.appCompatEditText.setText(name)
-        var oldposition = sharedPreferencesC.getInt("oldPosition", 21)
-        redioposition = oldposition
+        val oldPosition = sharedPreferencesC.getInt("oldPosition", 21)
+        radioPosition = oldPosition
     }
     private fun nextButtonClick() {
         dataBinding.linearlayout.setOnClickListener {

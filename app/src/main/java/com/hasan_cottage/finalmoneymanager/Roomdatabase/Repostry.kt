@@ -31,6 +31,9 @@ class Repostry( val databaseDaoM: DatabaseDaoM) {
     fun getDataDily(day:String):LiveData<List<ModelM>>{
         return databaseDaoM.getDataDily(day)
     }
+    fun getDataBetweenDates(seekNumber:Int): LiveData<List<ModelM>>{
+        return databaseDaoM.getDataBetweenDates(seekNumber)
+    }
     fun getDataYear(Year: String):LiveData<List<ModelM>>{
         return databaseDaoM.getDataYear(Year)
     }

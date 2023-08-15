@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.hasan_cottage.finalmoneymanager.activity.ExpenseIncomeStructer
+import com.hasan_cottage.finalmoneymanager.activity.ExpenseIncomeChart
 import com.hasan_cottage.finalmoneymanager.Fragment.CalendarFragment
 import com.hasan_cottage.finalmoneymanager.Fragment.StatasFragment
 import com.hasan_cottage.finalmoneymanager.R
@@ -86,7 +86,7 @@ class BottomShetFragmentCoseName(var come:Int): BottomSheetDialogFragment() {
                 .replace(R.id.frameLayout,StatasFragment())
                 .commit()
         }else{
-            val intent=Intent(contextA,ExpenseIncomeStructer::class.java)
+            val intent=Intent(contextA,ExpenseIncomeChart::class.java)
             intent.putExtra("work",1)
             startActivity(intent)
         }

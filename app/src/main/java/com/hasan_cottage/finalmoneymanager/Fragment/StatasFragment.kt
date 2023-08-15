@@ -16,7 +16,7 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
-import com.hasan_cottage.finalmoneymanager.activity.ExpenseIncomeStructer
+import com.hasan_cottage.finalmoneymanager.activity.ExpenseIncomeChart
 import com.hasan_cottage.finalmoneymanager.BottomFragment.BottomShetFragmentCoseName
 import com.hasan_cottage.finalmoneymanager.Helper.HelperClass
 import com.hasan_cottage.finalmoneymanager.Roomdatabase.DatabaseAll
@@ -36,6 +36,7 @@ class StatasFragment : Fragment() {
 
     private var calender=Calendar.getInstance()
      var store:String?=null
+     var weekNumber:Int?=null
     lateinit var  entries:ArrayList<PieEntry>
 
 
@@ -60,7 +61,7 @@ class StatasFragment : Fragment() {
                 dateFormetDay()
             }
             2 ->{
-
+                dateFormetWeek()
             }
             3 ->{
                 dateFormetMonth()
@@ -88,7 +89,9 @@ class StatasFragment : Fragment() {
                     dateFormetDay()
                 }
                 2 ->{
-
+                    calender.add(Calendar.WEEK_OF_YEAR,-1)
+                    binding.pieChart.notifyDataSetChanged()
+                    dateFormetWeek()
                 }
                 3 ->{
                     calender.add(Calendar.MONTH,-1)
@@ -114,7 +117,9 @@ class StatasFragment : Fragment() {
                     dateFormetDay()
                 }
                 2 ->{
-
+                    calender.add(Calendar.WEEK_OF_YEAR,1)
+                    binding.pieChart.notifyDataSetChanged()
+                    dateFormetWeek()
                 }
                 3 ->{
                     calender.add(Calendar.MONTH,1)
@@ -134,23 +139,31 @@ class StatasFragment : Fragment() {
         // pass data in chart activity ......
 
         binding.linearLayout2.setOnClickListener{
-            val intent=Intent(context,ExpenseIncomeStructer::class.java)
-            if (store == null){
+            val intent=Intent(context,ExpenseIncomeChart::class.java)
+
+            if (store == null || weekNumber == null){
                 intent.putExtra("nowData","select all")
                 intent.putExtra("isFalse",false)
-            }else{
+            }else if(weekNumber != null){
+                intent.putExtra("week",weekNumber)
+                intent.putExtra("isFalse",false)
+            } else{
                 intent.putExtra("nowData",store)
                 intent.putExtra("isFalse",false)
             }
+
 
             startActivity(intent)
 
         }
         binding.linearLayout3.setOnClickListener {
-            val intent=Intent(context,ExpenseIncomeStructer::class.java)
-            if (store == null){
+            val intent=Intent(context,ExpenseIncomeChart::class.java)
+            if (store == null || weekNumber == null){
                 intent.putExtra("nowData","select all")
-            }else{
+            }else if(weekNumber != null){
+                intent.putExtra("week",weekNumber)
+
+            } else{
                 intent.putExtra("nowData",store)
             }
             startActivity(intent)
@@ -171,12 +184,25 @@ class StatasFragment : Fragment() {
     }
 
 
-
     // set date formed ..........
     private fun dateFormetDay() {
         store = HelperClass.dateFormet(calender.time)
         binding.monthSet.text = store
        dayExpenseIncome()
+    }
+
+    private fun dateFormetWeek() {
+        val sdf = SimpleDateFormat("dd MMM", Locale.getDefault())
+
+        calender.set(Calendar.DAY_OF_WEEK,calender.firstDayOfWeek)
+        val fN=sdf.format(calender.time)
+        calender.add(Calendar.DAY_OF_WEEK,6)
+        val lN=sdf.format(calender.time)
+
+        weekNumber=calender.get(Calendar.WEEK_OF_YEAR)
+        binding.monthSet.text=fN+" - "+lN
+        weekExpenseIncome()
+
     }
 
 
@@ -214,7 +240,12 @@ class StatasFragment : Fragment() {
         })
     }
 
-
+    private fun weekExpenseIncome() {
+        viewmodelM.getDataBetweenDates(weekNumber!!).observe(viewLifecycleOwner){
+            allCodeIncome(it)
+            allCodeExpense(it)
+        }
+    }
     private fun monthExpenseIncome() {
         viewmodelM.getMOnth(store!!).observe(viewLifecycleOwner, Observer {
             allCodeIncome(it)

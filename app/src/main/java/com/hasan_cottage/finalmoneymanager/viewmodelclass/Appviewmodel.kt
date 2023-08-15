@@ -32,6 +32,9 @@ class Appviewmodel(val repostry: Repostry): ViewModel(){
     fun getDataDily(day:String):LiveData<List<ModelM>>{
         return repostry.getDataDily(day)
     }
+    fun getDataBetweenDates(seekNumber:Int): LiveData<List<ModelM>>{
+        return repostry.getDataBetweenDates(seekNumber)
+    }
     fun getDataYear(Year: String):LiveData<List<ModelM>>{
         return repostry.getDataYear(Year)
     }

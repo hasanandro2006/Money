@@ -1,6 +1,7 @@
 package com.hasan_cottage.finalmoneymanager.activity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
@@ -12,18 +13,16 @@ import com.hasan_cottage.finalmoneymanager.Roomdatabase.Repostry
 import com.hasan_cottage.finalmoneymanager.databinding.ActivitySelectCurrencyBinding
 import com.hasan_cottage.finalmoneymanager.viewmodelclass.Appviewmodel.Appviewmodel
 import com.hasan_cottage.finalmoneymanager.viewmodelclass.ViewmodelFactory
-import java.util.Collections
 import java.util.Currency
 import java.util.Locale
 
-class Select_currency_Activity : AppCompatActivity() {
+class SelectCurrency : AppCompatActivity() {
 
     lateinit var binding: ActivitySelectCurrencyBinding
-    lateinit var databinding: ActivitySelectCurrencyBinding
-    var arrayListCurrency: ArrayList<myModel>? = null
-    lateinit var viewmodelAll: Appviewmodel
-    lateinit var repostry: Repostry
-    lateinit var adaptrAll: AdatperCurrency
+    private var arrayListCurrency: ArrayList<myModel>? = null
+    private lateinit var myViewModel: Appviewmodel
+    private lateinit var repository: Repostry
+    lateinit var adapterAll: AdatperCurrency
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,9 +32,9 @@ class Select_currency_Activity : AppCompatActivity() {
 
         // Initialize  database
         val daoM = DatabaseAll.getInstanceAll(applicationContext).getAllDaoM()
-        repostry = Repostry(daoM)
-        viewmodelAll =
-            ViewModelProvider(this, ViewmodelFactory(repostry)).get(Appviewmodel::class.java)
+        repository = Repostry(daoM)
+        myViewModel =
+            ViewModelProvider(this, ViewmodelFactory(repository))[Appviewmodel::class.java]
 
         arrayListCurrency = java.util.ArrayList()
 
@@ -65,33 +64,31 @@ class Select_currency_Activity : AppCompatActivity() {
             }
         } catch (e: IllegalArgumentException) {
 
+            Log.d("show",e.toString())
         }
 
 
-
-
-        Collections.sort(arrayListCurrency, object : Comparator<myModel> {
-            override fun compare(model1: myModel, model2: myModel): Int {
-                return model1.currencyName.compareTo(model2.currencyName)
-            }
-        })
+        // sorted currency
+        arrayListCurrency!!.sortWith {
+                model1, model2 -> model1.currencyName.compareTo(model2.currencyName)
+        }
 
     }
 
     private fun passDataInAdapter() {
 
         val currencyData = intent.getStringExtra("CURRENCY_DATA_KEY")
-        val redioposition = intent.getIntExtra("CURRENCY_DATA_KEY_two", 0)
+        val radioPosition = intent.getIntExtra("CURRENCY_DATA_KEY_two", 0)
 
 
         binding.recyclerviewSelect.setHasFixedSize(true)
-        adaptrAll = AdatperCurrency(
+        adapterAll = AdatperCurrency(
             this,
             arrayListCurrency!!,
             currencyData!!,
-            redioposition!!
+            radioPosition
         )
-        binding.recyclerviewSelect.adapter = adaptrAll
+        binding.recyclerviewSelect.adapter = adapterAll
         binding.recyclerviewSelect.layoutManager = LinearLayoutManager(this)
     }
 
@@ -102,7 +99,7 @@ class Select_currency_Activity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                adaptrAll.filter.filter(newText)
+                adapterAll.filter.filter(newText)
                 return true
             }
 

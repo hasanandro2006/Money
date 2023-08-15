@@ -12,8 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.hasan_cottage.finalmoneymanager.activity.Signup_Activity
-import com.hasan_cottage.finalmoneymanager.activity.Splash_Activity
+import com.hasan_cottage.finalmoneymanager.activity.SignupActivity
+import com.hasan_cottage.finalmoneymanager.activity.SplashActivity
 import com.hasan_cottage.finalmoneymanager.Adapter.Adapter_name
 import com.hasan_cottage.finalmoneymanager.RoomdataNot.DataSignup
 import com.hasan_cottage.finalmoneymanager.RoomdataNot.DatabaseTow
@@ -50,7 +50,7 @@ class BottomSheetFragment_tow : BottomSheetDialogFragment(),Adapter_name.ClickDa
             binding.recyclerviewName.addItemDecoration(DividerItemDecoration(context,DividerItemDecoration.VERTICAL))
         })
         binding.addA.setOnClickListener {
-            startActivity(Intent(context,Signup_Activity::class.java))
+            startActivity(Intent(context,SignupActivity::class.java))
 
         }
         return binding.root
@@ -60,7 +60,7 @@ class BottomSheetFragment_tow : BottomSheetDialogFragment(),Adapter_name.ClickDa
         restartApp()
     }
     private fun restartApp() {
-        val intent = Intent(context,Splash_Activity::class.java)
+        val intent = Intent(context,SplashActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(intent)
     }

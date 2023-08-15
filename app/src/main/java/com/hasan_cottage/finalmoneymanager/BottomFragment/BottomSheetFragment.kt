@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -51,6 +52,8 @@ class BottomSheetFragment(val intId: Int) : BottomSheetDialogFragment(),
     var dataType: String? = null
     var getmonth: String? = null
     var yearC: String? = null
+    var weekNumber: Int? = null
+
 
 
     lateinit var viewmodelM: Appviewmodel
@@ -82,6 +85,7 @@ class BottomSheetFragment(val intId: Int) : BottomSheetDialogFragment(),
         dataType = binding.expensivBtn.text.toString()
 
 
+
         // date pick .....
         binding.date.setOnClickListener {
 
@@ -102,6 +106,21 @@ class BottomSheetFragment(val intId: Int) : BottomSheetDialogFragment(),
                 getDate = HelperClass.dateFormet(calendar.time)
                 binding.date.setText(getDate)
 
+//                // Calculate the start of the week (Sunday)
+//                val calendarW = calendar.clone() as Calendar
+//                calendarW.set(Calendar.DAY_OF_WEEK, calendarW.firstDayOfWeek)
+//                val sdf = SimpleDateFormat("dd MMM", Locale.getDefault())
+//                weekStart= sdf.format(calendarW.time)
+//
+//                // Calculate the end of the week (Saturday)
+//                calendarW.add(Calendar.DAY_OF_MONTH, 6)
+//               weekEnd = sdf.format(calendarW.time)
+
+                // Get the week number
+                weekNumber = calendar.get(Calendar.WEEK_OF_YEAR)
+
+
+
 
             }
             datePickerDialog!!.show()
@@ -113,6 +132,7 @@ class BottomSheetFragment(val intId: Int) : BottomSheetDialogFragment(),
         getDateMonth = dateFormat.format(currentDate.time)
         getDate = HelperClass.dateFormet(currentDate)
         binding.date.setText(getDate)
+
 
 
         // Category Click Lisner ...........
@@ -237,7 +257,9 @@ class BottomSheetFragment(val intId: Int) : BottomSheetDialogFragment(),
                                 getAmount!!,
                                 getDateMonth!!,
                                 getNote!!,
-                                yearC!!
+                                yearC!!,
+                                weekNumber!!,
+
                             )
                         )
                     }
@@ -276,6 +298,5 @@ class BottomSheetFragment(val intId: Int) : BottomSheetDialogFragment(),
         binding.expensivBtn.background = context?.getDrawable(R.drawable.expanse_value)
         dataType = binding.expensivBtn.text.toString()
     }
-
 
 }

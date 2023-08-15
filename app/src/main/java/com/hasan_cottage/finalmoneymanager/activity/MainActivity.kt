@@ -26,40 +26,40 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction().add(R.id.frameLayout, MainFragment()).commit()
 
-        binding.bottomNevagation.setOnNavigationItemSelectedListener { item ->
+        binding.bottomNevagation.setOnItemSelectedListener{ item ->
             val fragmentManger = supportFragmentManager
-            val bingraanstion = fragmentManger.beginTransaction()
+            val beginTransactionVal = fragmentManger.beginTransaction()
 
             when (item.itemId) {
                 R.id.one -> {
-                    bingraanstion.replace(R.id.frameLayout, MainFragment())
+                    beginTransactionVal.replace(R.id.frameLayout, MainFragment())
                     fragmentManger.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-                    bingraanstion.addToBackStack(null)
-                    bingraanstion.commit()
+                    beginTransactionVal.addToBackStack(null)
+                    beginTransactionVal.commit()
                     true
                 }
 
                 R.id.tow -> {
-                    bingraanstion.replace(R.id.frameLayout, CalendarFragment())
+                    beginTransactionVal.replace(R.id.frameLayout, CalendarFragment())
                     fragmentManger.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-                    bingraanstion.addToBackStack(null)
-                    bingraanstion.commit()
+                    beginTransactionVal.addToBackStack(null)
+                    beginTransactionVal.commit()
                     true
                 }
 
                 R.id.three -> {
-                    bingraanstion.replace(R.id.frameLayout, StatasFragment())
+                    beginTransactionVal.replace(R.id.frameLayout, StatasFragment())
                     fragmentManger.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-                    bingraanstion.addToBackStack(null)
-                    bingraanstion.commit()
+                    beginTransactionVal.addToBackStack(null)
+                    beginTransactionVal.commit()
                     true
                 }
 
                 R.id.four -> {
-                    bingraanstion.replace(R.id.frameLayout, MoreFragment())
+                    beginTransactionVal.replace(R.id.frameLayout, MoreFragment())
                     fragmentManger.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-                    bingraanstion.addToBackStack(null)
-                    bingraanstion.commit()
+                    beginTransactionVal.addToBackStack(null)
+                    beginTransactionVal.commit()
                     true
                 }
 

@@ -15,7 +15,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.hasan_cottage.finalmoneymanager.activity.Signup_Activity
+import com.hasan_cottage.finalmoneymanager.activity.SignupActivity
 import com.hasan_cottage.finalmoneymanager.Model.myModel
 import com.hasan_cottage.finalmoneymanager.R
 import java.util.Locale
@@ -61,12 +61,12 @@ class AdatperCurrency(
             val editor = sharedPreferencesC.edit()
             editor.putString("cName", arrayList[position].currencyName)
             editor.putString("cCode", arrayList[position].currencyCode)
-            editor.putString("cSymble", arrayList[position].currencySymbol)
+            editor.putString("cSymbol", arrayList[position].currencySymbol)
             editor.putString("name", nameCome)
             editor.putInt("oldPosition", position)
             editor.apply() // Use apply() to save changes asynchronously
 
-            val intent = Intent(context, Signup_Activity::class.java)
+            val intent = Intent(context, SignupActivity::class.java)
             context.startActivity(intent)
             (context as Activity).finish()
         }
