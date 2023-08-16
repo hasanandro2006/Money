@@ -13,17 +13,17 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
-import com.hasan_cottage.finalmoneymanager.Adapter.Adapter_statas
-import com.hasan_cottage.finalmoneymanager.BottomFragment.BottomShetFragmentCoseName
-import com.hasan_cottage.finalmoneymanager.Helper.HelperClass
-import com.hasan_cottage.finalmoneymanager.Model.Statas_model
+import com.hasan_cottage.finalmoneymanager.adapter.AdapterStats
+import com.hasan_cottage.finalmoneymanager.bottomFragment.BottomSheetFragmentName
+import com.hasan_cottage.finalmoneymanager.helper.HelperClass
+import com.hasan_cottage.finalmoneymanager.model.StatsModel
 import com.hasan_cottage.finalmoneymanager.R
-import com.hasan_cottage.finalmoneymanager.Roomdatabase.DatabaseAll
-import com.hasan_cottage.finalmoneymanager.Roomdatabase.ModelM
-import com.hasan_cottage.finalmoneymanager.Roomdatabase.Repostry
+import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
+import com.hasan_cottage.finalmoneymanager.roomDatabase.ModelM
+import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
 import com.hasan_cottage.finalmoneymanager.databinding.ActivityExpenseIncomeStructerBinding
-import com.hasan_cottage.finalmoneymanager.viewmodelclass.Appviewmodel.Appviewmodel
-import com.hasan_cottage.finalmoneymanager.viewmodelclass.ViewmodelFactory
+import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
+import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -31,7 +31,7 @@ import java.util.Locale
 
 class ExpenseIncomeChart : AppCompatActivity() {
     lateinit var binding: ActivityExpenseIncomeStructerBinding
-    private lateinit var myViewModel: Appviewmodel
+    private lateinit var myViewModel: AppViewModel
 
     private var calender = Calendar.getInstance()
 
@@ -50,9 +50,9 @@ class ExpenseIncomeChart : AppCompatActivity() {
 
 
         val daoM = DatabaseAll.getInstanceAll(this).getAllDaoM()
-        val repository = Repostry(daoM)
+        val repository = Repository(daoM)
         myViewModel =
-            ViewModelProvider(this, ViewmodelFactory(repository))[Appviewmodel::class.java]
+            ViewModelProvider(this, ViewModelFactory(repository))[AppViewModel::class.java]
 
 
         val sharedPreferences = getSharedPreferences("Time", Context.MODE_PRIVATE)
@@ -272,13 +272,13 @@ class ExpenseIncomeChart : AppCompatActivity() {
 
             editor.putBoolean("U", tabBoolean)
             editor.apply()
-            val bottomSheetFragment = BottomShetFragmentCoseName(3)
+            val bottomSheetFragment = BottomSheetFragmentName(3)
             bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
         }
         binding.choseChange.setOnClickListener {
             editor.putBoolean("U", tabBoolean)
             editor.apply()
-            val bottomSheetFragment = BottomShetFragmentCoseName(3)
+            val bottomSheetFragment = BottomSheetFragmentName(3)
             bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
         }
 
@@ -420,14 +420,14 @@ class ExpenseIncomeChart : AppCompatActivity() {
 
 
     private fun chartDayIncome(store: String) {
-        myViewModel.getDataDily(store).observe(this) {
+        myViewModel.getDataDaily(store).observe(this) {
             Log.d("day", it.toString())
             oneChartIncome(it)
         }
     }
 
     private fun chartDayExpense(store: String) {
-        myViewModel.getDataDily(store).observe(this) {
+        myViewModel.getDataDaily(store).observe(this) {
             oneChartExpense(it)
         }
     }
@@ -446,14 +446,14 @@ class ExpenseIncomeChart : AppCompatActivity() {
 
     private fun chartMonthIncome(store: String) {
 
-        myViewModel.getMOnth(store).observe(this) {
+        myViewModel.getMonth(store).observe(this) {
             oneChartIncome(it)
         }
     }
 
 
     private fun chartMonthExpense(store: String) {
-        myViewModel.getMOnth(store).observe(this) {
+        myViewModel.getMonth(store).observe(this) {
             oneChartExpense(it)
         }
     }
@@ -530,46 +530,46 @@ class ExpenseIncomeChart : AppCompatActivity() {
             chart.legend.isEnabled = false // Hide legend
 
 
-            val arrayList = ArrayList<Statas_model>()
+            val arrayList = ArrayList<StatsModel>()
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.assets, 0.0, "Home", 0.0, 0.toString(), R.color.one
                 )
             )
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.bars, 0.0, "Business", 0.0, 0.toString(), R.color.tow
                 )
             )
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.database, 0.0, "Loan", 0.0, 0.toString(), R.color.four
                 )
             )
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.investment, 0.0, "Investment", 0.0, 0.toString(), R.color.five
                 )
             )
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.planning, 0.0, "Planing", 0.0, 0.toString(), R.color.six
                 )
             )
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.deal, 0.0, "Rent", 0.0, 0.toString(), R.color.hol
                 )
             )
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.reduction, 0.0, "Other", 0.0, 0.toString(), R.color.hole_s
                 )
             )
 
 
             binding.statasRecyclerview.setHasFixedSize(true)
-            binding.statasRecyclerview.adapter = Adapter_statas(this, arrayList, 0)
+            binding.statasRecyclerview.adapter = AdapterStats(this, arrayList, 0)
             binding.statasRecyclerview.layoutManager = LinearLayoutManager(this)
             binding.statasRecyclerview.addItemDecoration(
                 DividerItemDecoration(
@@ -585,31 +585,31 @@ class ExpenseIncomeChart : AppCompatActivity() {
                     Log.d("month", data.amount.toString())
                     income += data.amount
 
-                    if (data.catagory == HelperClass.Home) {
+                    if (data.category == HelperClass.Home) {
                         home += data.amount
                         tranH += 1
                     }
-                    if (data.catagory == HelperClass.Business) {
+                    if (data.category == HelperClass.Business) {
                         business += data.amount
                         tranB += 1
                     }
-                    if (data.catagory == HelperClass.Loan) {
+                    if (data.category == HelperClass.Loan) {
                         loan += data.amount
                         tranL += 1
                     }
-                    if (data.catagory == HelperClass.Investment) {
+                    if (data.category == HelperClass.Investment) {
                         investment += data.amount
                         tranI += 1
                     }
-                    if (data.catagory == HelperClass.Planing) {
+                    if (data.category == HelperClass.Planing) {
                         planing += data.amount
                         tranP += 1
                     }
-                    if (data.catagory == HelperClass.Rent) {
+                    if (data.category == HelperClass.Rent) {
                         rent += data.amount
                         tranR += 1
                     }
-                    if (data.catagory == HelperClass.Other) {
+                    if (data.category == HelperClass.Other) {
                         other += data.amount
                         tranO += 1
                     }
@@ -627,9 +627,9 @@ class ExpenseIncomeChart : AppCompatActivity() {
             val otherP = ((other / income) * 100).toInt()
 
 
-            val arrayList = ArrayList<Statas_model>()
+            val arrayList = ArrayList<StatsModel>()
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.assets,
                     homeP.toDouble(),
                     "Home",
@@ -639,7 +639,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                 )
             )
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.bars,
                     businessP.toDouble(),
                     "Business",
@@ -649,7 +649,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                 )
             )
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.database,
                     loanP.toDouble(),
                     "Loan",
@@ -659,7 +659,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                 )
             )
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.investment,
                     investmentP.toDouble(),
                     "Investment",
@@ -669,7 +669,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                 )
             )
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.planning,
                     planingP.toDouble(),
                     "Planing",
@@ -679,7 +679,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                 )
             )
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.deal,
                     rentP.toDouble(),
                     "Rent",
@@ -689,7 +689,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                 )
             )
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.reduction,
                     otherP.toDouble(),
                     "Other",
@@ -700,7 +700,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
             )
 
             binding.statasRecyclerview.setHasFixedSize(true)
-            binding.statasRecyclerview.adapter = Adapter_statas(this, arrayList, 0)
+            binding.statasRecyclerview.adapter = AdapterStats(this, arrayList, 0)
             binding.statasRecyclerview.layoutManager = LinearLayoutManager(this)
             binding.statasRecyclerview.addItemDecoration(
                 DividerItemDecoration(
@@ -812,46 +812,46 @@ class ExpenseIncomeChart : AppCompatActivity() {
             chart.centerText = "Expense\n$expense" // Remove center text
             chart.setDrawEntryLabels(false) // Show labels outside the chart
             chart.legend.isEnabled = false // Hide legend
-            val arrayList = ArrayList<Statas_model>()
+            val arrayList = ArrayList<StatsModel>()
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.assets, 0.0, "Home", 0.0, 0.toString(), R.color.one
                 )
             )
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.bars, 0.0, "Business", 0.0, 0.toString(), R.color.tow
                 )
             )
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.database, 0.0, "Loan", 0.0, 0.toString(), R.color.four
                 )
             )
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.investment, 0.0, "Investment", 0.0, 0.toString(), R.color.five
                 )
             )
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.planning, 0.0, "Planing", 0.0, 0.toString(), R.color.six
                 )
             )
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.deal, 0.0, "Rent", 0.0, 0.toString(), R.color.hol
                 )
             )
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.reduction, 0.0, "Other", 0.0, 0.toString(), R.color.hole_s
                 )
             )
 
 
             binding.statasRecyclerview.setHasFixedSize(true)
-            binding.statasRecyclerview.adapter = Adapter_statas(this, arrayList, 1)
+            binding.statasRecyclerview.adapter = AdapterStats(this, arrayList, 1)
             binding.statasRecyclerview.layoutManager = LinearLayoutManager(this)
             binding.statasRecyclerview.addItemDecoration(
                 DividerItemDecoration(
@@ -866,31 +866,31 @@ class ExpenseIncomeChart : AppCompatActivity() {
                     Log.d("month", data.amount.toString())
                     expense += data.amount
 
-                    if (data.catagory == HelperClass.Home) {
+                    if (data.category == HelperClass.Home) {
                         home += data.amount
                         tranH += 1
                     }
-                    if (data.catagory == HelperClass.Business) {
+                    if (data.category == HelperClass.Business) {
                         business += data.amount
                         tranB += 1
                     }
-                    if (data.catagory == HelperClass.Loan) {
+                    if (data.category == HelperClass.Loan) {
                         loan += data.amount
                         tranL += 1
                     }
-                    if (data.catagory == HelperClass.Investment) {
+                    if (data.category == HelperClass.Investment) {
                         investment += data.amount
                         tranI += 1
                     }
-                    if (data.catagory == HelperClass.Planing) {
+                    if (data.category == HelperClass.Planing) {
                         planing += data.amount
                         tranP += 1
                     }
-                    if (data.catagory == HelperClass.Rent) {
+                    if (data.category == HelperClass.Rent) {
                         rent += data.amount
                         tranR += 1
                     }
-                    if (data.catagory == HelperClass.Other) {
+                    if (data.category == HelperClass.Other) {
                         other += data.amount
                         tranO += 1
                     }
@@ -911,9 +911,9 @@ class ExpenseIncomeChart : AppCompatActivity() {
 
             Log.d("allP", "$homeP=$businessP=$loanP=$investmentP=$planingP=$rentP=$otherP")
 
-            val arrayList = ArrayList<Statas_model>()
+            val arrayList = ArrayList<StatsModel>()
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.assets,
                     homeP.toDouble(),
                     "Home",
@@ -923,7 +923,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                 )
             )
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.bars,
                     businessP.toDouble(),
                     "Business",
@@ -933,7 +933,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                 )
             )
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.database,
                     loanP.toDouble(),
                     "Loan",
@@ -943,7 +943,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                 )
             )
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.investment,
                     investmentP.toDouble(),
                     "Investment",
@@ -953,7 +953,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                 )
             )
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.planning,
                     planingP.toDouble(),
                     "Planing",
@@ -963,7 +963,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                 )
             )
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.deal,
                     rentP.toDouble(),
                     "Rent",
@@ -973,7 +973,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                 )
             )
             arrayList.add(
-                Statas_model(
+                StatsModel(
                     R.drawable.reduction,
                     otherP.toDouble(),
                     "Other",
@@ -984,7 +984,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
             )
 
             binding.statasRecyclerview.setHasFixedSize(true)
-            binding.statasRecyclerview.adapter = Adapter_statas(this, arrayList, 1)
+            binding.statasRecyclerview.adapter = AdapterStats(this, arrayList, 1)
             binding.statasRecyclerview.layoutManager = LinearLayoutManager(this)
             binding.statasRecyclerview.addItemDecoration(
                 DividerItemDecoration(

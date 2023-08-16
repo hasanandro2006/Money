@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/shape_for_bottomsheet"
-    tools:context=".BottomFragment.BottomSheetFragment">
+    tools:context=".bottomFragment.BottomSheetFragment">
 
     <ScrollView
         android:layout_width="match_parent"

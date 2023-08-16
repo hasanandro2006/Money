@@ -7,9 +7,10 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.hasan_cottage.finalmoneymanager.R
-import com.hasan_cottage.finalmoneymanager.RoomdataNot.DataSignup
-import com.hasan_cottage.finalmoneymanager.RoomdataNot.DatabaseTow
+import com.hasan_cottage.finalmoneymanager.roomDatabaseNot.DataSignup
+import com.hasan_cottage.finalmoneymanager.roomDatabaseNot.DatabaseTow
 import com.hasan_cottage.finalmoneymanager.databinding.ActivitySignupBinding
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -63,11 +64,12 @@ class SignupActivity : AppCompatActivity() {
         val formattedString = getString(R.string.currency_with_symbol, currencySymbol)
         dataBinding.steText2.text = formattedString
 
-        val name = sharedPreferencesC.getString("name", "Your name")
+        val name = sharedPreferencesC.getString("name", "Project")
         dataBinding.appCompatEditText.setText(name)
         val oldPosition = sharedPreferencesC.getInt("oldPosition", 21)
         radioPosition = oldPosition
     }
+    @OptIn(DelicateCoroutinesApi::class)
     private fun nextButtonClick() {
         dataBinding.linearlayout.setOnClickListener {
 

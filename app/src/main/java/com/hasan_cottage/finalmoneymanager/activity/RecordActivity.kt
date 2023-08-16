@@ -6,14 +6,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import com.hasan_cottage.finalmoneymanager.BottomFragment.BottomSheetFragment
-import com.hasan_cottage.finalmoneymanager.Helper.HelperClass
+import com.hasan_cottage.finalmoneymanager.bottomFragment.BottomSheetFragment
+import com.hasan_cottage.finalmoneymanager.helper.HelperClass
 import com.hasan_cottage.finalmoneymanager.R
-import com.hasan_cottage.finalmoneymanager.Roomdatabase.DatabaseAll
-import com.hasan_cottage.finalmoneymanager.Roomdatabase.Repostry
+import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
+import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
 import com.hasan_cottage.finalmoneymanager.databinding.ActivityRecordBinding
-import com.hasan_cottage.finalmoneymanager.viewmodelclass.Appviewmodel.Appviewmodel
-import com.hasan_cottage.finalmoneymanager.viewmodelclass.ViewmodelFactory
+import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
+import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -24,9 +24,9 @@ class RecordActivity : AppCompatActivity() {
         binding = ActivityRecordBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val daoM = DatabaseAll.getInstanceAll(this).getAllDaoM()
-        val repository = Repostry(daoM)
+        val repository = Repository(daoM)
         val myViewModel =
-            ViewModelProvider(this, ViewmodelFactory(repository))[Appviewmodel::class.java]
+            ViewModelProvider(this, ViewModelFactory(repository))[AppViewModel::class.java]
 
         val id = intent.getIntExtra("Id", 0)
 
@@ -34,8 +34,8 @@ class RecordActivity : AppCompatActivity() {
 
         myViewModel.getIdData(id).observe(this) { it ->
             it.forEach {
-                binding.topCatagory.text = it.catagory
-                binding.CategoryR.text = it.catagory
+                binding.topCatagory.text = it.category
+                binding.CategoryR.text = it.category
                 binding.DateR.text = it.date
                 binding.AccountR.text = it.account
                 binding.NoteR.text = it.note
@@ -52,7 +52,7 @@ class RecordActivity : AppCompatActivity() {
 
                 }
                 binding.TypeR.text = it.type
-                val image = HelperClass.getColorCatogory(it.catagory)
+                val image = HelperClass.getColorCategory(it.category)
                 binding.imageCatagory.setImageResource(image!!.image)
                 binding.imageCatagory.backgroundTintList = getColorStateList(image.color)
             }
@@ -65,7 +65,7 @@ class RecordActivity : AppCompatActivity() {
                 .setMessage("Are you sure delete this item")
                 .setPositiveButton("OK") { _, _ ->
                     GlobalScope.launch {
-                        myViewModel.deletDataId(id)
+                        myViewModel.deleteDataId(id)
                         finish()
                         Toast.makeText(this@RecordActivity, "Deleted", Toast.LENGTH_SHORT).show()
                     }

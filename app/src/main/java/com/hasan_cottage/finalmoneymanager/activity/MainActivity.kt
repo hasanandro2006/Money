@@ -3,11 +3,11 @@ package com.hasan_cottage.finalmoneymanager.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
-import com.hasan_cottage.finalmoneymanager.BottomFragment.BottomSheetFragment
-import com.hasan_cottage.finalmoneymanager.Fragment.CalendarFragment
-import com.hasan_cottage.finalmoneymanager.Fragment.MainFragment
-import com.hasan_cottage.finalmoneymanager.Fragment.MoreFragment
-import com.hasan_cottage.finalmoneymanager.Fragment.StatasFragment
+import com.hasan_cottage.finalmoneymanager.bottomFragment.BottomSheetFragment
+import com.hasan_cottage.finalmoneymanager.fragment.CalendarFragment
+import com.hasan_cottage.finalmoneymanager.fragment.MainFragment
+import com.hasan_cottage.finalmoneymanager.fragment.MoreFragment
+import com.hasan_cottage.finalmoneymanager.fragment.StatsFragment
 import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.databinding.ActivityMainBinding
 
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.three -> {
-                    beginTransactionVal.replace(R.id.frameLayout, StatasFragment())
+                    beginTransactionVal.replace(R.id.frameLayout, StatsFragment())
                     fragmentManger.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                     beginTransactionVal.addToBackStack(null)
                     beginTransactionVal.commit()

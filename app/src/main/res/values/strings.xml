@@ -33,5 +33,7 @@
     <string name="amount_text">-%s</string>
     <string name="currency_with_symbol">(%s)</string>
     <string name="D">(%s)</string>
+    <string name="all_transaction">All Transaction</string>
+    <string name="project_name">Project name</string>
 
 </resources>

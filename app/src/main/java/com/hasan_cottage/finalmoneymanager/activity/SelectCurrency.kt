@@ -6,23 +6,23 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.hasan_cottage.finalmoneymanager.Adapter.AdatperCurrency
-import com.hasan_cottage.finalmoneymanager.Model.myModel
-import com.hasan_cottage.finalmoneymanager.Roomdatabase.DatabaseAll
-import com.hasan_cottage.finalmoneymanager.Roomdatabase.Repostry
+import com.hasan_cottage.finalmoneymanager.adapter.AdapterCurrency
+import com.hasan_cottage.finalmoneymanager.model.MyModel
+import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
+import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
 import com.hasan_cottage.finalmoneymanager.databinding.ActivitySelectCurrencyBinding
-import com.hasan_cottage.finalmoneymanager.viewmodelclass.Appviewmodel.Appviewmodel
-import com.hasan_cottage.finalmoneymanager.viewmodelclass.ViewmodelFactory
+import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
+import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
 import java.util.Currency
 import java.util.Locale
 
 class SelectCurrency : AppCompatActivity() {
 
     lateinit var binding: ActivitySelectCurrencyBinding
-    private var arrayListCurrency: ArrayList<myModel>? = null
-    private lateinit var myViewModel: Appviewmodel
-    private lateinit var repository: Repostry
-    lateinit var adapterAll: AdatperCurrency
+    private var arrayListCurrency: ArrayList<MyModel>? = null
+    private lateinit var myViewModel: AppViewModel
+    private lateinit var repository: Repository
+    lateinit var adapterAll: AdapterCurrency
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,9 +32,9 @@ class SelectCurrency : AppCompatActivity() {
 
         // Initialize  database
         val daoM = DatabaseAll.getInstanceAll(applicationContext).getAllDaoM()
-        repository = Repostry(daoM)
+        repository = Repository(daoM)
         myViewModel =
-            ViewModelProvider(this, ViewmodelFactory(repository))[Appviewmodel::class.java]
+            ViewModelProvider(this, ViewModelFactory(repository))[AppViewModel::class.java]
 
         arrayListCurrency = java.util.ArrayList()
 
@@ -58,7 +58,7 @@ class SelectCurrency : AppCompatActivity() {
                     val currencyName = currency.displayName
                     val currencyCode = currency.currencyCode
                     val currencySymbol = currency.symbol
-                    val currencyModel = myModel(currencyCode, currencyName, currencySymbol)
+                    val currencyModel = MyModel(currencyCode, currencyName, currencySymbol)
                     arrayListCurrency!!.add(currencyModel)
                 }
             }
@@ -82,7 +82,7 @@ class SelectCurrency : AppCompatActivity() {
 
 
         binding.recyclerviewSelect.setHasFixedSize(true)
-        adapterAll = AdatperCurrency(
+        adapterAll = AdapterCurrency(
             this,
             arrayListCurrency!!,
             currencyData!!,
