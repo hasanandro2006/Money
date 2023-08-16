@@ -40,7 +40,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
     var tabBoolean = true
     lateinit var storeAll: String
     private var weekNumber: Int? = null
-    private var weekData: Int? = null
+    private var weekData: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +61,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
 
         // here sev boolean value which one save when button bar come and intent come value 1
         val sharedPreferencesTrueFalseCome = getSharedPreferences("SaveTrueFalse", MODE_PRIVATE)
-        val work = intent.getIntExtra("work", 0)
+        val work = intent.getIntExtra("work", 1)
 
         tabBoolean = if (work == 1) {
             val work1 = sharedPreferencesTrueFalseCome.getBoolean("U", false)
@@ -71,7 +71,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
         }
 
         val timeData = intent.getStringExtra("nowData")
-        weekData = intent.getIntExtra("week", 1)
+        weekNumber = intent.getIntExtra("week", 1)
 
 
         // first time call .............
@@ -102,12 +102,14 @@ class ExpenseIncomeChart : AppCompatActivity() {
             }
 
             2 -> {
-                calender.add(Calendar.WEEK_OF_YEAR, weekData!!)
+                storeAll = "Work"
+                weekData = "Hasan"
+                calender.set(Calendar.WEEK_OF_YEAR, weekNumber!!)
                 newForWeek()
                 if (tabBoolean) {
-                    updateCalenderFirst(storeAll, daily, true)
+                    updateCalenderFirst(weekData!!, daily, true)
                 } else {
-                    updateCalenderFirst(storeAll, daily, false)
+                    updateCalenderFirst(weekData!!, daily, false)
                 }
             }
 
@@ -158,12 +160,23 @@ class ExpenseIncomeChart : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
                     0 -> {
-                        updateCalenderFirst(storeAll, daily, true)
+
+                        if (weekNumber != null) {
+                            updateCalenderFirst(weekData!!, daily, true)
+                        } else {
+                            updateCalenderFirst(storeAll, daily, true)
+                        }
                         tabBoolean = true
                     }
 
                     1 -> {
                         updateCalenderFirst(storeAll, daily, false)
+
+                        if (weekNumber != null) {
+                            updateCalenderFirst(weekData!!, daily, false)
+                        } else {
+                            updateCalenderFirst(storeAll, daily, false)
+                        }
                         tabBoolean = false
                     }
                 }
@@ -193,7 +206,8 @@ class ExpenseIncomeChart : AppCompatActivity() {
                 2 -> {
                     calender.add(Calendar.WEEK_OF_YEAR, -1)
                     newForWeek()
-                    updateCalender(storeAll, daily)
+                    weekNumber = calender.get(Calendar.WEEK_OF_YEAR)
+                    updateCalender(weekData!!, daily)
                 }
 
                 3 -> {
@@ -228,8 +242,8 @@ class ExpenseIncomeChart : AppCompatActivity() {
                 2 -> {
                     calender.add(Calendar.WEEK_OF_YEAR, 1)
                     newForWeek()
-                    updateCalender(storeAll, daily)
-
+                    weekNumber = calender.get(Calendar.WEEK_OF_YEAR)
+                    updateCalender(weekData!!, daily)
                 }
 
                 3 -> {
@@ -274,15 +288,19 @@ class ExpenseIncomeChart : AppCompatActivity() {
     private fun newForWeek() {
 
         val sdf = SimpleDateFormat("dd MMM", Locale.getDefault())
+
+
         calender.set(Calendar.DAY_OF_WEEK, calender.firstDayOfWeek)
         val fN = sdf.format(calender.time)
+
         calender.add(Calendar.DAY_OF_WEEK, 6)
         val lN = sdf.format(calender.time)
 
         weekNumber = calender.get(Calendar.WEEK_OF_YEAR)
 
-        val text = "$fN - $lN"
-        storeAll = text
+        val store = "$fN - $lN"
+        weekData = store
+        binding.monthSet.text = weekData
 
     }
 
@@ -291,7 +309,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
     fun updateCalenderFirst(calendar: String, daily: Int, boolean: Boolean) {
 
 
-        binding.monthSet.text = storeAll
+        binding.monthSet.text = calendar
 
 
         if (boolean) {
@@ -352,7 +370,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
 
 
     private fun updateCalender(calendar: String, daily: Int) {
-        binding.monthSet.text = storeAll
+        binding.monthSet.text = calendar
         if (tabBoolean) {
             when (daily) {
                 1 -> {

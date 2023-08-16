@@ -90,6 +90,7 @@ class StatasFragment : Fragment() {
                 }
                 2 ->{
                     calender.add(Calendar.WEEK_OF_YEAR,-1)
+                    weekNumber=calender.get(Calendar.WEEK_OF_YEAR)
                     binding.pieChart.notifyDataSetChanged()
                     dateFormetWeek()
                 }
@@ -118,6 +119,7 @@ class StatasFragment : Fragment() {
                 }
                 2 ->{
                     calender.add(Calendar.WEEK_OF_YEAR,1)
+                    weekNumber=calender.get(Calendar.WEEK_OF_YEAR)
                     binding.pieChart.notifyDataSetChanged()
                     dateFormetWeek()
                 }
@@ -140,12 +142,11 @@ class StatasFragment : Fragment() {
 
         binding.linearLayout2.setOnClickListener{
             val intent=Intent(context,ExpenseIncomeChart::class.java)
-
-            if (store == null || weekNumber == null){
+           if(weekNumber != null){
+            intent.putExtra("week",weekNumber)
+            }
+            if (store == null){
                 intent.putExtra("nowData","select all")
-                intent.putExtra("isFalse",false)
-            }else if(weekNumber != null){
-                intent.putExtra("week",weekNumber)
                 intent.putExtra("isFalse",false)
             } else{
                 intent.putExtra("nowData",store)
@@ -158,11 +159,11 @@ class StatasFragment : Fragment() {
         }
         binding.linearLayout3.setOnClickListener {
             val intent=Intent(context,ExpenseIncomeChart::class.java)
+             if(weekNumber != null){
+            intent.putExtra("week",weekNumber)
+        }
             if (store == null || weekNumber == null){
                 intent.putExtra("nowData","select all")
-            }else if(weekNumber != null){
-                intent.putExtra("week",weekNumber)
-
             } else{
                 intent.putExtra("nowData",store)
             }

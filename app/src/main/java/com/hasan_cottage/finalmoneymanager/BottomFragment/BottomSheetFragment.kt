@@ -57,7 +57,7 @@ class BottomSheetFragment(val intId: Int) : BottomSheetDialogFragment(),
 
 
     lateinit var viewmodelM: Appviewmodel
-
+    val calendar = Calendar.getInstance()
 
     @SuppressLint("ResourceAsColor", "SuspiciousIndentation")
     override fun onCreateView(
@@ -92,7 +92,6 @@ class BottomSheetFragment(val intId: Int) : BottomSheetDialogFragment(),
             var datePickerDialog = context?.let { it1 -> DatePickerDialog(it1) }
             datePickerDialog!!.setOnDateSetListener { datepick, i, i1, i2 ->
 
-                val calendar = Calendar.getInstance()
                 calendar.set(Calendar.DAY_OF_MONTH, datepick.dayOfMonth)
                 calendar.set(Calendar.MONTH, datepick.month)
                 calendar.set(Calendar.YEAR, datepick.year)
@@ -105,16 +104,6 @@ class BottomSheetFragment(val intId: Int) : BottomSheetDialogFragment(),
 
                 getDate = HelperClass.dateFormet(calendar.time)
                 binding.date.setText(getDate)
-
-//                // Calculate the start of the week (Sunday)
-//                val calendarW = calendar.clone() as Calendar
-//                calendarW.set(Calendar.DAY_OF_WEEK, calendarW.firstDayOfWeek)
-//                val sdf = SimpleDateFormat("dd MMM", Locale.getDefault())
-//                weekStart= sdf.format(calendarW.time)
-//
-//                // Calculate the end of the week (Saturday)
-//                calendarW.add(Calendar.DAY_OF_MONTH, 6)
-//               weekEnd = sdf.format(calendarW.time)
 
                 // Get the week number
                 weekNumber = calendar.get(Calendar.WEEK_OF_YEAR)
@@ -130,6 +119,7 @@ class BottomSheetFragment(val intId: Int) : BottomSheetDialogFragment(),
         yearC = yearFormat.format(currentDate.time)
         val dateFormat = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
         getDateMonth = dateFormat.format(currentDate.time)
+        weekNumber = calendar.get(Calendar.WEEK_OF_YEAR)
         getDate = HelperClass.dateFormet(currentDate)
         binding.date.setText(getDate)
 
