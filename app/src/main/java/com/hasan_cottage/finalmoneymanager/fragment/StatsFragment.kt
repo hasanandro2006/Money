@@ -156,15 +156,15 @@ class StatsFragment : Fragment() {
             val intent = Intent(context, ExpenseIncomeChart::class.java)
             if (weekNumber != null) {
                 intent.putExtra("week", weekNumber)
+                intent.putExtra("isFalse", false)
             }
             if (store == null) {
-                intent.putExtra("nowData", "select all")
+                intent.putExtra("nowData", "store")
                 intent.putExtra("isFalse", false)
             } else {
                 intent.putExtra("nowData", store)
                 intent.putExtra("isFalse", false)
             }
-
 
             startActivity(intent)
 
@@ -174,8 +174,8 @@ class StatsFragment : Fragment() {
             if (weekNumber != null) {
                 intent.putExtra("week", weekNumber)
             }
-            if (store == null || weekNumber == null) {
-                intent.putExtra("nowData", "select all")
+            if (store == null) {
+                intent.putExtra("nowData", "select")
             } else {
                 intent.putExtra("nowData", store)
             }

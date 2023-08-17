@@ -64,25 +64,17 @@ class ExpenseIncomeChart : AppCompatActivity() {
         val work = intent.getIntExtra("work", 1)
 
         tabBoolean = if (work == 1) {
-            val work1 = sharedPreferencesTrueFalseCome.getBoolean("U", false)
-            work1
+
+             sharedPreferencesTrueFalseCome.getBoolean("U", false)
         } else {
             intent.getBooleanExtra("isFalse", true)
         }
-
+        tabBoolean=intent.getBooleanExtra("isFalse", true)
         val timeData = intent.getStringExtra("nowData")
         weekNumber = intent.getIntExtra("week", 1)
 
 
         // first time call .............
-        tabBoolean = if (tabBoolean) {
-            binding.tabLayout.getTabAt(0)?.select()
-            true
-        } else {
-            binding.tabLayout.getTabAt(1)?.select()
-            false
-        }
-
 
         when (daily) {
 
@@ -154,19 +146,28 @@ class ExpenseIncomeChart : AppCompatActivity() {
 
         }
 
+        tabBoolean = if (tabBoolean) {
+            binding.tabLayout.getTabAt(0)?.select()
+            true
+        } else {
+            binding.tabLayout.getTabAt(1)?.select()
+            false
+        }
+
+
 
         // click tabview ............
         binding.tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
                     0 -> {
-
                         if (weekNumber != null) {
                             updateCalenderFirst(weekData!!, daily, true)
                         } else {
                             updateCalenderFirst(storeAll, daily, true)
                         }
                         tabBoolean = true
+
                     }
 
                     1 -> {
