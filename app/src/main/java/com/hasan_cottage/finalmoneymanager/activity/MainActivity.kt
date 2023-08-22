@@ -1,6 +1,9 @@
 package com.hasan_cottage.finalmoneymanager.activity
 
+import android.content.Context
 import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import com.hasan_cottage.finalmoneymanager.bottomFragment.BottomSheetFragment
@@ -22,6 +25,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.floatingButton.setOnClickListener {
             BottomSheetFragment(-1,"t").show(supportFragmentManager, null)
+
+
         }
 
         supportFragmentManager.beginTransaction().add(R.id.frameLayout, MainFragment()).commit()

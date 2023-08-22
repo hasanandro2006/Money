@@ -20,7 +20,7 @@ interface DatabaseDaoM{
     fun deleteM(data: ModelM)
 
 
-    @Query("select * from mainTable order by id asc")
+    @Query("select * from mainTable order by date asc")
     fun getDataM():LiveData<List<ModelM>>
 
     @Query("SELECT * FROM mainTable WHERE dateMonth= :year")

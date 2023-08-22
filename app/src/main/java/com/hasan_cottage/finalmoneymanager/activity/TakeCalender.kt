@@ -1,4 +1,5 @@
 package com.hasan_cottage.finalmoneymanager.activity
+
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -14,7 +15,6 @@ import codewithcal.au.calendarappexample.CalendarAdapter
 import com.hasan_cottage.finalmoneymanager.bottomFragment.BottomSheetFragmentCalender
 import com.hasan_cottage.finalmoneymanager.databinding.ActivityTakeCalenderBinding
 import com.hasan_cottage.finalmoneymanager.helper.HelperClass
-import com.hasan_cottage.finalmoneymanager.model.CalenderCa
 import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
@@ -28,8 +28,8 @@ class TakeCalender : AppCompatActivity(), CalendarAdapter.OnItemListener {
     private lateinit var calendarRecyclerView: RecyclerView
     private lateinit var selectedDate: Calendar
     lateinit var binding: ActivityTakeCalenderBinding
-    lateinit var myViewModel:AppViewModel
-    lateinit var daysInMonth:ArrayList<String>
+    lateinit var myViewModel: AppViewModel
+    private lateinit var daysInMonth: ArrayList<String>
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +40,8 @@ class TakeCalender : AppCompatActivity(), CalendarAdapter.OnItemListener {
         // room database
         val daoM = DatabaseAll.getInstanceAll(this).getAllDaoM()
         val repository = Repository(daoM)
-        myViewModel = ViewModelProvider(this, ViewModelFactory(repository))[AppViewModel::class.java]
+        myViewModel =
+            ViewModelProvider(this, ViewModelFactory(repository))[AppViewModel::class.java]
 
         initWidgets()
         selectedDate = Calendar.getInstance()
@@ -49,14 +50,16 @@ class TakeCalender : AppCompatActivity(), CalendarAdapter.OnItemListener {
 
         binding.back.setOnClickListener { onBackPressed() }
     }
+
     private fun initWidgets() {
         calendarRecyclerView = binding.calendarRecyclerView
         monthYearText = binding.monthYearTV
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun setIncomeExpense(){
-        val data=monthYearFromDate(selectedDate)
-        myViewModel.getMonth(data).observe(this){
+    private fun setIncomeExpense() {
+        val data = monthYearFromDate(selectedDate)
+        myViewModel.getMonth(data).observe(this) {
             var storeT = 0.0
             var incomeT = 0.0
             var expenseT = 0.0
@@ -78,8 +81,6 @@ class TakeCalender : AppCompatActivity(), CalendarAdapter.OnItemListener {
     }
 
 
-
-
     @RequiresApi(Build.VERSION_CODES.O)
     private fun daysInMonthArray(calendar: Calendar): ArrayList<String> {
         val daysInMonthArray = ArrayList<String>()
@@ -95,13 +96,13 @@ class TakeCalender : AppCompatActivity(), CalendarAdapter.OnItemListener {
         val dayOfWeek = firstOfMonth.get(Calendar.DAY_OF_WEEK)
 
 
-            for (i in 1..42) {
-                if (i <= dayOfWeek || i > daysInMonth + dayOfWeek) {
-                    daysInMonthArray.add(",,",)
-                } else {
-                    daysInMonthArray.add((i - dayOfWeek).toString())
-                }
+        for (i in 1..42) {
+            if (i <= dayOfWeek || i > daysInMonth + dayOfWeek) {
+                daysInMonthArray.add(",,")
+            } else {
+                daysInMonthArray.add((i - dayOfWeek).toString())
             }
+        }
 
         return daysInMonthArray
     }
@@ -119,13 +120,14 @@ class TakeCalender : AppCompatActivity(), CalendarAdapter.OnItemListener {
         setMonthView()
         setIncomeExpense()
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setMonthView() {
         monthYearText.text = monthYearFromDate(selectedDate)
-        daysInMonth= daysInMonthArray(selectedDate)
-        val data=monthYearFromDate(selectedDate)
+        daysInMonth = daysInMonthArray(selectedDate)
+        val data = monthYearFromDate(selectedDate)
 
-        val calendarAdapter = CalendarAdapter(daysInMonth, this,myViewModel,data)
+        val calendarAdapter = CalendarAdapter(daysInMonth, this, myViewModel, data)
         val layoutManager = GridLayoutManager(applicationContext, 7)
         calendarRecyclerView.layoutManager = layoutManager
         calendarRecyclerView.adapter = calendarAdapter
@@ -138,14 +140,15 @@ class TakeCalender : AppCompatActivity(), CalendarAdapter.OnItemListener {
         val formatter = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
         return formatter.format(calendar.time)
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onItemClick(position: Int, dayText: String) {
 
         if (dayText != ",,") {
-            val bottomSheet=BottomSheetFragmentCalender(dayText,monthYearFromDate(selectedDate))
-            bottomSheet.show(supportFragmentManager,bottomSheet.tag)
-        }else{
-            Toast.makeText(this,"Not Data",Toast.LENGTH_SHORT).show()
+            val bottomSheet = BottomSheetFragmentCalender(dayText, monthYearFromDate(selectedDate))
+            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+        } else {
+            Toast.makeText(this, "empty", Toast.LENGTH_SHORT).show()
         }
     }
 }

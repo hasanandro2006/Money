@@ -9,6 +9,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.ViewModelProvider
@@ -171,6 +172,13 @@ class BottomSheetFragment(private val intId: Int, private  val string: String) :
             updateAllWork(applicationContext)
         }
 
+        // Automatic not come keyboard ......
+        binding.amount.post {
+            val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(binding.amount.windowToken, 0)
+        }
+
+
         return binding.root
     }
 
@@ -234,6 +242,7 @@ class BottomSheetFragment(private val intId: Int, private  val string: String) :
             }
             // Add item
             else {
+
                 val getEditText = binding.amount.text.toString()
                 getAmount = getEditText.toDoubleOrNull()
                 var getNote = binding.note.text.toString()
