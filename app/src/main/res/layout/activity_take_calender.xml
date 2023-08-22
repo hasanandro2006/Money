@@ -101,12 +101,12 @@
                     app:tint="@color/white" />
 
             </LinearLayout>
-            <ImageView
+            <ImageButton
                 android:layout_marginStart="15dp"
                 android:id="@+id/month_1"
-                android:onClick="previousMonthAction"
-                android:layout_width="25dp"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
+                android:background="@android:color/transparent"
                 android:layout_centerVertical="true"
                 android:src="@drawable/left"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -116,17 +116,17 @@
 
 
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/month_2"
-                android:layout_width="25dp"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="15dp"
-                android:onClick="nextMonthAction"
                 android:src="@drawable/right"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:background="@android:color/transparent"
                 app:tint="@color/white" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </RelativeLayout>
