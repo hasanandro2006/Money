@@ -65,14 +65,12 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2"
 
     // Kotlin navigation component
-    def nav_version = "2.6.0"
+    def nav_version = "2.7.0"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     
     // set chart
     implementation 'com.github.AnyChart:AnyChart-Android:1.1.5'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
-
-
-
+    
 }

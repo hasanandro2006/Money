@@ -77,7 +77,7 @@ class RecordActivity : AppCompatActivity() {
                 .show()
         }
         binding.edit.setOnClickListener {
-            val bottomSheetFragment = BottomSheetFragment(id)
+            val bottomSheetFragment = BottomSheetFragment(id,"t")
             bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
         }
         binding.back.setOnClickListener {

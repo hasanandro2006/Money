@@ -26,14 +26,16 @@
         android:id="@+id/floatingButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="?android:attr/colorActivatedHighlight"
+        android:backgroundTint="@color/hole"
         android:src="@drawable/baseline_add"
+        android:tint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.97" />
+        app:layout_constraintVertical_bias="0.97"
+        android:contentDescription="@string/floatingButton"/>
 
     <FrameLayout
         android:id="@+id/frameLayout"

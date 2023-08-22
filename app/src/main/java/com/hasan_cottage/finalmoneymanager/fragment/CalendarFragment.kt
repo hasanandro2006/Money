@@ -1,6 +1,7 @@
 package com.hasan_cottage.finalmoneymanager.fragment
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hasan_cottage.finalmoneymanager.adapter.AdapterMainRecyclerview
 import com.hasan_cottage.finalmoneymanager.helper.HelperClass
 import com.hasan_cottage.finalmoneymanager.R
+import com.hasan_cottage.finalmoneymanager.activity.TakeCalender
 import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.ModelM
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
@@ -158,6 +160,9 @@ class CalendarFragment : Fragment() {
             val bottomSheetFragment = BottomSheetFragmentName(1)
             bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
         }
+        binding.dittles.setOnClickListener {
+            startActivity(Intent(context,TakeCalender::class.java))
+        }
 
         return binding.root
     }
@@ -207,7 +212,6 @@ class CalendarFragment : Fragment() {
     }
 
     private fun setForMonth(context: Context) {
-
         myViewModel.getMonth(store!!).observe(viewLifecycleOwner) {
             sameCodeSet(context, it)
         }

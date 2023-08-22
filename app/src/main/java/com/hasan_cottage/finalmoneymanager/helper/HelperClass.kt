@@ -46,7 +46,7 @@ class HelperClass {
         }
 
         fun dateFormat(date: Date): String {
-            val dateFormat = SimpleDateFormat("dd MMM yyyy")
+            val dateFormat = SimpleDateFormat("dd MMMM yyyy")
             return dateFormat.format(date)
         }
 

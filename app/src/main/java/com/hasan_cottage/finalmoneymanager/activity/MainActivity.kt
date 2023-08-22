@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.floatingButton.setOnClickListener {
-            BottomSheetFragment(-1).show(supportFragmentManager, null)
+            BottomSheetFragment(-1,"t").show(supportFragmentManager, null)
         }
 
         supportFragmentManager.beginTransaction().add(R.id.frameLayout, MainFragment()).commit()

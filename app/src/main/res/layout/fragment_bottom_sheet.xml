@@ -36,8 +36,7 @@
                     android:padding="10dp"
                     android:text="@string/income"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/expensivBtn"
@@ -51,8 +50,7 @@
                     android:padding="10dp"
                     android:text="@string/expense"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout

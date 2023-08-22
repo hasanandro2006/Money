@@ -7,7 +7,7 @@
     <item
         android:id="@+id/tow"
         android:title="Calendar"
-        android:icon="@drawable/calendar"
+        android:icon="@drawable/datechose"
         />
     <item
         android:id="@+id/op"

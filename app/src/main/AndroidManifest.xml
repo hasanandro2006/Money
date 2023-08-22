@@ -13,13 +13,13 @@
         android:theme="@style/Theme.FinalMoneyManager"
         tools:targetApi="31">
         <activity
+            android:name=".activity.TakeCalender"
+            android:exported="false" />
+        <activity
             android:name=".activity.RecordActivity"
             android:exported="false" />
         <activity
             android:name=".activity.ExpenseIncomeChart"
-            android:exported="false" />
-        <activity
-            android:name=".activity.Store_activiyy"
             android:exported="false" />
         <activity
             android:name=".activity.MainActivity"

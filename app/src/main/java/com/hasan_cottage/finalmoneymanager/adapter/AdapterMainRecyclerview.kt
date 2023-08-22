@@ -79,7 +79,7 @@ class AdapterMainRecyclerview(
             popupMenu.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.edit -> {
-                        val bottomSheetFragment = BottomSheetFragment(arrayList[position].id)
+                        val bottomSheetFragment = BottomSheetFragment(arrayList[position].id,"t")
                         bottomSheetFragment.show(
                             context.supportFragmentManager,
                             bottomSheetFragment.tag

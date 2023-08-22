@@ -7,8 +7,8 @@
     <string name="select_currency">Select country currency</string>
     <string name="next">NEXT</string>
     <string name="select_your_country_currency">Select your country currency</string>
-    <string name="search_currency_name">Search currency name...</string>
-    <string name="here_hame">Here Hame</string>
+    <string name="search_currency_name">Search currency name…</string>
+    <string name="hereName">Here Name</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="save_transaction">Save Transaction</string>
@@ -29,11 +29,37 @@
     <string name="monthly">Monthly</string>
     <string name="transaction">Transaction</string>
 
-<!-- %s use for convert any symbol to string -->
+    <!-- %s use for convert any symbol to string -->
     <string name="amount_text">-%s</string>
     <string name="currency_with_symbol">(%s)</string>
     <string name="D">(%s)</string>
     <string name="all_transaction">All Transaction</string>
     <string name="project_name">Project name</string>
+    <string name="floatingButton">FloatingButton</string>
+    <string name="accountA">Account</string>
+    <string name="date">Date</string>
+    <string name="type">Type</string>
+    <string name="noteA">Note</string>
+    <string name="textviewA">TextView</string>
+    <string name="amountM">Amount</string>
+    <string name="categoryM">Category</string>
+    <string name="record">Record</string>
+    <string name="i_apologize">I apologize for any misunderstanding</string>
+    <string name="delete">delete</string>
+    <string name="edite">edite</string>
+    <string name="transportation">Transportation</string>
+    <string name="imageback">Image Bac</string>
+    <string name="back"><![CDATA[<-]]></string>
+    <string name="forward"><![CDATA[->]]></string>
+    <string name="sun">SUN</string>
+    <string name="mon">MON</string>
+    <string name="tue">TUE</string>
+    <string name="wed">WED</string>
+    <string name="thur">THUR</string>
+    <string name="fri">FRI</string>
+    <string name="sat">SAT</string>
+    <string name="structure">Structure</string>
+    <string name="calendar">Calendar</string>
+    <string name="add">Add</string>
 
 </resources>

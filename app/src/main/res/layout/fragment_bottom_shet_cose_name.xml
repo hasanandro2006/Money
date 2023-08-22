@@ -15,7 +15,7 @@
         android:fontFamily="@font/roboto_medium"
         android:text="Select time"
         android:textColor="@color/black"
-        android:textSize="25dp"
+        android:textSize="23dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

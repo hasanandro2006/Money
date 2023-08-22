@@ -1,6 +1,8 @@
 package com.hasan_cottage.finalmoneymanager.fragment
 
+
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,15 +14,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
-import com.hasan_cottage.finalmoneymanager.adapter.AdapterMainRecyclerview
-import com.hasan_cottage.finalmoneymanager.helper.HelperClass
 import com.hasan_cottage.finalmoneymanager.R
-import com.hasan_cottage.finalmoneymanager.roomDatabaseNot.DatabaseTow
+import com.hasan_cottage.finalmoneymanager.activity.TakeCalender
+import com.hasan_cottage.finalmoneymanager.adapter.AdapterMainRecyclerview
+import com.hasan_cottage.finalmoneymanager.bottomFragment.BottomSheetFragmentTow
+import com.hasan_cottage.finalmoneymanager.databinding.FragmentMainBinding
+import com.hasan_cottage.finalmoneymanager.helper.HelperClass
 import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.ModelM
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
-import com.hasan_cottage.finalmoneymanager.bottomFragment.BottomSheetFragmentTow
-import com.hasan_cottage.finalmoneymanager.databinding.FragmentMainBinding
+import com.hasan_cottage.finalmoneymanager.roomDatabaseNot.DatabaseTow
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
 import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
 import java.text.SimpleDateFormat
@@ -91,6 +94,10 @@ class MainFragment : Fragment() {
 
             }
         })
+
+        binding.dittles.setOnClickListener {
+            startActivity(Intent(context, TakeCalender::class.java))
+        }
 
         //first time not click this time run this code and come daily trans
         dailyTranslation(context)

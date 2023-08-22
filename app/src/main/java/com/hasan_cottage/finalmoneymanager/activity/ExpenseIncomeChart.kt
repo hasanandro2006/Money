@@ -54,6 +54,9 @@ class ExpenseIncomeChart : AppCompatActivity() {
         myViewModel =
             ViewModelProvider(this, ViewModelFactory(repository))[AppViewModel::class.java]
 
+        binding.back.setOnClickListener {
+            onBackPressed()
+        }
 
         val sharedPreferences = getSharedPreferences("Time", Context.MODE_PRIVATE)
         val daily: Int = sharedPreferences.getInt("Daily", 1)
@@ -71,7 +74,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
         }
         tabBoolean=intent.getBooleanExtra("isFalse", true)
         val timeData = intent.getStringExtra("nowData")
-        weekNumber = intent.getIntExtra("week", 1)
+        weekNumber = intent.getIntExtra("week", 0)
 
 
         // first time call .............
@@ -79,7 +82,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
         when (daily) {
 
             1 -> {
-                val outputFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+                val outputFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
                 if (timeData != null) {
                     val t = outputFormat.parse(timeData.toString())!!
                     calender.time = t
@@ -161,7 +164,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
                     0 -> {
-                        if (weekNumber != null) {
+                        if (weekNumber != 0) {
                             updateCalenderFirst(weekData!!, daily, true)
                         } else {
                             updateCalenderFirst(storeAll, daily, true)
@@ -173,7 +176,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                     1 -> {
                         updateCalenderFirst(storeAll, daily, false)
 
-                        if (weekNumber != null) {
+                        if (weekNumber != 0) {
                             updateCalenderFirst(weekData!!, daily, false)
                         } else {
                             updateCalenderFirst(storeAll, daily, false)
@@ -199,7 +202,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
             when (daily) {
                 1 -> {
                     calender.add(Calendar.DAY_OF_MONTH, -1)
-                    val outputFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+                    val outputFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
                     storeAll = outputFormat.format(calender.time)
                     updateCalender(storeAll, daily)
                 }
@@ -235,7 +238,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
             when (daily) {
                 1 -> {
                     calender.add(Calendar.DAY_OF_MONTH, 1)
-                    val outputFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+                    val outputFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
                     storeAll = outputFormat.format(calender.time)
                     updateCalender(storeAll, daily)
                 }

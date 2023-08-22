@@ -35,7 +35,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class BottomSheetFragment(private val intId: Int) : BottomSheetDialogFragment(),
+class BottomSheetFragment(private val intId: Int, private  val string: String) : BottomSheetDialogFragment(),
     AdapterCategory.CategoryClick, AdapterAccount.ClickItem {
 
 
@@ -120,7 +120,12 @@ class BottomSheetFragment(private val intId: Int) : BottomSheetDialogFragment(),
         val dateFormat = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
         getDateMonth = dateFormat.format(currentDate.time)
         weekNumber = calendar.get(Calendar.WEEK_OF_YEAR)
-        getDate = HelperClass.dateFormat(currentDate)
+
+        getDate = if (string == "t") {
+            HelperClass.dateFormat(currentDate)
+        }else{
+            string
+        }
         binding.date.setText(getDate)
 
 
@@ -165,6 +170,7 @@ class BottomSheetFragment(private val intId: Int) : BottomSheetDialogFragment(),
         if (intId != -1) {
             updateAllWork(applicationContext)
         }
+
         return binding.root
     }
 
@@ -224,6 +230,7 @@ class BottomSheetFragment(private val intId: Int) : BottomSheetDialogFragment(),
                         yearC!!
                     )
                 }
+                dismiss()
             }
             // Add item
             else {
@@ -250,7 +257,6 @@ class BottomSheetFragment(private val intId: Int) : BottomSheetDialogFragment(),
                                 getNote,
                                 yearC!!,
                                 weekNumber!!,
-
                                 )
                         )
                     }
