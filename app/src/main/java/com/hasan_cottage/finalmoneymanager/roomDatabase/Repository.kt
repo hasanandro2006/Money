@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 class Repository(private val databaseDaoM: DatabaseDaoM) {
 
     // dat for M
-    fun insertM(model:ModelM){
+     fun insertM(model:ModelM){
         databaseDaoM.insertM(model)
     }
     fun updateM(model: ModelM){

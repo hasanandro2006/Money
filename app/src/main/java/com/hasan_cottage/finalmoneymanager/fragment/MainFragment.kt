@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.hasan_cottage.finalmoneymanager.R
+import com.hasan_cottage.finalmoneymanager.activity.SearchActivity
 import com.hasan_cottage.finalmoneymanager.activity.TakeCalender
 import com.hasan_cottage.finalmoneymanager.adapter.AdapterMainRecyclerview
 import com.hasan_cottage.finalmoneymanager.bottomFragment.BottomSheetFragmentTow
@@ -26,9 +27,13 @@ import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
 import com.hasan_cottage.finalmoneymanager.roomDatabaseNot.DatabaseTow
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
 import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import kotlin.concurrent.thread
 
 
 class MainFragment : Fragment() {
@@ -96,7 +101,14 @@ class MainFragment : Fragment() {
         })
 
         binding.dittles.setOnClickListener {
-            startActivity(Intent(context, TakeCalender::class.java))
+            MainScope().launch(Dispatchers.Default){
+                startActivity(Intent(context, TakeCalender::class.java))
+            }
+        }
+        binding.searce.setOnClickListener {
+            MainScope().launch(Dispatchers.Default){
+                startActivity(Intent(context, SearchActivity::class.java))
+            }
         }
 
         //first time not click this time run this code and come daily trans

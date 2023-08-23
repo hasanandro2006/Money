@@ -17,7 +17,7 @@ interface DatabaseDaoM{
     fun updateM(data: ModelM)
 
     @Delete
-    fun deleteM(data: ModelM)
+     fun deleteM(data: ModelM)
 
 
     @Query("select * from mainTable order by date asc")

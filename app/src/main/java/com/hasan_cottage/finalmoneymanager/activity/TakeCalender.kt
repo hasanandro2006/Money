@@ -19,9 +19,14 @@ import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
 import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import kotlin.concurrent.thread
 
 class TakeCalender : AppCompatActivity(), CalendarAdapter.OnItemListener {
     private lateinit var monthYearText: TextView
@@ -109,16 +114,21 @@ class TakeCalender : AppCompatActivity(), CalendarAdapter.OnItemListener {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun previousMonthAction(view: View) {
-        selectedDate.add(Calendar.MONTH, -1)
-        setMonthView()
-        setIncomeExpense()
+       MainScope().launch (Dispatchers.Main){
+            selectedDate.add(Calendar.MONTH, -1)
+            setMonthView()
+            setIncomeExpense()
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun nextMonthAction(view: View) {
-        selectedDate.add(Calendar.MONTH, 1)
-        setMonthView()
-        setIncomeExpense()
+
+       MainScope().launch (Dispatchers.Main){
+           selectedDate.add(Calendar.MONTH, 1)
+           setMonthView()
+           setIncomeExpense()
+       }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

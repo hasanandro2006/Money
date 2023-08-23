@@ -30,6 +30,7 @@ import com.hasan_cottage.finalmoneymanager.databinding.RandomRecyclerviewBinding
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
 import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
 import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -254,7 +255,7 @@ class BottomSheetFragment(private val intId: Int, private  val string: String) :
                     Toast.makeText(applicationContext, "Please add Value", Toast.LENGTH_SHORT)
                         .show()
                 } else {
-                    GlobalScope.launch {
+                    GlobalScope.launch(Dispatchers.IO){
                         myViewModel.insertM(
                             ModelM(
                                 dataType!!,

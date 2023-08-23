@@ -9,7 +9,7 @@ class AppViewModel(private val repository: Repository): ViewModel(){
 
 
     // data for M
-    fun insertM(model: ModelM){
+     fun insertM(model: ModelM){
         repository.insertM(model)
     }
 
