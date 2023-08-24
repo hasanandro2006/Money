@@ -22,8 +22,9 @@
     <color name="sx">#FFC300</color>
     <color name="s">#FFC300</color>
     <color name="gray2">#FFE28A</color>
-    <color name="gray1">#000000</color>
-    <color name="gray">#DEDEDE</color>
+    <color name="gray3">#FBEAB7</color>
+    <color name="gray1">#DEDEDE</color>
+    <color name="gray">#000000</color>
 
 
 </resources>

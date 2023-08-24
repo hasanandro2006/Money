@@ -99,7 +99,12 @@ class ExpenseIncomeChart : AppCompatActivity() {
             2 -> {
                 storeAll = "Work"
                 weekData = "Hasan"
-                calender.set(Calendar.WEEK_OF_YEAR, weekNumber!!)
+                if(weekNumber != 0) {
+                    calender.set(Calendar.WEEK_OF_YEAR, weekNumber!!)
+                    weekNumber=0
+                }else{
+                    calender.get(Calendar.WEEK_OF_YEAR)
+                }
                 newForWeek()
                 if (tabBoolean) {
                     updateCalenderFirst(weekData!!, daily, true)
@@ -513,8 +518,6 @@ class ExpenseIncomeChart : AppCompatActivity() {
             val chart = binding.pieChart
             chart.clear() // Clear previous data
             chart.setNoDataText("") // Clear the "No data available" text
-            val layoutParams = chart.layoutParams
-            layoutParams.height = 500
 
             // Set a single color for the chart when there's no data
             val noDataColor = Color.parseColor("#D3D3D3") // Use a desired color
@@ -580,6 +583,19 @@ class ExpenseIncomeChart : AppCompatActivity() {
                     this, DividerItemDecoration.VERTICAL
                 )
             )
+
+            // entry label styling
+            chart.setEntryLabelColor(Color.WHITE)
+            chart.setEntryLabelTextSize(1f)
+
+            chart.setHoleColor(Color.TRANSPARENT)
+            chart.setTransparentCircleColor(Color.TRANSPARENT)
+            chart.transparentCircleRadius = 60f
+            chart.holeRadius = 70f
+
+            val layoutParams = chart.layoutParams
+            layoutParams.height = 500
+            // Set the desired height in pixels
 
         } else {
 
@@ -797,8 +813,6 @@ class ExpenseIncomeChart : AppCompatActivity() {
             val chart = binding.pieChart
             chart.clear() // Clear previous data
             chart.setNoDataText("") // Clear the "No data available" text
-            val layoutParams = chart.layoutParams
-            layoutParams.height = 500
 
             // Set a single color for the chart when there's no data
             val noDataColor = Color.parseColor("#D3D3D3") // Use a desired color
@@ -862,6 +876,18 @@ class ExpenseIncomeChart : AppCompatActivity() {
                     this, DividerItemDecoration.VERTICAL
                 )
             )
+            // entry label styling
+            chart.setEntryLabelColor(Color.WHITE)
+            chart.setEntryLabelTextSize(1f)
+
+            chart.setHoleColor(Color.TRANSPARENT)
+            chart.setTransparentCircleColor(Color.TRANSPARENT)
+            chart.transparentCircleRadius = 60f
+            chart.holeRadius = 70f
+
+            val layoutParams = chart.layoutParams
+            layoutParams.height = 500
+            // Set the desired height in pixels
 
         } else {
 

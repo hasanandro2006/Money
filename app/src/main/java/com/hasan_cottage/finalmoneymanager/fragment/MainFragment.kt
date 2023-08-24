@@ -33,7 +33,6 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-import kotlin.concurrent.thread
 
 
 class MainFragment : Fragment() {

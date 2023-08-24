@@ -5,18 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.hasan_cottage.finalmoneymanager.bottomFragment.BottomSheetFragment
-import com.hasan_cottage.finalmoneymanager.model.CategoryModel
 import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.databinding.DegineForCatagoryBinding
-
-
-
+import com.hasan_cottage.finalmoneymanager.model.CategoryModel
+import java.util.ArrayList
 
 class AdapterCategory(
     val context: Context,
-    private var arrayList:ArrayList<CategoryModel>,
-    private val categoryClick: BottomSheetFragment
+    private var arrayList: ArrayList<CategoryModel>,
+    private val categoryClick: CategoryClick
 ): RecyclerView.Adapter<AdapterCategory.AdapterViewHolder>(){
 
      interface CategoryClick{

@@ -16,17 +16,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.adapter.AdapterAccount
 import com.hasan_cottage.finalmoneymanager.adapter.AdapterCategory
+import com.hasan_cottage.finalmoneymanager.databinding.FragmentBottomSheetBinding
+import com.hasan_cottage.finalmoneymanager.databinding.RandomRecyclerviewBinding
 import com.hasan_cottage.finalmoneymanager.helper.HelperClass
 import com.hasan_cottage.finalmoneymanager.model.AccountModel
 import com.hasan_cottage.finalmoneymanager.model.CategoryModel
-import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.ModelM
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
-import com.hasan_cottage.finalmoneymanager.databinding.FragmentBottomSheetBinding
-import com.hasan_cottage.finalmoneymanager.databinding.RandomRecyclerviewBinding
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
 import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -134,8 +134,7 @@ class BottomSheetFragment(private val intId: Int, private  val string: String) :
         // Category Click listener ...........
         binding.category.setOnClickListener {
             val random = RandomRecyclerviewBinding.inflate(inflater) // any single layout call
-            val adapter =
-                context?.let { it1 -> AdapterCategory(it1, HelperClass.categoryItem(), this) }
+            val adapter = context?.let { it1 -> AdapterCategory(it1, HelperClass.categoryItem(), this) }
             random.randomRecyclerview.adapter = adapter
             random.randomRecyclerview.setHasFixedSize(true)
             random.randomRecyclerview.layoutManager = GridLayoutManager(context, 3)
