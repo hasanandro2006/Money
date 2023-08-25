@@ -8,6 +8,8 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -19,15 +21,23 @@ import com.hasan_cottage.finalmoneymanager.helper.HelperClass
 import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.roomDatabase.ModelM
 import com.hasan_cottage.finalmoneymanager.databinding.DegineForMainactivityBinding
+import com.hasan_cottage.finalmoneymanager.model.MyModel
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.util.Locale
 
 class AdapterMainRecyclerview(
     val context: AppCompatActivity,
-    private val arrayList: List<ModelM>
-) : RecyclerView.Adapter<AdapterMainRecyclerview.AdapterViewHolder>() {
+    private var arrayList: List<ModelM>
+) : RecyclerView.Adapter<AdapterMainRecyclerview.AdapterViewHolder>(), Filterable {
+
+    var stoke: List<ModelM> = ArrayList()
+
+    init {
+        stoke = ArrayList(arrayList)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterViewHolder {
         return AdapterViewHolder(
@@ -79,7 +89,7 @@ class AdapterMainRecyclerview(
             popupMenu.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.edit -> {
-                        val bottomSheetFragment = BottomSheetFragment(arrayList[position].id,"t")
+                        val bottomSheetFragment = BottomSheetFragment(arrayList[position].id, "t")
                         bottomSheetFragment.show(
                             context.supportFragmentManager,
                             bottomSheetFragment.tag
@@ -136,6 +146,38 @@ class AdapterMainRecyclerview(
 
     class AdapterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = DegineForMainactivityBinding.bind(itemView)
+    }
+
+    override fun getFilter(): Filter {
+        return filterView
+    }
+
+    private val filterView: Filter = object : Filter() {
+        override fun performFiltering(charSequence: CharSequence): FilterResults {
+            val filterData: MutableList<ModelM> = ArrayList()
+
+            if (charSequence.toString().isEmpty()) {
+                filterData.addAll(stoke) // Restore original data
+            } else {
+                for (obj in stoke) {
+                    if (obj.category.lowercase()
+                            .contains(charSequence.toString().lowercase(Locale.getDefault()))
+                    ) {
+                        filterData.add(obj)
+                    }
+                }
+            }
+
+            val results = FilterResults()
+            results.values = filterData
+            return results
+        }
+
+        override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
+            // Set the filtered data into the arrayList passed from activity
+            arrayList = filterResults.values as List<ModelM>
+            notifyDataSetChanged()
+        }
     }
 
 }

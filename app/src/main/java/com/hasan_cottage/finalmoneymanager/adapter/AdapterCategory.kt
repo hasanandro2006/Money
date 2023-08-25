@@ -19,7 +19,8 @@ class AdapterCategory(
      interface CategoryClick{
         fun click(category:CategoryModel)
 
-    }
+
+     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterViewHolder {
         return AdapterViewHolder(LayoutInflater.from(context).inflate(R.layout.degine_for_catagory,parent,false))
 

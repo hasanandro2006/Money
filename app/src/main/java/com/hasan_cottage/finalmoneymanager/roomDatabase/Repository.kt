@@ -28,6 +28,12 @@ class Repository(private val databaseDaoM: DatabaseDaoM) {
     fun getDataDaily(day:String):LiveData<List<ModelM>>{
         return databaseDaoM.getDataDaily(day)
     }
+    fun getDataCalender(day:String,category:String):LiveData<List<ModelM>>{
+        return databaseDaoM.getDataCalender(day,category)
+    }
+    fun getDataCalenderCategory(category:String):LiveData<List<ModelM>>{
+        return databaseDaoM.getDataCalenderCategory(category)
+    }
     fun getDataBetweenDates(seekNumber:Int): LiveData<List<ModelM>>{
         return databaseDaoM.getDataBetweenDates(seekNumber)
     }

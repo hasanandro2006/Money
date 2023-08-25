@@ -29,6 +29,12 @@ class AppViewModel(private val repository: Repository): ViewModel(){
     fun getDataDaily(day:String):LiveData<List<ModelM>>{
         return repository.getDataDaily(day)
     }
+    fun getDataCalender(day:String,category:String):LiveData<List<ModelM>>{
+        return repository.getDataCalender(day,category)
+    }
+    fun getDataCalenderCategory(category:String):LiveData<List<ModelM>>{
+        return repository.getDataCalenderCategory(category)
+    }
     fun getDataBetweenDates(seekNumber:Int): LiveData<List<ModelM>>{
         return repository.getDataBetweenDates(seekNumber)
     }
