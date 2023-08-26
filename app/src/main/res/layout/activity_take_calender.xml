@@ -23,13 +23,19 @@
             android:layout_height="50dp">
 
             <ImageButton
-                android:layout_marginStart="20dp"
                 android:id="@+id/back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/arrow_back"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="10dp"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:background="@android:color/transparent"/>
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/imageback"
+                android:src="@drawable/baseline_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/black" />
 
             <TextView
                 android:layout_toEndOf="@+id/back"
@@ -37,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="15dp"
                 android:fontFamily="@font/roboto"
                 android:singleLine="true"
                 android:text="@string/calendar"

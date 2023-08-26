@@ -21,6 +21,7 @@ import com.hasan_cottage.finalmoneymanager.adapter.AdapterAccount
 import com.hasan_cottage.finalmoneymanager.adapter.AdapterCategory
 import com.hasan_cottage.finalmoneymanager.databinding.FragmentBottomSheetBinding
 import com.hasan_cottage.finalmoneymanager.databinding.RandomRecyclerviewBinding
+import com.hasan_cottage.finalmoneymanager.fragment.MainFragment
 import com.hasan_cottage.finalmoneymanager.helper.HelperClass
 import com.hasan_cottage.finalmoneymanager.model.AccountModel
 import com.hasan_cottage.finalmoneymanager.model.CategoryModel
@@ -270,6 +271,7 @@ class BottomSheetFragment(private val intId: Int, private  val string: String) :
                         )
                     }
                     dismiss()
+                   
                 }
 
 

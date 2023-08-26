@@ -246,12 +246,48 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="3dp"
+        android:background="@color/gray2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_1" />
+
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="2dp"
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <ImageView
+        android:id="@+id/noDataI"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/emptydata"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/recyclerView"
         app:layout_constraintTop_toBottomOf="@+id/top_1"
-        tools:layout_editor_absoluteX="0dp" />
+        app:tint="@color/gray1" />
+
+    <TextView
+        android:id="@+id/noDataT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="No data available"
+        android:textColor="@color/gray1"
+        android:fontFamily="@font/roboto"
+        app:layout_constraintEnd_toEndOf="@+id/noDataI"
+        app:layout_constraintStart_toStartOf="@+id/noDataI"
+        app:layout_constraintTop_toBottomOf="@+id/noDataI" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

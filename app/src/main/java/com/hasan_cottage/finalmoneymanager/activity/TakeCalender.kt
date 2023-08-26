@@ -1,5 +1,6 @@
 package com.hasan_cottage.finalmoneymanager.activity
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -47,6 +48,12 @@ class TakeCalender : AppCompatActivity(), CalendarAdapter.OnItemListener {
         val repository = Repository(daoM)
         myViewModel =
             ViewModelProvider(this, ViewModelFactory(repository))[AppViewModel::class.java]
+
+        binding.searce.setOnClickListener {
+            MainScope().launch(Dispatchers.Default){
+                startActivity(Intent(this@TakeCalender, SearchActivity::class.java))
+            }
+        }
 
         initWidgets()
         selectedDate = Calendar.getInstance()

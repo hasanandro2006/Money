@@ -21,10 +21,14 @@ import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.ModelM
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
 import com.hasan_cottage.finalmoneymanager.activity.ExpenseIncomeChart
+import com.hasan_cottage.finalmoneymanager.activity.SearchActivity
 import com.hasan_cottage.finalmoneymanager.bottomFragment.BottomSheetFragmentName
 import com.hasan_cottage.finalmoneymanager.databinding.FragmentStatasBinding
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
 import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -53,6 +57,12 @@ class StatsFragment : Fragment() {
         val repository = Repository(daoM)
         myViewModel =
             ViewModelProvider(this, ViewModelFactory(repository))[AppViewModel::class.java]
+
+        binding.searce.setOnClickListener {
+            MainScope().launch(Dispatchers.Default){
+                startActivity(Intent(context, SearchActivity::class.java))
+            }
+        }
 
         val sharedPreferences = context.getSharedPreferences("Time", Context.MODE_PRIVATE)
         val daily: Int = sharedPreferences.getInt("Daily", 1)

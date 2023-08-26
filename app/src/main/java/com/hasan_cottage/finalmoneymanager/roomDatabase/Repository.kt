@@ -8,6 +8,9 @@ class Repository(private val databaseDaoM: DatabaseDaoM) {
      fun insertM(model:ModelM){
         databaseDaoM.insertM(model)
     }
+    fun deleteAllItems(){
+        databaseDaoM.deleteAllItems()
+    }
     fun updateM(model: ModelM){
         databaseDaoM.updateM(model)
     }

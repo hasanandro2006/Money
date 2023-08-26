@@ -5,19 +5,19 @@
     android:layout_width="match_parent"
     android:padding="5dp"
     android:background="@color/white"
-    android:layout_height="wrap_content">
+    android:layout_height="70dp">
 
     <ImageView
-        android:layout_marginStart="5dp"
         android:id="@+id/imageView"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginStart="5dp"
         android:background="@drawable/shape_for_monyrecy"
         android:padding="10dp"
         android:src="@drawable/transaction"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/white" />
 
     <LinearLayout
@@ -27,7 +27,8 @@
         android:layout_marginStart="8dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView">
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/cotagore"
@@ -35,8 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/roboto"
-            android:textColor="@color/black"
             android:text="Bussnes"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <LinearLayout
@@ -46,27 +47,27 @@
             android:orientation="horizontal">
 
             <TextView
-                android:fontFamily="@font/number_four"
                 android:id="@+id/account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/shape_for_floating"
+                android:fontFamily="@font/number_four"
                 android:padding="1dp"
                 android:text="Cash"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
 
             <TextView
-                android:textColor="#7F5C5C5C"
                 android:id="@+id/datee"
-                android:fontFamily="@font/number_four"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
-                android:textSize="12sp"
-                android:text="@string/_12_may_2023" />
+                android:fontFamily="@font/number_four"
+                android:text="@string/_12_may_2023"
+                android:textColor="#7F5C5C5C"
+                android:textSize="12sp" />
         </LinearLayout>
 
 

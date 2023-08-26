@@ -63,4 +63,14 @@
     <string name="add">Add</string>
     <string name="search">search....</string>
 
+
+    <!-- for setting page-->
+    <string name="a">Back main</string>
+    <string name="b">Privacy Policy</string>
+    <string name="c">Rate the app</string>
+    <string name="d">Share this app</string>
+    <string name="e">More apps</string>
+    <string name="f">Sound effects</string>
+    <string name="g">Reset your data</string>
+
 </resources>

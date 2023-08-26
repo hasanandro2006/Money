@@ -19,6 +19,9 @@ interface DatabaseDaoM{
     @Delete
      fun deleteM(data: ModelM)
 
+    @Query("DELETE FROM mainTable")
+    fun deleteAllItems()
+
 
     @Query("select * from mainTable order by date asc")
     fun getDataM():LiveData<List<ModelM>>

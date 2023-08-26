@@ -71,20 +71,25 @@ class MainFragment : Fragment() {
             bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
         }
 
+        //first time not click this time run this code and come daily trans
+        dailyTranslation()
+        setTheName(context)
+        binding.tabMode.getTabAt(0)?.select()
+
         // Set Daily monthly all trans
         binding.tabMode.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
                     0 -> {
-                        dailyTranslation(context)
+                        dailyTranslation()
                     }
 
                     1 -> {
-                        monthlyTranslation(context)
+                        monthlyTranslation()
                     }
 
                     2 -> {
-                        allTranslation(context)
+                        allTranslation()
                     }
                 }
 
@@ -110,9 +115,7 @@ class MainFragment : Fragment() {
             }
         }
 
-        //first time not click this time run this code and come daily trans
-        dailyTranslation(context)
-        setTheName(context)
+
 
         return binding.root
     }
@@ -134,122 +137,82 @@ class MainFragment : Fragment() {
         }
     }
 
-    fun dailyTranslation(context: Context) {
+    fun dailyTranslation() {
 
         val day = HelperClass.dateFormat(calenderD.time)
         Log.d("Daily", day)
         myViewModel.getDataDaily(day).observe(viewLifecycleOwner) {
-
-            arrayListRecyclerview.addAll(it)
-            var storeT = 0.0
-            var incomeT = 0.0
-            var expenseT = 0.0
-            it.forEach { data ->
-
-                storeT += data.amount
-
-                if (data.type == HelperClass.INCOME) {
-                    incomeT += data.amount
-                } else if (data.type == HelperClass.EXPENSE) {
-                    expenseT += data.amount
-                }
+            if (it.isEmpty()){
+                binding.noDataI.visibility=View.VISIBLE
+                binding.noDataT.visibility=View.VISIBLE
+                forAllDataSet(it)
+            }else {
+                binding.noDataI.visibility=View.GONE
+                binding.noDataT.visibility=View.GONE
+                forAllDataSet(it)
             }
-            Log.d("Daily", it.toString())
-            binding.totalS.text = storeT.toString()
-            binding.incomeS.text = incomeT.toString()
-            val stores = "- $expenseT"
-            binding.expanseS.text = stores
-
-
-            val adapter = AdapterMainRecyclerview(requireActivity() as AppCompatActivity, it)
-            binding.recyclerView.adapter = adapter
-            binding.recyclerView.setHasFixedSize(true)
-            binding.recyclerView.addItemDecoration(
-                DividerItemDecoration(
-                    context, DividerItemDecoration.VERTICAL
-                )
-            )
-            binding.recyclerView.layoutManager = LinearLayoutManager(context)
         }
-
     }
 
-    fun monthlyTranslation(context: Context) {
+    fun monthlyTranslation() {
         val dateFormat = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
         val store = dateFormat.format(calenderM.time)
         myViewModel.getMonth(store).observe(viewLifecycleOwner) {
-
-            arrayListRecyclerview.addAll(it)
-            var storeT = 0.0
-            var incomeT = 0.0
-            var expenseT = 0.0
-            it.forEach { data ->
-
-                storeT += data.amount
-
-                if (data.type == HelperClass.INCOME) {
-                    incomeT += data.amount
-                } else if (data.type == HelperClass.EXPENSE) {
-                    expenseT += data.amount
-                }
+            if (it.isEmpty()){
+                binding.noDataI.visibility=View.VISIBLE
+                binding.noDataT.visibility=View.VISIBLE
+                forAllDataSet(it)
+            }else {
+                binding.noDataI.visibility=View.GONE
+                binding.noDataT.visibility=View.GONE
+                forAllDataSet(it)
             }
-            Log.d("Monthly", it.toString())
-            binding.totalS.text = storeT.toString()
-            binding.incomeS.text = incomeT.toString()
-            val stores = "- $expenseT"
-            binding.expanseS.text = stores
-
-
-            val adapter = AdapterMainRecyclerview(requireActivity() as AppCompatActivity, it)
-            binding.recyclerView.adapter = adapter
-            binding.recyclerView.setHasFixedSize(true)
-            binding.recyclerView.addItemDecoration(
-                DividerItemDecoration(
-                    context, DividerItemDecoration.VERTICAL
-                )
-            )
-            binding.recyclerView.layoutManager = LinearLayoutManager(context)
         }
     }
-
-
-    fun allTranslation(context: Context) {
+    fun allTranslation() {
         myViewModel.getDataM().observe(viewLifecycleOwner) {
-
-            arrayListRecyclerview.addAll(it)
-            var storeT = 0.0
-            var incomeT = 0.0
-            var expenseT = 0.0
-            it.forEach { data ->
-
-                storeT += data.amount
-
-                if (data.type == HelperClass.INCOME) {
-                    incomeT += data.amount
-                } else if (data.type == HelperClass.EXPENSE) {
-                    expenseT += data.amount
-                }
+            if (it.isEmpty()){
+                binding.noDataI.visibility=View.VISIBLE
+                binding.noDataT.visibility=View.VISIBLE
+                forAllDataSet(it)
+            }else {
+                binding.noDataI.visibility=View.GONE
+                binding.noDataT.visibility=View.GONE
+                forAllDataSet(it)
             }
-            Log.d("All Trans...", it.toString())
-            binding.totalS.text = storeT.toString()
-            binding.incomeS.text = incomeT.toString()
-            val stores = "- $expenseT"
-            binding.expanseS.text = stores
-
-
-            val adapter = AdapterMainRecyclerview(requireActivity() as AppCompatActivity, it)
-            binding.recyclerView.adapter = adapter
-            binding.recyclerView.setHasFixedSize(true)
-            binding.recyclerView.addItemDecoration(
-                DividerItemDecoration(
-                    context, DividerItemDecoration.VERTICAL
-                )
-            )
-            binding.recyclerView.layoutManager = LinearLayoutManager(context)
         }
-
-
     }
 
+    private fun forAllDataSet(it:List<ModelM>) {
+        arrayListRecyclerview.addAll(it)
+        var storeT = 0.0
+        var incomeT = 0.0
+        var expenseT = 0.0
+        it.forEach { data ->
 
+            storeT += data.amount
+
+            if (data.type == HelperClass.INCOME) {
+                incomeT += data.amount
+            } else if (data.type == HelperClass.EXPENSE) {
+                expenseT += data.amount
+            }
+        }
+        Log.d("Monthly", it.toString())
+        binding.totalS.text = storeT.toString()
+        binding.incomeS.text = incomeT.toString()
+        val stores = "- $expenseT"
+        binding.expanseS.text = stores
+
+
+        val adapter = AdapterMainRecyclerview(requireActivity() as AppCompatActivity, it)
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.setHasFixedSize(true)
+        binding.recyclerView.addItemDecoration(
+            DividerItemDecoration(
+                context, DividerItemDecoration.VERTICAL
+            )
+        )
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+    }
 }

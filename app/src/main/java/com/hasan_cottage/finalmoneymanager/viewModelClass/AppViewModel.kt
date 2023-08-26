@@ -12,6 +12,9 @@ class AppViewModel(private val repository: Repository): ViewModel(){
      fun insertM(model: ModelM){
         repository.insertM(model)
     }
+    fun deleteAllItems(){
+        repository.deleteAllItems()
+    }
 
     fun getIdData(id:Int):LiveData<List<ModelM>>{
         return repository.getIdData(id)
