@@ -27,6 +27,7 @@ import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
 import com.hasan_cottage.finalmoneymanager.roomDatabaseNot.DatabaseTow
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
 import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -81,15 +82,21 @@ class MainFragment : Fragment() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
                     0 -> {
-                        dailyTranslation()
+                        CoroutineScope(Dispatchers.Main).launch {
+                            dailyTranslation()
+                        }
                     }
 
                     1 -> {
-                        monthlyTranslation()
+                        CoroutineScope(Dispatchers.Main).launch {
+                            monthlyTranslation()
+                        }
                     }
 
                     2 -> {
-                        allTranslation()
+                        CoroutineScope(Dispatchers.Main).launch {
+                            allTranslation()
+                        }
                     }
                 }
 
@@ -105,12 +112,13 @@ class MainFragment : Fragment() {
         })
 
         binding.dittles.setOnClickListener {
-            MainScope().launch(Dispatchers.Default){
+            CoroutineScope(Dispatchers.Main).launch {
                 startActivity(Intent(context, TakeCalender::class.java))
             }
+
         }
         binding.searce.setOnClickListener {
-            MainScope().launch(Dispatchers.Default){
+            CoroutineScope(Dispatchers.Main).launch {
                 startActivity(Intent(context, SearchActivity::class.java))
             }
         }

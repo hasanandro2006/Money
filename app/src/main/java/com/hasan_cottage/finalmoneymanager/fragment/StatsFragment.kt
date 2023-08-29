@@ -26,8 +26,10 @@ import com.hasan_cottage.finalmoneymanager.bottomFragment.BottomSheetFragmentNam
 import com.hasan_cottage.finalmoneymanager.databinding.FragmentStatasBinding
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
 import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -277,10 +279,12 @@ class StatsFragment : Fragment() {
     }
 
     private fun yearExpenseIncome() {
-        myViewModel.getDataYear(store!!).observe(viewLifecycleOwner) {
-            allCodeIncome(it)
-            allCodeExpense(it)
-        }
+
+            myViewModel.getDataYear(store!!).observe(viewLifecycleOwner) {
+                allCodeIncome(it)
+                allCodeExpense(it)
+            }
+
     }
 
 

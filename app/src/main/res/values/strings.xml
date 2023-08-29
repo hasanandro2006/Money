@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Final Money Manager</string>
+    <string name="app_name">Money Manager</string>
     <string name="money_manager">Money Manager</string>
     <string name="choose_a_name_and_country_currency">Choose a name and country currency</string>
     <string name="add_account">Add Account</string>
@@ -72,5 +72,20 @@
     <string name="e">More apps</string>
     <string name="f">Sound effects</string>
     <string name="g">Reset your data</string>
+
+    <string name="total">Total</string>
+    <string name="no_data_available">No data available</string>
+    <string name="trans">Trans..</string>
+    <string name="stats">Stats</string>
+    <string name="more">More</string>
+
+    <string name="category_home">Home</string>
+    <string name="category_business">Business</string>
+    <string name="category_loan">Loan</string>
+    <string name="category_investment">Investment</string>
+    <string name="category_planning">Planning</string>
+    <string name="category_rent">Rent</string>
+    <string name="category_other">Other</string>
+
 
 </resources>

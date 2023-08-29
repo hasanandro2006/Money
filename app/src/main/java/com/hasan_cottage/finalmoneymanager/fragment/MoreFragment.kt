@@ -11,10 +11,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.tasks.Task
+import com.google.android.play.core.review.ReviewInfo
+import com.google.android.play.core.review.ReviewManager
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.activity.PrivacyPolicyActivity
 import com.hasan_cottage.finalmoneymanager.activity.SearchActivity
@@ -28,6 +30,9 @@ import kotlinx.coroutines.launch
 
 class MoreFragment : Fragment() {
     lateinit var binding: FragmentMoreBinding
+    var dilog: AlertDialog.Builder? = null
+    private lateinit var reviewManager: ReviewManager
+    private lateinit var reviewInfo: ReviewInfo
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -101,6 +106,9 @@ class MoreFragment : Fragment() {
             }
         })
 
+
+        // item eight =======
+
         binding.itemEight.setOnClickListener {
             AlertDialog.Builder(requireContext())
                 .setTitle("DELETE THIS")
@@ -120,8 +128,35 @@ class MoreFragment : Fragment() {
                 .show()
         }
 
-
+        promptInAppReview()
+        binding.itemThree.setOnClickListener {
+           revidw()
+        }
         return binding.root
 
     }
+
+    private fun promptInAppReview() {
+        reviewManager = ReviewManagerFactory.create(requireContext())
+        val reviewInfoTask: Task<ReviewInfo> = reviewManager.requestReviewFlow()
+        reviewInfoTask.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                reviewInfo = task.result
+            } else {
+                Toast.makeText(requireContext(), "Not Task Complete", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun revidw() {
+        if (::reviewInfo.isInitialized) { // Check if reviewInfo is initialized
+            val flow: Task<Void> = reviewManager.launchReviewFlow(requireActivity(), reviewInfo)
+            flow.addOnCompleteListener {
+                Toast.makeText(requireContext(), "rating complete", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            Toast.makeText(requireContext(), "Review info not available yet", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 }

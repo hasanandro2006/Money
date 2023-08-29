@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/one"
-        android:title="Trans.."
+        android:title="@string/trans"
         android:icon="@drawable/transaction"/>
     <item
         android:id="@+id/tow"
-        android:title="Calendar"
+        android:title="@string/calendar"
         android:icon="@drawable/datechose"
         />
     <item
@@ -16,11 +16,11 @@
 
     <item
         android:id="@+id/three"
-        android:title="Stats"
+        android:title="@string/stats"
         android:icon="@drawable/bars"/>
 
     <item
         android:id="@+id/four"
-        android:title="More"
+        android:title="@string/more"
         android:icon="@drawable/more"/>
 </menu>

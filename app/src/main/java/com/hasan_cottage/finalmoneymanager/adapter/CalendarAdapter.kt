@@ -51,7 +51,7 @@ class CalendarAdapter(
             "7" -> allSetData("07 $data", holder)
             "8" -> allSetData("08 $data", holder)
             "9" -> allSetData("09 $data", holder)
-            "10", "11", "12" , "13" ,"14","15","16","17","22","18","19","20","21","23","24","25","26", "27", "28", "29" , "30" ,"31"-> allSetData(store, holder)
+            in "10" .. "31"-> allSetData(store, holder)
         }
 
 

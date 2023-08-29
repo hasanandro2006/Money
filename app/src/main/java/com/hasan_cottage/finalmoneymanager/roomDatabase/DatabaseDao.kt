@@ -7,6 +7,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import kotlinx.coroutines.delay
 
 @Dao
 interface DatabaseDaoM{
@@ -33,7 +34,9 @@ interface DatabaseDaoM{
     fun getDataYear(yearC: String):LiveData<List<ModelM>>
 
     @Query("SELECT * FROM mainTable WHERE date= :day")
-    fun getDataDaily(day:String):LiveData<List<ModelM>>
+      fun getDataDaily(day:String):LiveData<List<ModelM>>
+
+
 
     @Query("SELECT * FROM mainTable WHERE date= :day and category= :category")
     fun getDataCalender(day:String,category:String):LiveData<List<ModelM>>
