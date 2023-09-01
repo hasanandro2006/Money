@@ -7,6 +7,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hasan_cottage.finalmoneymanager.adapter.AdapterCurrency
+import com.hasan_cottage.finalmoneymanager.databinding.ActivitySearchBinding
 import com.hasan_cottage.finalmoneymanager.model.MyModel
 import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
@@ -18,7 +19,9 @@ import java.util.Locale
 
 class SelectCurrency : AppCompatActivity() {
 
-    lateinit var binding: ActivitySelectCurrencyBinding
+    val binding by lazy {
+        ActivitySelectCurrencyBinding.inflate(layoutInflater)
+    }
     private var arrayListCurrency: ArrayList<MyModel>? = null
     private lateinit var myViewModel: AppViewModel
     private lateinit var repository: Repository
@@ -27,7 +30,6 @@ class SelectCurrency : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySelectCurrencyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Initialize  database

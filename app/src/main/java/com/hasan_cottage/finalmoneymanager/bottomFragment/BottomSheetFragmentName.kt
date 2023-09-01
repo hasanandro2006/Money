@@ -10,17 +10,20 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.activity.ExpenseIncomeChart
+import com.hasan_cottage.finalmoneymanager.databinding.FragmentBottomSheetCalenderBinding
 import com.hasan_cottage.finalmoneymanager.databinding.FragmentBottomShetCoseNameBinding
 import com.hasan_cottage.finalmoneymanager.fragment.CalendarFragment
 import com.hasan_cottage.finalmoneymanager.fragment.StatsFragment
 
 
 class BottomSheetFragmentName(private var come: Int) : BottomSheetDialogFragment() {
-    lateinit var binding: FragmentBottomShetCoseNameBinding
+    val binding by lazy {
+        FragmentBottomShetCoseNameBinding.inflate(layoutInflater)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = FragmentBottomShetCoseNameBinding.inflate(inflater)
+
 
         val contextA = requireContext() as AppCompatActivity
 

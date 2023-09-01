@@ -38,7 +38,9 @@ import java.util.Locale
 
 class MainFragment : Fragment() {
 
-    lateinit var binding: FragmentMainBinding
+    val binding by lazy {
+        FragmentMainBinding.inflate(layoutInflater)
+    }
 
     companion object {
         lateinit var myViewModel: AppViewModel
@@ -52,7 +54,6 @@ class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMainBinding.inflate(inflater)
 
         val context = requireContext().applicationContext
 

@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.hasan_cottage.finalmoneymanager.adapter.AdapterMainRecyclerview
+import com.hasan_cottage.finalmoneymanager.databinding.FragmentBottomSheetBinding
 import com.hasan_cottage.finalmoneymanager.databinding.FragmentBottomSheetCalenderBinding
 import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
@@ -20,11 +21,12 @@ import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
 
 class BottomSheetFragmentCalender(private var day:String, private val monthYear:String): BottomSheetDialogFragment() {
 
-    lateinit var binding: FragmentBottomSheetCalenderBinding
+    val binding by lazy {
+        FragmentBottomSheetCalenderBinding.inflate(layoutInflater)
+    }
     private lateinit var myViewModel: AppViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding= FragmentBottomSheetCalenderBinding.inflate(inflater,container,false)
 
         val context=requireContext() as AppCompatActivity
         // room database

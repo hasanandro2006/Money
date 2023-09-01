@@ -20,6 +20,7 @@ import com.google.android.play.core.review.ReviewManagerFactory
 import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.activity.PrivacyPolicyActivity
 import com.hasan_cottage.finalmoneymanager.activity.SearchActivity
+import com.hasan_cottage.finalmoneymanager.databinding.FragmentCalendarBinding
 import com.hasan_cottage.finalmoneymanager.databinding.FragmentMoreBinding
 import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
@@ -29,7 +30,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class MoreFragment : Fragment() {
-    lateinit var binding: FragmentMoreBinding
+    val binding by lazy {
+        FragmentMoreBinding.inflate(layoutInflater)
+    }
     var dilog: AlertDialog.Builder? = null
     private lateinit var reviewManager: ReviewManager
     private lateinit var reviewInfo: ReviewInfo
@@ -39,7 +42,6 @@ class MoreFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMoreBinding.inflate(inflater, container, false)
 
         val daoM = DatabaseAll.getInstanceAll(requireContext()).getAllDaoM()
         val repository = Repository(daoM)

@@ -16,6 +16,9 @@
         android:theme="@style/Theme.FinalMoneyManager"
         tools:targetApi="31">
         <activity
+            android:name=".activity.ExpIncRecyclerItemClick"
+            android:exported="false" />
+        <activity
             android:name=".activity.PrivacyPolicyActivity"
             android:exported="false" />
         <activity

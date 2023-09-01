@@ -1,6 +1,7 @@
 package com.hasan_cottage.finalmoneymanager.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,6 +39,10 @@ class AdapterStats(val context: Context, val arraylist: ArrayList<StatsModel>, p
 
         val stores2=arraylist[position].transition+" translation"
         holder.binding.transtion.text=stores2
+
+        holder.itemView.setOnClickListener {
+
+        }
     }
     override fun getItemCount(): Int {
      return arraylist.size

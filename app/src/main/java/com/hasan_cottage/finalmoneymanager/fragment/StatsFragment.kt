@@ -37,7 +37,9 @@ import java.util.Locale
 
 
 class StatsFragment : Fragment() {
-    lateinit var binding: FragmentStatasBinding
+    val binding by  lazy {
+        FragmentStatasBinding.inflate(layoutInflater)
+    }
     private lateinit var myViewModel: AppViewModel
 
     private var calender = Calendar.getInstance()
@@ -51,7 +53,6 @@ class StatsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentStatasBinding.inflate(inflater, container, false)
 
 
         val context = requireContext().applicationContext

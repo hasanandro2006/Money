@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.hasan_cottage.finalmoneymanager.bottomFragment.BottomSheetFragment
 import com.hasan_cottage.finalmoneymanager.helper.HelperClass
 import com.hasan_cottage.finalmoneymanager.R
+import com.hasan_cottage.finalmoneymanager.databinding.ActivityMainBinding
 import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
 import com.hasan_cottage.finalmoneymanager.databinding.ActivityRecordBinding
@@ -18,10 +19,11 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class RecordActivity : AppCompatActivity() {
-    lateinit var binding: ActivityRecordBinding
+    val binding by lazy {
+        ActivityRecordBinding.inflate(layoutInflater)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRecordBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val daoM = DatabaseAll.getInstanceAll(this).getAllDaoM()
         val repository = Repository(daoM)

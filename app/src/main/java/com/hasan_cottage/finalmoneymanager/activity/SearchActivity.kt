@@ -16,6 +16,7 @@ import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.adapter.AdapterCategory
 import com.hasan_cottage.finalmoneymanager.adapter.AdapterCurrency
 import com.hasan_cottage.finalmoneymanager.adapter.AdapterMainRecyclerview
+import com.hasan_cottage.finalmoneymanager.databinding.ActivityRecordBinding
 import com.hasan_cottage.finalmoneymanager.databinding.ActivitySearchBinding
 import com.hasan_cottage.finalmoneymanager.databinding.RandomRecyclerviewBinding
 import com.hasan_cottage.finalmoneymanager.helper.HelperClass
@@ -30,7 +31,9 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
 class SearchActivity : AppCompatActivity(), AdapterCategory.CategoryClick {
-    lateinit var binding: ActivitySearchBinding
+    val binding by lazy {
+        ActivitySearchBinding.inflate(layoutInflater)
+    }
     private lateinit var alertDialog: AlertDialog
     lateinit var myViewModel: AppViewModel
     lateinit var adapter: AdapterMainRecyclerview
@@ -41,7 +44,6 @@ class SearchActivity : AppCompatActivity(), AdapterCategory.CategoryClick {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val daoM = DatabaseAll.getInstanceAll(this).getAllDaoM()

@@ -22,6 +22,7 @@ import com.hasan_cottage.finalmoneymanager.roomDatabase.ModelM
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
 import com.hasan_cottage.finalmoneymanager.bottomFragment.BottomSheetFragmentName
 import com.hasan_cottage.finalmoneymanager.databinding.FragmentCalendarBinding
+import com.hasan_cottage.finalmoneymanager.databinding.FragmentMainBinding
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
 import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
 import kotlinx.coroutines.Dispatchers
@@ -34,8 +35,9 @@ import java.util.Locale
 
 class CalendarFragment : Fragment() {
 
-    lateinit var binding: FragmentCalendarBinding
-
+    val binding by lazy {
+        FragmentCalendarBinding.inflate(layoutInflater)
+    }
 
     private lateinit var myViewModel: AppViewModel
     private val arrayListRecyclerview: ArrayList<ModelM> = ArrayList()
@@ -50,8 +52,6 @@ class CalendarFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        binding = FragmentCalendarBinding.inflate(inflater)
 
         val context = requireContext().applicationContext// get Context
         val sharedPreferences = context.getSharedPreferences("Time", Context.MODE_PRIVATE)

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import codewithcal.au.calendarappexample.CalendarAdapter
 import com.hasan_cottage.finalmoneymanager.bottomFragment.BottomSheetFragmentCalender
+import com.hasan_cottage.finalmoneymanager.databinding.ActivitySelectCurrencyBinding
 import com.hasan_cottage.finalmoneymanager.databinding.ActivityTakeCalenderBinding
 import com.hasan_cottage.finalmoneymanager.helper.HelperClass
 import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
@@ -30,17 +31,19 @@ import java.util.Locale
 import kotlin.concurrent.thread
 
 class TakeCalender : AppCompatActivity(), CalendarAdapter.OnItemListener {
+
+    val binding by lazy {
+        ActivityTakeCalenderBinding.inflate(layoutInflater)
+    }
     private lateinit var monthYearText: TextView
     private lateinit var calendarRecyclerView: RecyclerView
     private lateinit var selectedDate: Calendar
-    lateinit var binding: ActivityTakeCalenderBinding
     lateinit var myViewModel: AppViewModel
     private lateinit var daysInMonth: ArrayList<String>
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityTakeCalenderBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // room database

@@ -30,7 +30,10 @@ import java.util.Locale
 
 
 class ExpenseIncomeChart : AppCompatActivity() {
-    lateinit var binding: ActivityExpenseIncomeStructerBinding
+
+    val binding by lazy {
+        ActivityExpenseIncomeStructerBinding.inflate(layoutInflater)
+    }
     private lateinit var myViewModel: AppViewModel
 
     private var calender = Calendar.getInstance()
@@ -45,7 +48,6 @@ class ExpenseIncomeChart : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityExpenseIncomeStructerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 
@@ -514,6 +516,8 @@ class ExpenseIncomeChart : AppCompatActivity() {
         var other = 0.0
         var tranO = 0
 
+        val type=HelperClass.INCOME
+
         if (it.isEmpty()) {
             val chart = binding.pieChart
             chart.clear() // Clear previous data
@@ -540,37 +544,37 @@ class ExpenseIncomeChart : AppCompatActivity() {
             val arrayList = ArrayList<StatsModel>()
             arrayList.add(
                 StatsModel(
-                    R.drawable.assets, 0.0, "Home", 0.0, 0.toString(), R.color.one
+                    R.drawable.assets, 0.0, "Home", 0.0, 0.toString(), R.color.one,type
                 )
             )
             arrayList.add(
                 StatsModel(
-                    R.drawable.bars, 0.0, "Business", 0.0, 0.toString(), R.color.tow
+                    R.drawable.bars, 0.0, "Business", 0.0, 0.toString(), R.color.tow,type
                 )
             )
             arrayList.add(
                 StatsModel(
-                    R.drawable.database, 0.0, "Loan", 0.0, 0.toString(), R.color.four
+                    R.drawable.database, 0.0, "Loan", 0.0, 0.toString(), R.color.four,type
                 )
             )
             arrayList.add(
                 StatsModel(
-                    R.drawable.investment, 0.0, "Investment", 0.0, 0.toString(), R.color.five
+                    R.drawable.investment, 0.0, "Investment", 0.0, 0.toString(), R.color.five,type
                 )
             )
             arrayList.add(
                 StatsModel(
-                    R.drawable.planning, 0.0, "Planing", 0.0, 0.toString(), R.color.six
+                    R.drawable.planning, 0.0, "Planing", 0.0, 0.toString(), R.color.six,type
                 )
             )
             arrayList.add(
                 StatsModel(
-                    R.drawable.deal, 0.0, "Rent", 0.0, 0.toString(), R.color.hol
+                    R.drawable.deal, 0.0, "Rent", 0.0, 0.toString(), R.color.hol,type
                 )
             )
             arrayList.add(
                 StatsModel(
-                    R.drawable.reduction, 0.0, "Other", 0.0, 0.toString(), R.color.hole_s
+                    R.drawable.reduction, 0.0, "Other", 0.0, 0.toString(), R.color.hole_s,type
                 )
             )
 
@@ -655,7 +659,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                     "Home",
                     home,
                     tranH.toString(),
-                    R.color.one
+                    R.color.one,type
                 )
             )
             arrayList.add(
@@ -665,7 +669,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                     "Business",
                     business,
                     tranB.toString(),
-                    R.color.tow
+                    R.color.tow,type
                 )
             )
             arrayList.add(
@@ -675,7 +679,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                     "Loan",
                     loan,
                     tranL.toString(),
-                    R.color.four
+                    R.color.four,type
                 )
             )
             arrayList.add(
@@ -685,7 +689,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                     "Investment",
                     investment,
                     tranI.toString(),
-                    R.color.five
+                    R.color.five,type
                 )
             )
             arrayList.add(
@@ -695,7 +699,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                     "Planing",
                     planing,
                     tranP.toString(),
-                    R.color.six
+                    R.color.six,type
                 )
             )
             arrayList.add(
@@ -705,7 +709,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                     "Rent",
                     rent,
                     tranR.toString(),
-                    R.color.hol
+                    R.color.hol,type
                 )
             )
             arrayList.add(
@@ -715,7 +719,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                     "Other",
                     other,
                     tranO.toString(),
-                    R.color.hole_s
+                    R.color.hole_s,type
                 )
             )
 
@@ -809,6 +813,8 @@ class ExpenseIncomeChart : AppCompatActivity() {
         var other = 0.0
         var tranO = 0
 
+        val type=HelperClass.EXPENSE
+
         if (it.isEmpty()) {
             val chart = binding.pieChart
             chart.clear() // Clear previous data
@@ -833,37 +839,37 @@ class ExpenseIncomeChart : AppCompatActivity() {
             val arrayList = ArrayList<StatsModel>()
             arrayList.add(
                 StatsModel(
-                    R.drawable.assets, 0.0, "Home", 0.0, 0.toString(), R.color.one
+                    R.drawable.assets, 0.0, "Home", 0.0, 0.toString(), R.color.one,type
                 )
             )
             arrayList.add(
                 StatsModel(
-                    R.drawable.bars, 0.0, "Business", 0.0, 0.toString(), R.color.tow
+                    R.drawable.bars, 0.0, "Business", 0.0, 0.toString(), R.color.tow,type
                 )
             )
             arrayList.add(
                 StatsModel(
-                    R.drawable.database, 0.0, "Loan", 0.0, 0.toString(), R.color.four
+                    R.drawable.database, 0.0, "Loan", 0.0, 0.toString(), R.color.four,type
                 )
             )
             arrayList.add(
                 StatsModel(
-                    R.drawable.investment, 0.0, "Investment", 0.0, 0.toString(), R.color.five
+                    R.drawable.investment, 0.0, "Investment", 0.0, 0.toString(), R.color.five,type
                 )
             )
             arrayList.add(
                 StatsModel(
-                    R.drawable.planning, 0.0, "Planing", 0.0, 0.toString(), R.color.six
+                    R.drawable.planning, 0.0, "Planing", 0.0, 0.toString(), R.color.six,type
                 )
             )
             arrayList.add(
                 StatsModel(
-                    R.drawable.deal, 0.0, "Rent", 0.0, 0.toString(), R.color.hol
+                    R.drawable.deal, 0.0, "Rent", 0.0, 0.toString(), R.color.hol,type
                 )
             )
             arrayList.add(
                 StatsModel(
-                    R.drawable.reduction, 0.0, "Other", 0.0, 0.toString(), R.color.hole_s
+                    R.drawable.reduction, 0.0, "Other", 0.0, 0.toString(), R.color.hole_s,type
                 )
             )
 
@@ -949,7 +955,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                     "Home",
                     home,
                     tranH.toString(),
-                    R.color.one
+                    R.color.one,type
                 )
             )
             arrayList.add(
@@ -959,7 +965,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                     "Business",
                     business,
                     tranB.toString(),
-                    R.color.tow
+                    R.color.tow,type
                 )
             )
             arrayList.add(
@@ -969,7 +975,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                     "Loan",
                     loan,
                     tranL.toString(),
-                    R.color.four
+                    R.color.four,type
                 )
             )
             arrayList.add(
@@ -979,7 +985,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                     "Investment",
                     investment,
                     tranI.toString(),
-                    R.color.five
+                    R.color.five,type
                 )
             )
             arrayList.add(
@@ -989,7 +995,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                     "Planing",
                     planing,
                     tranP.toString(),
-                    R.color.six
+                    R.color.six,type
                 )
             )
             arrayList.add(
@@ -999,7 +1005,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                     "Rent",
                     rent,
                     tranR.toString(),
-                    R.color.hol
+                    R.color.hol,type
                 )
             )
             arrayList.add(
@@ -1009,7 +1015,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                     "Other",
                     other,
                     tranO.toString(),
-                    R.color.hole_s
+                    R.color.hole_s,type
                 )
             )
 

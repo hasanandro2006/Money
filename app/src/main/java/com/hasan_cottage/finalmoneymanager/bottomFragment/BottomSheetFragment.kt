@@ -42,7 +42,9 @@ class BottomSheetFragment(private val intId: Int, private  val string: String) :
     AdapterCategory.CategoryClick, AdapterAccount.ClickItem {
 
 
-    lateinit var binding: FragmentBottomSheetBinding
+    val binding by lazy {
+      FragmentBottomSheetBinding.inflate(layoutInflater)
+    }
     private lateinit var alertDialog: AlertDialog
     private lateinit var alertDialogAccount: AlertDialog
 
@@ -67,7 +69,7 @@ class BottomSheetFragment(private val intId: Int, private  val string: String) :
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentBottomSheetBinding.inflate(inflater)
+
 
         val applicationContext = requireContext().applicationContext
 

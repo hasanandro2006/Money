@@ -15,12 +15,13 @@ import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
+    val binding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.floatingButton.setOnClickListener {
