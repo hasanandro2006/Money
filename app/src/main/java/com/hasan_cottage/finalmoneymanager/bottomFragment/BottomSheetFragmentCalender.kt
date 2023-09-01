@@ -32,9 +32,8 @@ class BottomSheetFragmentCalender(private var day:String, private val monthYear:
         val repository = Repository(daoM)
         myViewModel = ViewModelProvider(this, ViewModelFactory(repository))[AppViewModel::class.java]
 
-        day = when(day){
-            in "1".."9" -> "0$day"
-            else -> day
+        if (day.length == 1) {
+            day = "0$day"
         }
 
         val data="$day $monthYear"
