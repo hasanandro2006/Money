@@ -2,7 +2,7 @@
     <string name="app_name">Money Manager</string>
     <string name="money_manager">Money Manager</string>
     <string name="choose_a_name_and_country_currency">Choose a name and country currency</string>
-    <string name="add_account">Add Account</string>
+    <string name="add_account">Add Transaction</string>
     <string name="name">Your name</string>
     <string name="select_currency">Select country currency</string>
     <string name="next">NEXT</string>

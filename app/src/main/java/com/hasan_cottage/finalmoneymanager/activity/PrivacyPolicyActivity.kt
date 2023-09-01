@@ -12,6 +12,6 @@ class PrivacyPolicyActivity : AppCompatActivity() {
 
         val webView:WebView=findViewById(R.id.webView)
 
-        webView.loadUrl("https://sites.google.com/view/hasancottage/home")
+        webView.loadUrl("https://sites.google.com/view/money-manager-2006/home")
     }
 }

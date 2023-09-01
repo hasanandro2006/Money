@@ -36,8 +36,6 @@ interface DatabaseDaoM{
     @Query("SELECT * FROM mainTable WHERE date= :day")
       fun getDataDaily(day:String):LiveData<List<ModelM>>
 
-
-
     @Query("SELECT * FROM mainTable WHERE date= :day and category= :category")
     fun getDataCalender(day:String,category:String):LiveData<List<ModelM>>
     @Query("SELECT * FROM mainTable WHERE  category= :category")

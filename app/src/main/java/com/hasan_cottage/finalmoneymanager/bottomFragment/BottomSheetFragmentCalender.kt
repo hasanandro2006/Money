@@ -18,7 +18,7 @@ import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
 import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
 
 
-class BottomSheetFragmentCalender(private val day:String,private val monthYear:String): BottomSheetDialogFragment() {
+class BottomSheetFragmentCalender(private var day:String, private val monthYear:String): BottomSheetDialogFragment() {
 
     lateinit var binding: FragmentBottomSheetCalenderBinding
     private lateinit var myViewModel: AppViewModel
@@ -32,21 +32,29 @@ class BottomSheetFragmentCalender(private val day:String,private val monthYear:S
         val repository = Repository(daoM)
         myViewModel = ViewModelProvider(this, ViewModelFactory(repository))[AppViewModel::class.java]
 
+        day = when(day){
+            in "1".."9" -> "0$day"
+            else -> day
+        }
+
         val data="$day $monthYear"
         Log.d("comm",data)
 
         binding.textView10.text=data
 
-        myViewModel.getDataDaily(data).observe(viewLifecycleOwner){
-            if (data.isNotEmpty()) {
-                val adapter = AdapterMainRecyclerview(context, it)
+        myViewModel.getDataDaily(data).observe(viewLifecycleOwner) { dataList ->
+            Log.d("DataSize", "Data Size: ${dataList.size}")
+            if (dataList.isNotEmpty()) {
+
+                val adapter = AdapterMainRecyclerview(context, dataList)
                 binding.recyclerviewWo.adapter = adapter
                 binding.recyclerviewWo.setHasFixedSize(true)
                 binding.recyclerviewWo.layoutManager = LinearLayoutManager(requireContext())
             } else {
-               Toast.makeText(context,"not come",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "No data found", Toast.LENGTH_SHORT).show()
             }
         }
+
         binding.addData.setOnClickListener {
             val bottomSheetFragment=BottomSheetFragment(-1,data)
             bottomSheetFragment.show(childFragmentManager,bottomSheetFragment.tag)

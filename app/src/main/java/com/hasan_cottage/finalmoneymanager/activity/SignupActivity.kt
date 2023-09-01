@@ -57,14 +57,14 @@ class SignupActivity : AppCompatActivity() {
     private fun getDataFromRoom() {
         val sharedPreferencesC =getSharedPreferences("Currency", Context.MODE_PRIVATE)
 
-        dataBinding.text2.text = sharedPreferencesC.getString("cName", "select_your")
-        dataBinding.text1.text  = sharedPreferencesC.getString("cCode", "_country")
+        dataBinding.text2.text = sharedPreferencesC.getString("cName", "Select your country currency")
+        dataBinding.text1.text  = sharedPreferencesC.getString("cCode", "")
 
-        val currencySymbol = sharedPreferencesC.getString("cSymbol", "_currency")
+        val currencySymbol = sharedPreferencesC.getString("cSymbol", "")
         val formattedString = getString(R.string.currency_with_symbol, currencySymbol)
         dataBinding.steText2.text = formattedString
 
-        val name = sharedPreferencesC.getString("name", "Project")
+        val name = sharedPreferencesC.getString("name", "Transaction")
         dataBinding.appCompatEditText.setText(name)
         val oldPosition = sharedPreferencesC.getInt("oldPosition", 21)
         radioPosition = oldPosition
