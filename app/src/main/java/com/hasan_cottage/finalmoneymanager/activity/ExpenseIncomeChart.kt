@@ -1,6 +1,7 @@
 package com.hasan_cottage.finalmoneymanager.activity
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -22,6 +23,8 @@ import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.ModelM
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
 import com.hasan_cottage.finalmoneymanager.databinding.ActivityExpenseIncomeStructerBinding
+import com.hasan_cottage.finalmoneymanager.fragment.MainFragment
+import com.hasan_cottage.finalmoneymanager.fragment.StatsFragment
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
 import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
 import java.text.SimpleDateFormat
@@ -56,13 +59,15 @@ class ExpenseIncomeChart : AppCompatActivity() {
         myViewModel =
             ViewModelProvider(this, ViewModelFactory(repository))[AppViewModel::class.java]
 
+
+
+        val sharedPreferences = getSharedPreferences("Time", Context.MODE_PRIVATE)
+
+        val daily: Int = sharedPreferences.getInt("Daily", 1)
+
         binding.back.setOnClickListener {
             onBackPressed()
         }
-
-        val sharedPreferences = getSharedPreferences("Time", Context.MODE_PRIVATE)
-        val daily: Int = sharedPreferences.getInt("Daily", 1)
-
 
         // here sev boolean value which one save when button bar come and intent come value 1
         val sharedPreferencesTrueFalseCome = getSharedPreferences("SaveTrueFalse", MODE_PRIVATE)
@@ -580,7 +585,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
 
 
             binding.statasRecyclerview.setHasFixedSize(true)
-            binding.statasRecyclerview.adapter = AdapterStats(this, arrayList, 0)
+            binding.statasRecyclerview.adapter = AdapterStats(this, arrayList, 0,storeAll,weekNumber!!)
             binding.statasRecyclerview.layoutManager = LinearLayoutManager(this)
             binding.statasRecyclerview.addItemDecoration(
                 DividerItemDecoration(
@@ -724,7 +729,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
             )
 
             binding.statasRecyclerview.setHasFixedSize(true)
-            binding.statasRecyclerview.adapter = AdapterStats(this, arrayList, 0)
+            binding.statasRecyclerview.adapter = AdapterStats(this, arrayList, 0,storeAll,weekNumber!!)
             binding.statasRecyclerview.layoutManager = LinearLayoutManager(this)
             binding.statasRecyclerview.addItemDecoration(
                 DividerItemDecoration(
@@ -875,7 +880,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
 
 
             binding.statasRecyclerview.setHasFixedSize(true)
-            binding.statasRecyclerview.adapter = AdapterStats(this, arrayList, 1)
+            binding.statasRecyclerview.adapter = AdapterStats(this, arrayList, 1,storeAll,weekNumber!!)
             binding.statasRecyclerview.layoutManager = LinearLayoutManager(this)
             binding.statasRecyclerview.addItemDecoration(
                 DividerItemDecoration(
@@ -1020,7 +1025,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
             )
 
             binding.statasRecyclerview.setHasFixedSize(true)
-            binding.statasRecyclerview.adapter = AdapterStats(this, arrayList, 1)
+            binding.statasRecyclerview.adapter = AdapterStats(this, arrayList, 1,storeAll,weekNumber!!)
             binding.statasRecyclerview.layoutManager = LinearLayoutManager(this)
             binding.statasRecyclerview.addItemDecoration(
                 DividerItemDecoration(

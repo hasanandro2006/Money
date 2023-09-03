@@ -1,18 +1,15 @@
 package com.hasan_cottage.finalmoneymanager.activity
 
-import android.content.Context
 import android.os.Bundle
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
+import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.bottomFragment.BottomSheetFragment
+import com.hasan_cottage.finalmoneymanager.databinding.ActivityMainBinding
 import com.hasan_cottage.finalmoneymanager.fragment.CalendarFragment
 import com.hasan_cottage.finalmoneymanager.fragment.MainFragment
 import com.hasan_cottage.finalmoneymanager.fragment.MoreFragment
 import com.hasan_cottage.finalmoneymanager.fragment.StatsFragment
-import com.hasan_cottage.finalmoneymanager.R
-import com.hasan_cottage.finalmoneymanager.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     val binding by lazy {

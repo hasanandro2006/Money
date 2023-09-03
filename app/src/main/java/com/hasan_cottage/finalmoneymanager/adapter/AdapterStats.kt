@@ -1,6 +1,7 @@
 package com.hasan_cottage.finalmoneymanager.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +10,10 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hasan_cottage.finalmoneymanager.model.StatsModel
 import com.hasan_cottage.finalmoneymanager.R
+import com.hasan_cottage.finalmoneymanager.activity.ExpIncRecyclerItemClick
 import com.hasan_cottage.finalmoneymanager.databinding.DegineForStatisticBinding
 
-class AdapterStats(val context: Context, val arraylist: ArrayList<StatsModel>, private var inEx:Int): RecyclerView.Adapter<AdapterStats.ViewAdapter>(){
+class AdapterStats(val context: Context, val arraylist: ArrayList<StatsModel>, private var inEx:Int,val date:String,val weekNumber: Int): RecyclerView.Adapter<AdapterStats.ViewAdapter>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewAdapter {
        return ViewAdapter(LayoutInflater.from(context).inflate(R.layout.degine_for_statistic,parent,false))
@@ -42,6 +44,16 @@ class AdapterStats(val context: Context, val arraylist: ArrayList<StatsModel>, p
 
         holder.itemView.setOnClickListener {
 
+            val intent=Intent(context,ExpIncRecyclerItemClick::class.java)
+            intent.putExtra("date",date)
+            intent.putExtra("week",weekNumber)
+            context.startActivity(intent)
+
+            val catagorSharedPreferences =context.getSharedPreferences("Time", Context.MODE_PRIVATE)
+            val editor = catagorSharedPreferences.edit()
+            editor.putString("category",arraylist[position].categoryName)
+            editor.putString("type",arraylist[position].type)
+            editor.apply()
         }
     }
     override fun getItemCount(): Int {

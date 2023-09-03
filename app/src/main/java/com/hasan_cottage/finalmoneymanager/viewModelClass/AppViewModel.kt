@@ -48,4 +48,21 @@ class AppViewModel(private val repository: Repository): ViewModel(){
         return repository.updateAllData(type,category,account,date,amount,dateMonth,id,note,year)
     }
 
+
+    fun getDataDaily2(day:String,category: String,typeC: String):LiveData<List<ModelM>>{
+        return repository.getDataDaily2(day,category,typeC)
+    }
+
+    fun getDataMonth2(year:String,category: String,typeC: String):LiveData<List<ModelM>>{
+        return repository.getDataMonth2(year,category,typeC)
+    }
+    fun getDataBetweenDates2(seekNumber:Int,category: String,typeC: String): LiveData<List<ModelM>>{
+        return repository.getDataBetweenDates2(seekNumber,category,typeC)
+    }
+    fun getDataYear2(yearC: String,category: String,typeC: String):LiveData<List<ModelM>>{
+        return repository.getDataYear2(yearC,category,typeC)
+    }
+    fun getDataM2(category: String):LiveData<List<ModelM>>{
+        return repository.getDataM2(category)
+    }
 }

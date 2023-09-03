@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.hasan_cottage.finalmoneymanager.R
+import com.hasan_cottage.finalmoneymanager.activity.ExpIncRecyclerItemClick
 import com.hasan_cottage.finalmoneymanager.activity.ExpenseIncomeChart
 import com.hasan_cottage.finalmoneymanager.databinding.FragmentBottomSheetCalenderBinding
 import com.hasan_cottage.finalmoneymanager.databinding.FragmentBottomShetCoseNameBinding
@@ -86,10 +88,14 @@ class BottomSheetFragmentName(private var come: Int) : BottomSheetDialogFragment
                 contextA.supportFragmentManager.beginTransaction()
                     .replace(R.id.frameLayout, StatsFragment()).commit()
             }
-
-            else -> {
+            3 ->{
                 val intent = Intent(contextA, ExpenseIncomeChart::class.java)
                 intent.putExtra("work", 1)
+                startActivity(intent)
+            }
+
+            else -> {
+                val intent = Intent(contextA, ExpIncRecyclerItemClick::class.java)
                 startActivity(intent)
             }
         }

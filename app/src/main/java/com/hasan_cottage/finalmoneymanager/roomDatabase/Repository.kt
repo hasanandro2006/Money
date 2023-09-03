@@ -49,6 +49,22 @@ class Repository(private val databaseDaoM: DatabaseDaoM) {
     }
 
 
+    fun getDataDaily2(day:String,category: String,typeC: String):LiveData<List<ModelM>>{
+        return databaseDaoM.getDataDaily2(day,category,typeC)
+    }
+
+    fun getDataMonth2(year:String,category: String,typeC: String):LiveData<List<ModelM>>{
+        return databaseDaoM.getDataMonth2(year,category,typeC)
+    }
+    fun getDataBetweenDates2(seekNumber:Int,category: String,typeC: String): LiveData<List<ModelM>>{
+        return databaseDaoM.getDataBetweenDates2(seekNumber,category,typeC)
+    }
+    fun getDataYear2(yearC: String,category: String,typeC: String):LiveData<List<ModelM>>{
+        return databaseDaoM.getDataYear2(yearC,category,typeC)
+    }
+    fun getDataM2(category: String):LiveData<List<ModelM>>{
+        return databaseDaoM.getDataM2(category)
+    }
 
 
 

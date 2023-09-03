@@ -52,6 +52,18 @@ interface DatabaseDaoM{
     fun updateAllData(typeC:String, categoryC:String, account:String, date:String, amount:Double, dateMonth:String, id:Int, note:String, year:String)
 
 
+
+    @Query("SELECT * FROM mainTable WHERE date= :day and category=:category and type=:typeC")
+    fun getDataDaily2(day:String,category: String,typeC: String):LiveData<List<ModelM>>
+    @Query("SELECT * FROM mainTable WHERE dateMonth= :year and category=:category and type=:typeC")
+    fun getDataMonth2(year:String,category: String,typeC: String):LiveData<List<ModelM>>
+    @Query("SELECT * FROM mainTable WHERE  weekNumber =:seekNumber and category=:category and type=:typeC")
+    fun getDataBetweenDates2(seekNumber:Int,category: String,typeC: String): LiveData<List<ModelM>>
+    @Query("select * from mainTable where year=:yearC and category=:category and type=:typeC")
+    fun getDataYear2(yearC: String,category: String,typeC: String):LiveData<List<ModelM>>
+    @Query("SELECT * FROM mainTable WHERE category = :category ORDER BY date ASC")
+    fun getDataM2(category: String):LiveData<List<ModelM>>
+
 }
 
 
