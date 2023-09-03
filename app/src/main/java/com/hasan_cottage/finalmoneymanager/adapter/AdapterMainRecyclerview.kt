@@ -21,7 +21,6 @@ import com.hasan_cottage.finalmoneymanager.helper.HelperClass
 import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.roomDatabase.ModelM
 import com.hasan_cottage.finalmoneymanager.databinding.DegineForMainactivityBinding
-import com.hasan_cottage.finalmoneymanager.model.MyModel
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

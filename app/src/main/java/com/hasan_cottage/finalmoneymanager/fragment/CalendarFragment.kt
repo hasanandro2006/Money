@@ -22,7 +22,6 @@ import com.hasan_cottage.finalmoneymanager.roomDatabase.ModelM
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
 import com.hasan_cottage.finalmoneymanager.bottomFragment.BottomSheetFragmentName
 import com.hasan_cottage.finalmoneymanager.databinding.FragmentCalendarBinding
-import com.hasan_cottage.finalmoneymanager.databinding.FragmentMainBinding
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
 import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
 import kotlinx.coroutines.Dispatchers

@@ -14,7 +14,6 @@ import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.adapter.AdapterMainRecyclerview
 import com.hasan_cottage.finalmoneymanager.bottomFragment.BottomSheetFragmentName
 import com.hasan_cottage.finalmoneymanager.databinding.ActivityExpIncRecyclerItemClickBinding
-import com.hasan_cottage.finalmoneymanager.fragment.StatsFragment
 import com.hasan_cottage.finalmoneymanager.helper.HelperClass
 import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.ModelM

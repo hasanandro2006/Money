@@ -19,7 +19,6 @@ import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
 import com.hasan_cottage.finalmoneymanager.activity.SignupActivity
 import com.hasan_cottage.finalmoneymanager.activity.SplashActivity
 import com.hasan_cottage.finalmoneymanager.databinding.FragmentBottomSheetTowBinding
-import com.hasan_cottage.finalmoneymanager.databinding.FragmentBottomShetCoseNameBinding
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
 import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
 

@@ -14,9 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.adapter.AdapterCategory
-import com.hasan_cottage.finalmoneymanager.adapter.AdapterCurrency
 import com.hasan_cottage.finalmoneymanager.adapter.AdapterMainRecyclerview
-import com.hasan_cottage.finalmoneymanager.databinding.ActivityRecordBinding
 import com.hasan_cottage.finalmoneymanager.databinding.ActivitySearchBinding
 import com.hasan_cottage.finalmoneymanager.databinding.RandomRecyclerviewBinding
 import com.hasan_cottage.finalmoneymanager.helper.HelperClass

@@ -1,7 +1,6 @@
 package com.hasan_cottage.finalmoneymanager.activity
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -23,8 +22,6 @@ import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.ModelM
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
 import com.hasan_cottage.finalmoneymanager.databinding.ActivityExpenseIncomeStructerBinding
-import com.hasan_cottage.finalmoneymanager.fragment.MainFragment
-import com.hasan_cottage.finalmoneymanager.fragment.StatsFragment
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
 import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
 import java.text.SimpleDateFormat

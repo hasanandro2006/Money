@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Money Manager</string>
+    <string name="app_name">Expense Finance</string>
     <string name="money_manager">Money Manager</string>
     <string name="choose_a_name_and_country_currency">Choose a name and country currency</string>
     <string name="add_account">Add Transaction</string>

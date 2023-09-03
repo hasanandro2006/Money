@@ -1,23 +1,13 @@
 package codewithcal.au.calendarappexample
 
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.helper.HelperClass
-import com.hasan_cottage.finalmoneymanager.model.CalenderCa
-import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
-import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
-import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
-import java.util.Calendar
 
 
 class CalendarAdapter(

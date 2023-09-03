@@ -20,7 +20,6 @@ import com.google.android.play.core.review.ReviewManagerFactory
 import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.activity.PrivacyPolicyActivity
 import com.hasan_cottage.finalmoneymanager.activity.SearchActivity
-import com.hasan_cottage.finalmoneymanager.databinding.FragmentCalendarBinding
 import com.hasan_cottage.finalmoneymanager.databinding.FragmentMoreBinding
 import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository

@@ -14,21 +14,18 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import codewithcal.au.calendarappexample.CalendarAdapter
 import com.hasan_cottage.finalmoneymanager.bottomFragment.BottomSheetFragmentCalender
-import com.hasan_cottage.finalmoneymanager.databinding.ActivitySelectCurrencyBinding
 import com.hasan_cottage.finalmoneymanager.databinding.ActivityTakeCalenderBinding
 import com.hasan_cottage.finalmoneymanager.helper.HelperClass
 import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
 import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-import kotlin.concurrent.thread
 
 class TakeCalender : AppCompatActivity(), CalendarAdapter.OnItemListener {
 

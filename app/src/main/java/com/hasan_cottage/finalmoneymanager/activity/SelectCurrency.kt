@@ -7,7 +7,6 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hasan_cottage.finalmoneymanager.adapter.AdapterCurrency
-import com.hasan_cottage.finalmoneymanager.databinding.ActivitySearchBinding
 import com.hasan_cottage.finalmoneymanager.model.MyModel
 import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository

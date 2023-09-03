@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.hasan_cottage.finalmoneymanager.bottomFragment.BottomSheetFragment
 import com.hasan_cottage.finalmoneymanager.helper.HelperClass
 import com.hasan_cottage.finalmoneymanager.R
-import com.hasan_cottage.finalmoneymanager.databinding.ActivityMainBinding
 import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
 import com.hasan_cottage.finalmoneymanager.databinding.ActivityRecordBinding
