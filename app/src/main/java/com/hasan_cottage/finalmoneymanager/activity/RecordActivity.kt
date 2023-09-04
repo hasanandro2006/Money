@@ -45,12 +45,13 @@ class RecordActivity : AppCompatActivity() {
                     binding.AmountR.text = amountText
                     binding.AmountR.setTextColor(ContextCompat.getColor(this, R.color.red))
                     binding.TypeR.setTextColor(ContextCompat.getColor(this, R.color.red))
+                    binding.active.setBackgroundResource(R.drawable.degine_for_nagative)
 
                 } else {
                     binding.AmountR.text = it.amount.toString()
                     binding.AmountR.setTextColor(ContextCompat.getColor(this, R.color.blue))
                     binding.TypeR.setTextColor(ContextCompat.getColor(this, R.color.blue))
-
+                    binding.active.setBackgroundResource(R.drawable.degine_for_active)
                 }
                 binding.TypeR.text = it.type
                 val image = HelperClass.getColorCategory(it.category)

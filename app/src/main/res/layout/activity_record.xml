@@ -52,6 +52,18 @@
                     android:text="@string/record"
                     android:textColor="@color/black"
                     android:textSize="23sp" />
+                <ImageView
+                    android:id="@+id/active"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@color/red"
+                    android:layout_marginStart="20dp"
+                    android:layout_gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/month_S2"
+                    app:layout_constraintStart_toEndOf="@+id/choseChange"
+                    app:layout_constraintTop_toTopOf="parent" />
+
             </LinearLayout>
 
             <ImageButton
