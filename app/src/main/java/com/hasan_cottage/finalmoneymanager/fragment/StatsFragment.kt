@@ -425,7 +425,7 @@ class StatsFragment : Fragment() {
 
         val layoutParams = chart.layoutParams
         layoutParams.height = 400 // Set the desired height in pixels
-        chart.layoutParams = layoutParams
+//        chart.layoutParams = layoutParams
     }
 
     private fun allCodeExpense(it: List<ModelM>) {

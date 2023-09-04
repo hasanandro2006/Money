@@ -1,5 +1,3 @@
-package com.hasan_cottage.finalmoneymanager.fragment
-
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Context
@@ -13,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.tasks.Task
 import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
@@ -21,6 +18,7 @@ import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.activity.PrivacyPolicyActivity
 import com.hasan_cottage.finalmoneymanager.activity.SearchActivity
 import com.hasan_cottage.finalmoneymanager.databinding.FragmentMoreBinding
+import com.hasan_cottage.finalmoneymanager.fragment.MainFragment
 import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
@@ -29,67 +27,60 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class MoreFragment : Fragment() {
-    val binding by lazy {
-        FragmentMoreBinding.inflate(layoutInflater)
-    }
-    var dilog: AlertDialog.Builder? = null
+    private lateinit var binding: FragmentMoreBinding
+    private var alertDialog: AlertDialog.Builder? = null
     private lateinit var reviewManager: ReviewManager
-    private lateinit var reviewInfo: ReviewInfo
+    private var reviewInfo: ReviewInfo? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        binding = FragmentMoreBinding.inflate(layoutInflater)
 
         val daoM = DatabaseAll.getInstanceAll(requireContext()).getAllDaoM()
         val repository = Repository(daoM)
         val myViewModel =
             ViewModelProvider(this, ViewModelFactory(repository))[AppViewModel::class.java]
 
-        // Click search button =======
+        // Click search button
         binding.searce.setOnClickListener {
             startActivity(Intent(requireContext(), SearchActivity::class.java))
         }
-        // item_one =============
-        binding.itemOne.setOnClickListener(View.OnClickListener {
+
+        // item_one
+        binding.itemOne.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.frameLayout, MainFragment()).addToBackStack(null).commit()
-        })
+        }
 
-
-        // item_tow =============
-        binding.itemTow.setOnClickListener(View.OnClickListener {
-            val cm =
-                requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        // item_tow
+        binding.itemTow.setOnClickListener {
+            val cm = requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val nf = cm.activeNetworkInfo
             if (nf != null && nf.isConnected) {
                 startActivity(Intent(requireContext(), PrivacyPolicyActivity::class.java))
             } else {
-                Toast.makeText(requireContext(), "NO Internet Connection", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(requireContext(), "No Internet Connection", Toast.LENGTH_SHORT).show()
             }
+        }
 
-        })
-
-        // item_four ==============
-        binding.itemFour.setOnClickListener(View.OnClickListener {
-            val pakegName = requireActivity().packageName
+        // item_four
+        binding.itemFour.setOnClickListener {
+            val packageName = requireActivity().packageName
             val intent = Intent(Intent.ACTION_SEND)
             intent.type = "text/plain"
             intent.putExtra(
                 Intent.EXTRA_TEXT,
-                "Download App : https://play.google.com/store/apps/details?id=$pakegName"
+                "Download App: https://play.google.com/store/apps/details?id=$packageName"
             )
             requireActivity().startActivity(Intent.createChooser(intent, "Share via"))
-        })
+        }
 
-        // item_five ==============
-
-
-        // item_five ==============
-        binding.itemFive.setOnClickListener(View.OnClickListener {
-            val developerName = "Atikul Software"
+        // item_five
+        binding.itemFive.setOnClickListener {
+            val developerName = "HasanCottage"
             try {
                 startActivity(
                     Intent(
@@ -101,19 +92,17 @@ class MoreFragment : Fragment() {
                 startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse(" https://play.google.com/store/apps/details?id=$developerName")
+                        Uri.parse("https://play.google.com/store/apps/details?id=$developerName")
                     )
                 )
             }
-        })
+        }
 
-
-        // item eight =======
-
+        // item eight
         binding.itemEight.setOnClickListener {
             AlertDialog.Builder(requireContext())
                 .setTitle("DELETE THIS")
-                .setMessage("Are you sure delete this item")
+                .setMessage("Are you sure you want to delete this item?")
                 .setPositiveButton("OK") { _, _ ->
                     GlobalScope.launch {
                         myViewModel.deleteAllItems()
@@ -129,35 +118,35 @@ class MoreFragment : Fragment() {
                 .show()
         }
 
-        promptInAppReview()
+        // item_three
         binding.itemThree.setOnClickListener {
-           revidw()
+            reviewApp()
         }
-        return binding.root
 
-    }
-
-    private fun promptInAppReview() {
+        // Initialize the ReviewManager
         reviewManager = ReviewManagerFactory.create(requireContext())
-        val reviewInfoTask: Task<ReviewInfo> = reviewManager.requestReviewFlow()
+
+        // Request review flow and handle the result
+        val reviewInfoTask = reviewManager.requestReviewFlow()
         reviewInfoTask.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 reviewInfo = task.result
             } else {
-                Toast.makeText(requireContext(), "Not Task Complete", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Failed to request review flow", Toast.LENGTH_SHORT).show()
             }
         }
+
+        return binding.root
     }
 
-    private fun revidw() {
-        if (::reviewInfo.isInitialized) { // Check if reviewInfo is initialized
-            val flow: Task<Void> = reviewManager.launchReviewFlow(requireActivity(), reviewInfo)
-            flow.addOnCompleteListener {
-                Toast.makeText(requireContext(), "rating complete", Toast.LENGTH_SHORT).show()
+    private fun reviewApp() {
+        reviewInfo?.let { info ->
+            val flow = reviewManager.launchReviewFlow(requireActivity(), info)
+            flow.addOnCompleteListener { _ ->
+                Toast.makeText(requireContext(), "Review completed", Toast.LENGTH_SHORT).show()
             }
-        } else {
+        } ?: run {
             Toast.makeText(requireContext(), "Review info not available yet", Toast.LENGTH_SHORT).show()
         }
     }
-
 }

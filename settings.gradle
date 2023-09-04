@@ -2,20 +2,20 @@ pluginManagement {
     repositories {
         google()
         mavenCentral()
-        jcenter()// if set chart set this
+        jcenter() // If you need to set chart, include this repository
         gradlePluginPortal()
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
-        jcenter()// if set chart set this
-        maven { url 'https://jitpack.io' }// if set chart set this
+        jcenter() // If you need to set chart, include this repository
+        maven { url 'https://jitpack.io' } // If you need to set chart, include this repository
     }
 }
+
 rootProject.name = "Final Money Manager"
 include ':app'
-
-

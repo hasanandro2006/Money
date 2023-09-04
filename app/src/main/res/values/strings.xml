@@ -34,7 +34,7 @@
     <string name="currency_with_symbol">(%s)</string>
     <string name="D">(%s)</string>
     <string name="all_transaction">All Transaction</string>
-    <string name="project_name">Project name</string>
+    <string name="project_name">Transaction</string>
     <string name="floatingButton">FloatingButton</string>
     <string name="accountA">Account</string>
     <string name="date">Date</string>
@@ -71,7 +71,7 @@
     <string name="d">Share this app</string>
     <string name="e">More apps</string>
     <string name="f">Sound effects</string>
-    <string name="g">Reset your data</string>
+    <string name="g">Clear all data</string>
 
     <string name="total">Total</string>
     <string name="no_data_available">No data available</string>
