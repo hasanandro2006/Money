@@ -23,6 +23,7 @@ class SignupActivity : AppCompatActivity() {
      private var cCode :String? = null
     private var cSymbols :String? = null
     var name :String? = null
+    private var databaseTow:DatabaseTow?=null
 
 
     private var radioPosition: Int? = null
@@ -30,11 +31,27 @@ class SignupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_signup)
 
+       databaseTow= DatabaseTow.getInstanceAllTow(this)
 
         automaticFocusEdittext()
         getDataFromRoom()
         passNameSelectedPosition()
         nextButtonClick()
+
+        dataBinding.skip.setOnClickListener {
+            val sharedPreferencesC = getSharedPreferences("Currency", Context.MODE_PRIVATE)
+            val editor = sharedPreferencesC.edit()
+            editor.putString("cName","")
+            editor.putString("cCode","")
+            editor.putString("cSymbol", "")
+            editor.putString("name", "Transaction")
+            editor.apply()
+
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+
+        }
+
     }
 
     private fun automaticFocusEdittext() {
@@ -78,9 +95,8 @@ class SignupActivity : AppCompatActivity() {
             cCode= dataBinding.text1.text.toString()
             cSymbols= dataBinding.steText2.text.toString()
 
-            val databaseTow= DatabaseTow.getInstanceAllTow(this)
             GlobalScope.launch {
-                databaseTow.getAllDaoTow().insert(DataSignup(cName!!,cCode!!,cSymbols!!,name!!))
+                databaseTow!!.getAllDaoTow().insert(DataSignup(cName!!,cCode!!,cSymbols!!,name!!))
 
             }
                     startActivity(Intent(this, MainActivity::class.java))
