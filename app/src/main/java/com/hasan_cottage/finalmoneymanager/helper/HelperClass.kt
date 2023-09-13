@@ -37,7 +37,7 @@ class HelperClass {
 
         fun accountItem(): ArrayList<AccountModel> {
             arrayListA = ArrayList()
-            arrayListA.add(AccountModel("Case"))
+            arrayListA.add(AccountModel("Cash"))
             arrayListA.add(AccountModel("Bank"))
             arrayListA.add(AccountModel("bKash"))
             arrayListA.add(AccountModel("Nagad"))
@@ -61,7 +61,7 @@ class HelperClass {
 
         fun getColorAccount(account: String): Int? {
             when (account) {
-                "Case" -> return R.color.one
+                "Cash" -> return R.color.one
                 "Bank" -> return R.color.tow
                 "bKash" -> return R.color.four
                 "Nagad" -> return R.color.five

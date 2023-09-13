@@ -1,3 +1,5 @@
+package com.hasan_cottage.finalmoneymanager.fragment
+
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Context

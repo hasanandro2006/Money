@@ -55,6 +55,7 @@
         android:layout_marginTop="10dp">
 
         <ImageView
+            android:id="@+id/imageView7"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/home"
@@ -69,17 +70,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:text="@string/a"
             android:textColor="@color/black"
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.18"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageView8"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageView7"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5" />
 
         <ImageView
+            android:id="@+id/imageView8"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/font_arro"
@@ -100,6 +103,7 @@
         android:layout_marginTop="10dp">
 
         <ImageView
+            android:id="@+id/imageView5"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/privace"
@@ -111,19 +115,21 @@
             app:layout_constraintVertical_bias="0.5" />
 
         <TextView
-            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:text="@string/b"
+            android:textColor="@color/black"
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageView6"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageView5"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5" />
 
         <ImageView
+            android:id="@+id/imageView6"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@drawable/ho_arro"
@@ -144,8 +150,9 @@
         android:layout_marginTop="10dp">
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:id="@+id/imageView3"
+            android:layout_width="28dp"
+            android:layout_height="27dp"
             android:src="@drawable/rate_us"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -157,17 +164,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:text="@string/c"
             android:textColor="@color/black"
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.21"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageView4"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageView3"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5" />
 
         <ImageView
+            android:id="@+id/imageView4"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/baseline_arrow_drop_down"
@@ -187,6 +196,7 @@
         android:layout_marginTop="10dp">
 
         <ImageView
+            android:id="@+id/imageView9"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/share"
@@ -201,17 +211,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:text="@string/d"
             android:textColor="@color/black"
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.23"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageView10"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageView9"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5" />
 
         <ImageView
+            android:id="@+id/imageView10"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@drawable/ho_arro"
@@ -232,6 +244,7 @@
         android:layout_marginTop="10dp">
 
         <ImageView
+            android:id="@+id/imageView11"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/more2"
@@ -240,23 +253,24 @@
             app:layout_constraintHorizontal_bias="0.06"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5"
-            />
+            app:layout_constraintVertical_bias="0.5" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:text="@string/e"
             android:textColor="@color/black"
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageView12"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageView11"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5" />
 
         <ImageView
+            android:id="@+id/imageView12"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@drawable/ho_arro"
@@ -276,6 +290,7 @@
         android:layout_marginTop="10dp">
 
         <ImageView
+            android:id="@+id/imageView13"
             android:layout_width="23dp"
             android:layout_height="23dp"
             android:src="@drawable/database"
@@ -291,17 +306,19 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:text="@string/g"
             android:textColor="@color/black"
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.23"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageView14"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageView13"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5" />
 
         <ImageView
+            android:id="@+id/imageView14"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/font_arro"

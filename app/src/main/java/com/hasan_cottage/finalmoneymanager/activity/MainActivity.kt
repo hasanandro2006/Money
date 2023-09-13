@@ -1,6 +1,6 @@
 package com.hasan_cottage.finalmoneymanager.activity
 
-import MoreFragment
+
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
@@ -9,6 +9,7 @@ import com.hasan_cottage.finalmoneymanager.bottomFragment.BottomSheetFragment
 import com.hasan_cottage.finalmoneymanager.databinding.ActivityMainBinding
 import com.hasan_cottage.finalmoneymanager.fragment.CalendarFragment
 import com.hasan_cottage.finalmoneymanager.fragment.MainFragment
+import com.hasan_cottage.finalmoneymanager.fragment.MoreFragment
 import com.hasan_cottage.finalmoneymanager.fragment.StatsFragment
 
 class MainActivity : AppCompatActivity() {
@@ -59,7 +60,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.four -> {
-                    beginTransactionVal.replace(R.id.frameLayout, MoreFragment())
+                    beginTransactionVal.replace(R.id.frameLayout,MoreFragment())
                     fragmentManger.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                     beginTransactionVal.addToBackStack(null)
                     beginTransactionVal.commit()

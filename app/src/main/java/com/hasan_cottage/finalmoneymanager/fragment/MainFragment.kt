@@ -8,12 +8,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
+import com.google.android.play.core.review.ReviewInfo
+import com.google.android.play.core.review.ReviewManager
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.activity.SearchActivity
 import com.hasan_cottage.finalmoneymanager.activity.TakeCalender
@@ -40,6 +44,9 @@ class MainFragment : Fragment() {
     val binding by lazy {
         FragmentMainBinding.inflate(layoutInflater)
     }
+
+    private lateinit var reviewManager: ReviewManager
+    private var reviewInfo: ReviewInfo? = null
 
     companion object {
         lateinit var myViewModel: AppViewModel
@@ -124,6 +131,21 @@ class MainFragment : Fragment() {
         }
 
 
+        binding.rate.setOnClickListener {
+            reviewApp()
+        }
+        // Initialize the ReviewManager
+        reviewManager = ReviewManagerFactory.create(requireContext())
+
+        // Request review flow and handle the result
+        val reviewInfoTask = reviewManager.requestReviewFlow()
+        reviewInfoTask.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                reviewInfo = task.result
+            } else {
+                Toast.makeText(requireContext(), "Failed to request review flow", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         return binding.root
     }
@@ -222,5 +244,16 @@ class MainFragment : Fragment() {
             )
         )
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
+    }
+
+    private fun reviewApp() {
+        reviewInfo?.let { info ->
+            val flow = reviewManager.launchReviewFlow(requireActivity(), info)
+            flow.addOnCompleteListener { _ ->
+                Toast.makeText(requireContext(), "Review completed", Toast.LENGTH_SHORT).show()
+            }
+        } ?: run {
+            Toast.makeText(requireContext(), "Review info not available yet", Toast.LENGTH_SHORT).show()
+        }
     }
 }

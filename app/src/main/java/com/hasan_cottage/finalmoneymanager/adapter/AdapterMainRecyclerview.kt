@@ -54,7 +54,6 @@ class AdapterMainRecyclerview(
         holder.binding.datee.text = arrayList[position].date
 
 
-
         holder.binding.account.text = arrayList[position].account
         holder.binding.account.backgroundTintList =
             context.getColorStateList(HelperClass.getColorAccount(store.account)!!)

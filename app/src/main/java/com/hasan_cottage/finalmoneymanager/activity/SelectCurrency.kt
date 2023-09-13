@@ -1,11 +1,16 @@
 package com.hasan_cottage.finalmoneymanager.activity
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.adapter.AdapterCurrency
 import com.hasan_cottage.finalmoneymanager.model.MyModel
 import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
@@ -94,19 +99,33 @@ class SelectCurrency : AppCompatActivity() {
     }
 
     private fun searchViewEvent() {
-        binding.searceViewS.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                adapterAll.filter.filter(newText)
-                return true
-            }
+        // Change the text color
+        val textColor = ContextCompat.getColor(this, R.color.black) // Change to your desired text color
+        binding.searceViewS.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+            .setTextColor(textColor)
 
-        })
+        binding.searceViewS.setOnClickListener {
 
-    }
+            binding.searceViewS.isIconified = false  // Expand the SearchView
+            binding.searceViewS.requestFocus()       // Request focus
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(binding.searceViewS, InputMethodManager.SHOW_IMPLICIT) // Show the keyboard
+
+            binding.searceViewS.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    adapterAll.filter.filter(newText)
+                    return true
+                }
+
+            })
+        }
+
+        }
 
 }
 

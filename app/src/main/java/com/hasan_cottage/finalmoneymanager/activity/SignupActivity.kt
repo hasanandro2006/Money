@@ -99,8 +99,17 @@ class SignupActivity : AppCompatActivity() {
                 databaseTow!!.getAllDaoTow().insert(DataSignup(cName!!,cCode!!,cSymbols!!,name!!))
 
             }
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
+
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+
+            val sharedPreferencesC = getSharedPreferences("Currency", Context.MODE_PRIVATE)
+            val editor = sharedPreferencesC.edit()
+            editor.putString("cName","")
+            editor.putString("cCode","")
+            editor.putString("cSymbol", "")
+            editor.putString("name", "Transaction")
+            editor.apply()
         }
     }
 

@@ -2,11 +2,16 @@ package com.hasan_cottage.finalmoneymanager.activity
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.content.Context
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -96,16 +101,30 @@ class SearchActivity : AppCompatActivity(), AdapterCategory.CategoryClick {
 
         }
 
-        binding.searceViewSs.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
+// Change the text color
+        val textColor = ContextCompat.getColor(this, R.color.black) // Change to your desired text color
+        binding.searceViewSs.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+            .setTextColor(textColor)
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                adapter.filter.filter(newText)
-                return true
-            }
-        })
+        binding.searceViewSs.setOnClickListener {
+            binding.searceViewSs.isIconified = false  // Expand the SearchView
+            binding.searceViewSs.requestFocus()       // Request focus
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(binding.searceViewSs, InputMethodManager.SHOW_IMPLICIT) // Show the keyboard
+
+            binding.searceViewSs.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    adapter.filter.filter(newText)
+                    return true
+                }
+            })
+        }
+
+
 
         if (selectedDateLiveData != null || categoryName != null) {
             ifCategoryDateHave()

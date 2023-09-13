@@ -58,7 +58,6 @@
                     app:layout_constraintVertical_bias="1.0"
                     app:tint="@color/white" />
             </LinearLayout>
-
             <ImageButton
                 android:id="@+id/dittles"
                 android:layout_width="40dp"
@@ -68,6 +67,18 @@
                 android:background="@android:color/transparent"
                 android:layout_toStartOf="@+id/searce"
                 android:src="@drawable/alltrangtion" />
+
+            <ImageView
+                android:id="@+id/rate"
+                android:layout_width="24dp"
+                android:layout_height="23dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="147dp"
+                android:layout_marginEnd="10dp"
+               android:layout_toStartOf="@+id/dittles"
+                android:background="@android:color/transparent"
+                android:src="@drawable/test"
+                app:tint="@color/blue" />
 
 
             <ImageButton
