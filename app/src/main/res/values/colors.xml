@@ -26,6 +26,7 @@
     <color name="gray1">#DEDEDE</color>
     <color name="gray">#000000</color>
     <color name="what">#666666</color>
+    <color name="rate">#FF0057</color>
 
 
 </resources>
