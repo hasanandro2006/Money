@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +23,7 @@ import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.ModelM
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
 import com.hasan_cottage.finalmoneymanager.databinding.ActivityExpenseIncomeStructerBinding
+import com.hasan_cottage.finalmoneymanager.roomDatabaseNot.DatabaseTow
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
 import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
 import java.text.SimpleDateFormat
@@ -770,12 +772,31 @@ class ExpenseIncomeChart : AppCompatActivity() {
 
             chart.data = pieData
             chart.description.isEnabled = true // Hide description
-            chart.centerText = "Income\n$income"
             chart.animateXY(1000, 1000) // Animate the chart
             chart.description.isEnabled = false
             chart.invalidate()
 
             chart.setDrawEntryLabels(false)
+
+
+            val databaseTow = DatabaseTow.getInstanceAllTow(this)
+            val sharedPreferences =this.getSharedPreferences("Name", Context.MODE_PRIVATE)
+            val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
+
+            databaseTow.getAllDaoTow().getData().observe(this) {
+
+                if (it.isNullOrEmpty()) {
+
+                    chart.centerText = "Income\n $ $income"
+
+                } else {
+
+                    chart.centerText = "Income\n ${it[stock].currencySymbol} $income"
+
+                }
+
+            }
+
 
             val l = chart.legend
             l.isEnabled = false // to remove out site label
@@ -1066,12 +1087,31 @@ class ExpenseIncomeChart : AppCompatActivity() {
 
             chart.data = pieData
             chart.description.isEnabled = true // Hide description
-            chart.centerText = "Expense\n$expense"
             chart.animateXY(1000, 1000) // Animate the chart
             chart.description.isEnabled = false
             chart.invalidate()
 
             chart.setDrawEntryLabels(false)
+
+            val databaseTow = DatabaseTow.getInstanceAllTow(this)
+            val sharedPreferences =this.getSharedPreferences("Name", Context.MODE_PRIVATE)
+            val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
+
+            databaseTow.getAllDaoTow().getData().observe(this) {
+
+                if (it.isNullOrEmpty()) {
+
+                    chart.centerText = "Expense\n $ $expense"
+
+                } else {
+
+                    chart.centerText = "Expense\n ${it[stock].currencySymbol} $expense"
+
+                }
+
+            }
+
+
 
             val l = chart.legend
             l.isEnabled = false // to remove out site label

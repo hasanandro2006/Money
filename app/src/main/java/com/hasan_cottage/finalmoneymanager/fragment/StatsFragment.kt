@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
@@ -24,6 +25,7 @@ import com.hasan_cottage.finalmoneymanager.activity.ExpenseIncomeChart
 import com.hasan_cottage.finalmoneymanager.activity.SearchActivity
 import com.hasan_cottage.finalmoneymanager.bottomFragment.BottomSheetFragmentName
 import com.hasan_cottage.finalmoneymanager.databinding.FragmentStatasBinding
+import com.hasan_cottage.finalmoneymanager.roomDatabaseNot.DatabaseTow
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
 import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
 import kotlinx.coroutines.Dispatchers
@@ -45,7 +47,7 @@ class StatsFragment : Fragment() {
     private var weekNumber: Int? = null
     private lateinit var entries: ArrayList<PieEntry>
 
-
+    private var symble: String? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -339,12 +341,6 @@ class StatsFragment : Fragment() {
         Log.d("all", "$home=$business=$loan=$investment=$planing =$rent =$other")
 
 
-        binding.incomeStaI.text = income.toString()
-        val stores = " - $expense"
-        binding.expenseStaI.text = stores
-        binding.totalStaI.text = total.toString()
-
-
         val homeP = ((home / income) * 100).toInt()
         val businessP = ((business / income) * 100).toInt()
         val loanP = ((loan / income) * 100).toInt()
@@ -380,12 +376,46 @@ class StatsFragment : Fragment() {
 
         chart.data = pieData
         chart.description.isEnabled = true // Hide description
-        chart.centerText = "Income\n$income"
         chart.animateXY(1000, 1000) // Animate the chart
         chart.description.isEnabled = false
         chart.invalidate()
 
         chart.setDrawEntryLabels(false)
+
+
+
+        val databaseTow = DatabaseTow.getInstanceAllTow(requireContext())
+        val sharedPreferences = requireContext().getSharedPreferences("Name", Context.MODE_PRIVATE)
+        val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
+
+        databaseTow.getAllDaoTow().getData().observe(viewLifecycleOwner) {
+
+            if (it.isNullOrEmpty()) {
+                symble="$"
+
+                binding.incomeStaI.text = "$symble $income"
+                val stores = " -$symble $expense"
+                binding.expenseStaI.text = stores
+                binding.totalStaI.text = "$symble $total"
+
+                chart.centerText = "Income\n $symble $income"
+
+            } else {
+                symble=it[stock].currencySymbol
+
+                binding.incomeStaI.text = "$symble $income"
+                val stores = " -$symble $expense"
+                binding.expenseStaI.text = stores
+                binding.totalStaI.text = "$symble $total"
+
+                chart.centerText = "Income\n $symble $income"
+
+            }
+
+        }
+
+
+
 
         val l = chart.legend
         l.verticalAlignment = Legend.LegendVerticalAlignment.CENTER
@@ -535,12 +565,34 @@ class StatsFragment : Fragment() {
 
         chart.data = pieData
         chart.description.isEnabled = true // Hide description
-        chart.centerText = "Expense\n$expense"
         chart.animateXY(1000, 1000) // Animate the chart
         chart.description.isEnabled = false
         chart.invalidate()
 
         chart.setDrawEntryLabels(false)
+
+
+
+
+        val databaseTow = DatabaseTow.getInstanceAllTow(requireContext())
+        val sharedPreferences = requireContext().getSharedPreferences("Name", Context.MODE_PRIVATE)
+        val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
+
+        databaseTow.getAllDaoTow().getData().observe(viewLifecycleOwner) {
+
+            if (it.isNullOrEmpty()) {
+                symble="$"
+
+                chart.centerText = "Expense\n $symble $expense"
+
+            } else {
+                symble=it[stock].currencySymbol
+
+                chart.centerText = "Expense\n $symble $expense"
+
+            }
+
+        }
 
         val l = chart.legend
         l.verticalAlignment = Legend.LegendVerticalAlignment.CENTER

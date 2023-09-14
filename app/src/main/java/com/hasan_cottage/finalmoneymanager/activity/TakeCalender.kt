@@ -1,5 +1,6 @@
 package com.hasan_cottage.finalmoneymanager.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -18,6 +19,7 @@ import com.hasan_cottage.finalmoneymanager.databinding.ActivityTakeCalenderBindi
 import com.hasan_cottage.finalmoneymanager.helper.HelperClass
 import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
+import com.hasan_cottage.finalmoneymanager.roomDatabaseNot.DatabaseTow
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
 import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
 import kotlinx.coroutines.Dispatchers
@@ -85,10 +87,31 @@ class TakeCalender : AppCompatActivity(), CalendarAdapter.OnItemListener {
             }
             Log.d("main2", it.toString())
 
-            binding.totalS.text = storeT.toString()
-            binding.incomeS.text = incomeT.toString()
-            val stores = "- $expenseT"
-            binding.expanseS.text = stores
+            val databaseTow = DatabaseTow.getInstanceAllTow(this)
+            val sharedPreferences =this.getSharedPreferences("Name", Context.MODE_PRIVATE)
+            val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
+
+            databaseTow.getAllDaoTow().getData().observe(this) {
+
+                if (it.isNullOrEmpty()) {
+
+                    binding.totalS.text = "$ $storeT"
+                    binding.incomeS.text = "$ $incomeT"
+                    val stores = "-$ $expenseT"
+                    binding.expanseS.text = stores
+
+                } else {
+
+                    binding.totalS.text = "${it[stock].currencySymbol} $storeT"
+                    binding.incomeS.text = "${it[stock].currencySymbol} $incomeT"
+                    val stores = "-${it[stock].currencySymbol} $expenseT"
+                    binding.expanseS.text = stores
+
+                }
+
+
+            }
+
         }
     }
 

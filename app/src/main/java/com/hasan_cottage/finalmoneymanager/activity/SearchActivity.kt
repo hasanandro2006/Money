@@ -112,17 +112,17 @@ class SearchActivity : AppCompatActivity(), AdapterCategory.CategoryClick {
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(binding.searceViewSs, InputMethodManager.SHOW_IMPLICIT) // Show the keyboard
 
-            binding.searceViewSs.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    return false
-                }
-
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    adapter.filter.filter(newText)
-                    return true
-                }
-            })
         }
+        binding.searceViewSs.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.filter.filter(newText)
+                return true
+            }
+        })
 
 
 

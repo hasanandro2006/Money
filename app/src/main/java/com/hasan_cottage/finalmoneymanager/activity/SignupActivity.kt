@@ -78,8 +78,7 @@ class SignupActivity : AppCompatActivity() {
         dataBinding.text1.text  = sharedPreferencesC.getString("cCode", "")
 
         val currencySymbol = sharedPreferencesC.getString("cSymbol", "")
-        val formattedString = getString(R.string.currency_with_symbol, currencySymbol)
-        dataBinding.steText2.text = formattedString
+        dataBinding.steText2.text = currencySymbol
 
         val name = sharedPreferencesC.getString("name", "Transaction")
         dataBinding.appCompatEditText.setText(name)

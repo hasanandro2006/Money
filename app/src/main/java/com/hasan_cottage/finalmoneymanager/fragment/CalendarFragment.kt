@@ -22,6 +22,7 @@ import com.hasan_cottage.finalmoneymanager.roomDatabase.ModelM
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
 import com.hasan_cottage.finalmoneymanager.bottomFragment.BottomSheetFragmentName
 import com.hasan_cottage.finalmoneymanager.databinding.FragmentCalendarBinding
+import com.hasan_cottage.finalmoneymanager.roomDatabaseNot.DatabaseTow
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
 import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
 import kotlinx.coroutines.Dispatchers
@@ -45,6 +46,8 @@ class CalendarFragment : Fragment() {
     private val calendar = Calendar.getInstance()
     private val calendar7 = Calendar.getInstance()
 
+    private var symble:String=""
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,6 +59,7 @@ class CalendarFragment : Fragment() {
         val sharedPreferences = context.getSharedPreferences("Time", Context.MODE_PRIVATE)
         val daily: Int = sharedPreferences.getInt("Daily", 1)
 
+        SymbleGanarate(context)
 
         // room database
         val daoM = DatabaseAll.getInstanceAll(context).getAllDaoM()
@@ -302,12 +306,35 @@ class CalendarFragment : Fragment() {
                 expenseT += data.amount
             }
         }
+
+
+        val databaseTow = DatabaseTow.getInstanceAllTow(requireContext())
+        val sharedPreferences = requireContext().getSharedPreferences("Name", Context.MODE_PRIVATE)
+        val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
+
+        databaseTow.getAllDaoTow().getData().observe(viewLifecycleOwner) {
+
+            if (it.isNullOrEmpty()) {
+                symble="$"
+
+                binding.totalS.text = "$symble $storeT"
+                binding.incomeS.text ="$symble $incomeT"
+                val stores = "-$symble $expenseT"
+                binding.expanseS.text = stores
+            } else {
+                symble=it[stock].currencySymbol
+
+                binding.totalS.text = "$symble $storeT"
+                binding.incomeS.text ="$symble $incomeT"
+                val stores = "-$symble $expenseT"
+                binding.expanseS.text = stores
+            }
+
+        }
+
         Log.d("main2", it.toString())
 
-        binding.totalS.text = storeT.toString()
-        binding.incomeS.text = incomeT.toString()
-        val stores = "- $expenseT"
-        binding.expanseS.text = stores
+
 
 
         val adapter = AdapterMainRecyclerview(requireActivity() as AppCompatActivity, it)
@@ -320,5 +347,9 @@ class CalendarFragment : Fragment() {
             )
         )
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
+    }
+
+    private fun SymbleGanarate(context: Context){
+
     }
 }

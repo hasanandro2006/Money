@@ -5,21 +5,22 @@ import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.adapter.AdapterCurrency
+import com.hasan_cottage.finalmoneymanager.databinding.ActivitySelectCurrencyBinding
 import com.hasan_cottage.finalmoneymanager.model.MyModel
 import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
-import com.hasan_cottage.finalmoneymanager.databinding.ActivitySelectCurrencyBinding
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
 import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
 import java.util.Currency
 import java.util.Locale
+
 
 class SelectCurrency : AppCompatActivity() {
 
@@ -32,6 +33,7 @@ class SelectCurrency : AppCompatActivity() {
     lateinit var adapterAll: AdapterCurrency
 
 
+    @RequiresApi(34)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -51,9 +53,13 @@ class SelectCurrency : AppCompatActivity() {
     }
 
 
+    @RequiresApi(34)
     private fun getCurrency() {
 
         try {
+            // Manually map BDT to its symbol
+            val customCurrencySymbols = mapOf("BDT" to "৳")
+
             // Get all country currency name /.....
             val countryCodes = Locale.getISOCountries()
             for (countryCode in countryCodes) {
@@ -63,16 +69,22 @@ class SelectCurrency : AppCompatActivity() {
                     // Get the currency name and code
                     val currencyName = currency.displayName
                     val currencyCode = currency.currencyCode
-                    val currencySymbol = currency.symbol
+                    var currencySymbol = customCurrencySymbols[currencyCode] ?: currency.symbol
+
+                    // Check if it's USD and set the symbol to "$"
+                    if (currencyCode == "USD") {
+                        currencySymbol = "$"
+                    } else if (currencySymbol == null) {
+                        currencySymbol = currency.symbol
+                    }
+
                     val currencyModel = MyModel(currencyCode, currencyName, currencySymbol)
                     arrayListCurrency!!.add(currencyModel)
                 }
             }
         } catch (e: IllegalArgumentException) {
-
-            Log.d("show",e.toString())
+            Log.d("show", e.toString())
         }
-
 
         // sorted currency
         arrayListCurrency!!.sortWith {
@@ -101,7 +113,7 @@ class SelectCurrency : AppCompatActivity() {
     private fun searchViewEvent() {
 
         // Change the text color
-        val textColor = ContextCompat.getColor(this, R.color.black) // Change to your desired text color
+        val textColor = ContextCompat.getColor(this, com.hasan_cottage.finalmoneymanager.R.color.black) // Change to your desired text color
         binding.searceViewS.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
             .setTextColor(textColor)
 
@@ -112,20 +124,23 @@ class SelectCurrency : AppCompatActivity() {
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(binding.searceViewS, InputMethodManager.SHOW_IMPLICIT) // Show the keyboard
 
-            binding.searceViewS.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    return false
-                }
-
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    adapterAll.filter.filter(newText)
-                    return true
-                }
-
-            })
-        }
 
         }
+        binding.searceViewS.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapterAll.filter.filter(newText)
+                return true
+            }
+
+        })
+
+        }
+
+
 
 }
 

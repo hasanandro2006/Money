@@ -2,6 +2,7 @@ package com.hasan_cottage.finalmoneymanager.adapter
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.Gravity
@@ -21,6 +22,7 @@ import com.hasan_cottage.finalmoneymanager.helper.HelperClass
 import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.roomDatabase.ModelM
 import com.hasan_cottage.finalmoneymanager.databinding.DegineForMainactivityBinding
+import com.hasan_cottage.finalmoneymanager.roomDatabaseNot.DatabaseTow
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -64,14 +66,44 @@ class AdapterMainRecyclerview(
         holder.binding.imageView.backgroundTintList =
             context.getColorStateList(getColorCategoryCome.color)
 
-        if (arrayList[position].type == HelperClass.INCOME) {
-            holder.binding.amount.setTextColor(context.getColor(R.color.blue))
-            holder.binding.amount.text = arrayList[position].amount.toString()
-        } else {
-            holder.binding.amount.setTextColor(context.getColor(R.color.red))
-            val stores = "- " + arrayList[position].amount
-            holder.binding.amount.text = stores
+
+        val databaseTow = DatabaseTow.getInstanceAllTow(context)
+        // set name .......
+        val sharedPreferences = context.getSharedPreferences("Name", Context.MODE_PRIVATE)
+        val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
+
+        databaseTow.getAllDaoTow().getData().observe(context) {
+
+            if (it.isNullOrEmpty()) {
+                if (arrayList[position].type == HelperClass.INCOME) {
+                    holder.binding.amount.setTextColor(context.getColor(R.color.blue))
+                    holder.binding.amount.text = "$ " + arrayList[position].amount.toString()
+                } else {
+                    holder.binding.amount.setTextColor(context.getColor(R.color.red))
+                    val stores = "-$ " + arrayList[position].amount
+                    holder.binding.amount.text = stores
+                }
+            } else {
+                if (arrayList[position].type == HelperClass.INCOME) {
+                    holder.binding.amount.setTextColor(context.getColor(R.color.blue))
+                    holder.binding.amount.text = "${it[stock].currencySymbol} "+ arrayList[position].amount.toString()
+                } else {
+                    holder.binding.amount.setTextColor(context.getColor(R.color.red))
+                    val stores = "- ${it[stock].currencySymbol} " + arrayList[position].amount
+                    holder.binding.amount.text = stores
+                }
+            }
+
         }
+
+//        if (arrayList[position].type == HelperClass.INCOME) {
+//            holder.binding.amount.setTextColor(context.getColor(R.color.blue))
+//            holder.binding.amount.text = arrayList[position].amount.toString()
+//        } else {
+//            holder.binding.amount.setTextColor(context.getColor(R.color.red))
+//            val stores = "- "+ arrayList[position].amount
+//            holder.binding.amount.text = stores
+//        }
 
         holder.itemView.setOnClickListener {
             val intent = Intent(context, RecordActivity::class.java)

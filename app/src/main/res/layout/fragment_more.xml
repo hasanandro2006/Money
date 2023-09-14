@@ -367,7 +367,7 @@
             android:id="@+id/imageView15"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:src="@drawable/aboutt"
+            android:src="@drawable/baseline_arrow_drop_down"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.95"

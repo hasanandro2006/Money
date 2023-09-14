@@ -18,6 +18,7 @@ import com.hasan_cottage.finalmoneymanager.helper.HelperClass
 import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.ModelM
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
+import com.hasan_cottage.finalmoneymanager.roomDatabaseNot.DatabaseTow
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
 import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
 import kotlinx.coroutines.Dispatchers
@@ -344,9 +345,36 @@ class ExpIncRecyclerItemClick : AppCompatActivity() {
         }
         Log.d("main2", it.toString())
 
+        val databaseTow = DatabaseTow.getInstanceAllTow(this)
+        val sharedPreferences =this.getSharedPreferences("Name", Context.MODE_PRIVATE)
+        val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
 
-        val stores = "$storeT"
-        binding.expanseS.text = stores
+        databaseTow.getAllDaoTow().getData().observe(this) {
+
+            if (it.isNullOrEmpty()) {
+
+                if (type == HelperClass.INCOME){
+                    val stores = "$ $storeT"
+                    binding.expanseS.text = stores
+                }else{
+                    val stores = "-$ $storeT"
+                    binding.expanseS.text = stores
+                }
+
+
+            } else {
+
+                if (type == HelperClass.INCOME){
+                    val stores = "${it[stock].currencySymbol} $storeT"
+                    binding.expanseS.text = stores
+                }else{
+                    val stores = "-${it[stock].currencySymbol} $storeT"
+                    binding.expanseS.text = stores
+                }
+
+
+            }
+        }
 
 
         val adapter = AdapterMainRecyclerview(this, it)

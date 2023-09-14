@@ -27,6 +27,7 @@ import com.hasan_cottage.finalmoneymanager.model.CategoryModel
 import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.ModelM
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
+import com.hasan_cottage.finalmoneymanager.roomDatabaseNot.DatabaseTow
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
 import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -71,6 +72,24 @@ class BottomSheetFragment(private val intId: Int, private  val string: String) :
 
 
         val applicationContext = requireContext().applicationContext
+
+
+
+        val databaseTow = DatabaseTow.getInstanceAllTow(applicationContext)
+        // set name .......
+        val sharedPreferences = applicationContext.getSharedPreferences("Name", Context.MODE_PRIVATE)
+        val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
+
+        databaseTow.getAllDaoTow().getData().observe(viewLifecycleOwner) {
+
+            if (it.isNullOrEmpty()) {
+
+            } else {
+                binding.symble.text = it[stock].currencySymbol
+            }
+
+        }
+
 
         val daoM = DatabaseAll.getInstanceAll(applicationContext).getAllDaoM()
         val repository = Repository(daoM)

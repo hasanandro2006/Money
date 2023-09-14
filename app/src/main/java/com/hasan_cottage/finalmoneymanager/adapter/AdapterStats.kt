@@ -5,14 +5,16 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hasan_cottage.finalmoneymanager.model.StatsModel
 import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.activity.ExpIncRecyclerItemClick
 import com.hasan_cottage.finalmoneymanager.databinding.DegineForStatisticBinding
+import com.hasan_cottage.finalmoneymanager.roomDatabaseNot.DatabaseTow
 
-class AdapterStats(val context: Context, val arraylist: ArrayList<StatsModel>, private var inEx:Int,val date:String,val weekNumber: Int): RecyclerView.Adapter<AdapterStats.ViewAdapter>(){
+class AdapterStats(val context: AppCompatActivity, val arraylist: ArrayList<StatsModel>, private var inEx:Int,val date:String,val weekNumber: Int): RecyclerView.Adapter<AdapterStats.ViewAdapter>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewAdapter {
        return ViewAdapter(LayoutInflater.from(context).inflate(R.layout.degine_for_statistic,parent,false))
@@ -22,15 +24,39 @@ class AdapterStats(val context: Context, val arraylist: ArrayList<StatsModel>, p
         holder.binding.statasImage.backgroundTintList=context.getColorStateList(arraylist[position].color)
 
         holder.binding.statasCatagoryName.text=arraylist[position].categoryName
-        if (inEx ==0){
-            holder.binding.statasCatagoryvalue.text= arraylist[position].categoryValue.toString()
-            holder.binding.statasCatagoryvalue.setTextColor(ContextCompat.getColor(holder.itemView.context,R.color.green))
 
+        val databaseTow = DatabaseTow.getInstanceAllTow(context)
+        val sharedPreferences = context.getSharedPreferences("Name", Context.MODE_PRIVATE)
+        val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
+
+        databaseTow.getAllDaoTow().getData().observe(context){
+
+            if (it.isNullOrEmpty()) {
+                if (inEx ==0){
+                    holder.binding.statasCatagoryvalue.text= "$ "+arraylist[position].categoryValue.toString()
+                    holder.binding.statasCatagoryvalue.setTextColor(ContextCompat.getColor(holder.itemView.context,R.color.green))
+
+                }
+                else{
+                    val stores="-$ "+arraylist[position].categoryValue.toString()
+                    holder.binding.statasCatagoryvalue.text=stores
+                }
+
+            } else {
+                if (inEx ==0){
+                    holder.binding.statasCatagoryvalue.text= "${it[stock].currencySymbol} "+arraylist[position].categoryValue.toString()
+                    holder.binding.statasCatagoryvalue.setTextColor(ContextCompat.getColor(holder.itemView.context,R.color.green))
+
+                }
+                else{
+                    val stores="-${it[stock].currencySymbol} "+arraylist[position].categoryValue.toString()
+                    holder.binding.statasCatagoryvalue.text=stores
+                }
+            }
         }
-        else{
-            val stores="- "+arraylist[position].categoryValue.toString()
-            holder.binding.statasCatagoryvalue.text=stores
-        }
+
+
+
 
 
         val stores=arraylist[position].percent.toString()+"%"

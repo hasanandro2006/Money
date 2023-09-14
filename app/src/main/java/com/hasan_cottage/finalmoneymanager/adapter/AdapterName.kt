@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 class AdapterName(
     val context: Context,
     private val arrayList: List<DataSignup>,
-    private val oldPosition: Int,
+    private var oldPosition: Int,
     private var data2:ClickDataCome
 
     ) : RecyclerView.Adapter<AdapterName.ItemViewHolder>() {
@@ -51,13 +51,14 @@ class AdapterName(
         holder.binding.carrencyNameR.text = arrayList[position].currencySymbol
 
         holder.binding.redioName.isChecked = (oldPosition == position)
+
         holder.binding.closeItem.setOnClickListener {
-            val databaseDaoTow=DatabaseTow.getInstanceAllTow(context)
+            val databaseDaoTow = DatabaseTow.getInstanceAllTow(context)
             GlobalScope.launch {
-                databaseDaoTow.getAllDaoTow().deleteId(arrayList[position].id)
+                databaseDaoTow.getAllDaoTow().deleteId(currentItem.id)
+                oldPosition=position
             }
         }
-
         holder.itemView.setOnClickListener {
             data2.click(currentItem)
             val sharedPreferences = context.getSharedPreferences("Name", Context.MODE_PRIVATE)
