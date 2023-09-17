@@ -162,9 +162,11 @@ class ExpenseIncomeChart : AppCompatActivity() {
 
         tabBoolean = if (tabBoolean) {
             binding.tabLayout.getTabAt(0)?.select()
+            binding.active.setBackgroundResource(R.drawable.degine_for_active)
             true
         } else {
             binding.tabLayout.getTabAt(1)?.select()
+            binding.active.setBackgroundResource(R.drawable.degine_for_nagative)
             false
         }
 
@@ -175,6 +177,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
                     0 -> {
+                        binding.active.setBackgroundResource(R.drawable.degine_for_active)
                         if (weekNumber != 0) {
                             updateCalenderFirst(weekData!!, daily, true)
                         } else {
@@ -185,6 +188,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
                     }
 
                     1 -> {
+                        binding.active.setBackgroundResource(R.drawable.degine_for_nagative)
                         updateCalenderFirst(storeAll, daily, false)
 
                         if (weekNumber != 0) {
@@ -783,15 +787,16 @@ class ExpenseIncomeChart : AppCompatActivity() {
             val sharedPreferences =this.getSharedPreferences("Name", Context.MODE_PRIVATE)
             val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
 
-            databaseTow.getAllDaoTow().getData().observe(this) {
+            databaseTow.getAllDaoTow().getDataId(stock).observe(this) {
 
                 if (it.isNullOrEmpty()) {
 
                     chart.centerText = "Income\n $ $income"
 
                 } else {
-
-                    chart.centerText = "Income\n ${it[stock].currencySymbol} $income"
+                    it.forEach {
+                        chart.centerText = "Income\n ${it.currencySymbol} $income"
+                    }
 
                 }
 
@@ -1097,7 +1102,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
             val sharedPreferences =this.getSharedPreferences("Name", Context.MODE_PRIVATE)
             val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
 
-            databaseTow.getAllDaoTow().getData().observe(this) {
+            databaseTow.getAllDaoTow().getDataId(stock).observe(this) {
 
                 if (it.isNullOrEmpty()) {
 
@@ -1105,7 +1110,9 @@ class ExpenseIncomeChart : AppCompatActivity() {
 
                 } else {
 
-                    chart.centerText = "Expense\n ${it[stock].currencySymbol} $expense"
+                    it.forEach {
+                        chart.centerText = "Expense\n ${it.currencySymbol} $expense"
+                    }
 
                 }
 

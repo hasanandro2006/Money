@@ -80,12 +80,14 @@ class BottomSheetFragment(private val intId: Int, private  val string: String) :
         val sharedPreferences = applicationContext.getSharedPreferences("Name", Context.MODE_PRIVATE)
         val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
 
-        databaseTow.getAllDaoTow().getData().observe(viewLifecycleOwner) {
+        databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) {
 
-            if (it.isNullOrEmpty()) {
-
-            } else {
-                binding.symble.text = it[stock].currencySymbol
+            if (stock==0){
+                binding.symble.text = "$"
+            }else{
+                it.forEach {
+                    binding.symble.text = it.currencySymbol
+                }
             }
 
         }

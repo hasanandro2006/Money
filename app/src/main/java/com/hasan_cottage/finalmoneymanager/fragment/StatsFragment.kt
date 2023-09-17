@@ -23,6 +23,7 @@ import com.hasan_cottage.finalmoneymanager.roomDatabase.ModelM
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
 import com.hasan_cottage.finalmoneymanager.activity.ExpenseIncomeChart
 import com.hasan_cottage.finalmoneymanager.activity.SearchActivity
+import com.hasan_cottage.finalmoneymanager.activity.TakeCalender
 import com.hasan_cottage.finalmoneymanager.bottomFragment.BottomSheetFragmentName
 import com.hasan_cottage.finalmoneymanager.databinding.FragmentStatasBinding
 import com.hasan_cottage.finalmoneymanager.roomDatabaseNot.DatabaseTow
@@ -205,7 +206,9 @@ class StatsFragment : Fragment() {
             val bottomSheetFragment = BottomSheetFragmentName(2)
             bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
         }
-
+        binding.dittles.setOnClickListener {
+            startActivity(Intent(context, TakeCalender::class.java))
+        }
         return binding.root
     }
 
@@ -388,7 +391,7 @@ class StatsFragment : Fragment() {
         val sharedPreferences = requireContext().getSharedPreferences("Name", Context.MODE_PRIVATE)
         val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
 
-        databaseTow.getAllDaoTow().getData().observe(viewLifecycleOwner) {
+        databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
 
             if (it.isNullOrEmpty()) {
                 symble="$"
@@ -401,14 +404,16 @@ class StatsFragment : Fragment() {
                 chart.centerText = "Income\n $symble $income"
 
             } else {
-                symble=it[stock].currencySymbol
+                it.forEach {
+                    symble = it.currencySymbol
 
-                binding.incomeStaI.text = "$symble $income"
-                val stores = " -$symble $expense"
-                binding.expenseStaI.text = stores
-                binding.totalStaI.text = "$symble $total"
+                    binding.incomeStaI.text = "$symble $income"
+                    val stores = " -$symble $expense"
+                    binding.expenseStaI.text = stores
+                    binding.totalStaI.text = "$symble $total"
 
-                chart.centerText = "Income\n $symble $income"
+                    chart.centerText = "Income\n $symble $income"
+                }
 
             }
 
@@ -578,18 +583,21 @@ class StatsFragment : Fragment() {
         val sharedPreferences = requireContext().getSharedPreferences("Name", Context.MODE_PRIVATE)
         val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
 
-        databaseTow.getAllDaoTow().getData().observe(viewLifecycleOwner) {
+        databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) {
 
             if (it.isNullOrEmpty()) {
                 symble="$"
-
                 chart.centerText = "Expense\n $symble $expense"
 
             } else {
-                symble=it[stock].currencySymbol
+                it.forEach {
 
-                chart.centerText = "Expense\n $symble $expense"
 
+                    symble = it.currencySymbol
+
+                    chart.centerText = "Expense\n $symble $expense"
+
+                }
             }
 
         }

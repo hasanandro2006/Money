@@ -3,6 +3,7 @@ package com.hasan_cottage.finalmoneymanager.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -20,7 +21,7 @@ class SignupActivity : AppCompatActivity() {
     private lateinit var dataBinding: ActivitySignupBinding
 
     private var cName :String? = null
-     private var cCode :String? = null
+    private var cCode :String? = null
     private var cSymbols :String? = null
     var name :String? = null
     private var databaseTow:DatabaseTow?=null
@@ -31,7 +32,7 @@ class SignupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_signup)
 
-       databaseTow= DatabaseTow.getInstanceAllTow(this)
+        databaseTow= DatabaseTow.getInstanceAllTow(this)
 
         automaticFocusEdittext()
         getDataFromRoom()
@@ -41,16 +42,20 @@ class SignupActivity : AppCompatActivity() {
         dataBinding.skip.setOnClickListener {
             val sharedPreferencesC = getSharedPreferences("Currency", Context.MODE_PRIVATE)
             val editor = sharedPreferencesC.edit()
-            editor.putString("cName","")
-            editor.putString("cCode","")
-            editor.putString("cSymbol", "")
+            editor.putString("cName", "Select your country currency")
+            editor.putString("cCode", "")
+            editor.putString("cSymbol", "$")
             editor.putString("name", "Transaction")
             editor.apply()
 
+            GlobalScope.launch {
+                databaseTow!!.getAllDaoTow().insert(DataSignup("cName!!", "cCode!!", "$", "Transaction"))
+            }
+
             startActivity(Intent(this, MainActivity::class.java))
             finish()
-
         }
+
 
     }
 
@@ -77,8 +82,8 @@ class SignupActivity : AppCompatActivity() {
         dataBinding.text2.text = sharedPreferencesC.getString("cName", "Select your country currency")
         dataBinding.text1.text  = sharedPreferencesC.getString("cCode", "")
 
-        val currencySymbol = sharedPreferencesC.getString("cSymbol", "")
-        dataBinding.steText2.text = currencySymbol
+        val currencySymbol = sharedPreferencesC.getString("cSymbol", "($)")
+        dataBinding.steText2.text ="$currencySymbol"
 
         val name = sharedPreferencesC.getString("name", "Transaction")
         dataBinding.appCompatEditText.setText(name)
@@ -99,15 +104,20 @@ class SignupActivity : AppCompatActivity() {
 
             }
 
+            val sharedPreferences = getSharedPreferences("Name", Context.MODE_PRIVATE)
+            val edito= sharedPreferences.edit()
+            edito.putInt("oldPosition",1 )
+            edito.apply()
+
             startActivity(Intent(this, MainActivity::class.java))
             finish()
 
             val sharedPreferencesC = getSharedPreferences("Currency", Context.MODE_PRIVATE)
             val editor = sharedPreferencesC.edit()
-            editor.putString("cName","")
-            editor.putString("cCode","")
-            editor.putString("cSymbol", "")
-            editor.putString("name", "Transaction")
+            editor.putString("cName",cName)
+            editor.putString("cCode",cCode)
+            editor.putString("cSymbol",cSymbols)
+            editor.putString("name", name)
             editor.apply()
         }
     }

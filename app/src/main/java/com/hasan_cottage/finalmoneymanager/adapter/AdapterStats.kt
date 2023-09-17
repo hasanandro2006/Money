@@ -29,12 +29,12 @@ class AdapterStats(val context: AppCompatActivity, val arraylist: ArrayList<Stat
         val sharedPreferences = context.getSharedPreferences("Name", Context.MODE_PRIVATE)
         val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
 
-        databaseTow.getAllDaoTow().getData().observe(context){
+        databaseTow.getAllDaoTow().getDataId(stock).observe(context){ it ->
 
             if (it.isNullOrEmpty()) {
                 if (inEx ==0){
                     holder.binding.statasCatagoryvalue.text= "$ "+arraylist[position].categoryValue.toString()
-                    holder.binding.statasCatagoryvalue.setTextColor(ContextCompat.getColor(holder.itemView.context,R.color.green))
+                    holder.binding.statasCatagoryvalue.setTextColor(ContextCompat.getColor(holder.itemView.context,R.color.blue))
 
                 }
                 else{
@@ -43,14 +43,22 @@ class AdapterStats(val context: AppCompatActivity, val arraylist: ArrayList<Stat
                 }
 
             } else {
-                if (inEx ==0){
-                    holder.binding.statasCatagoryvalue.text= "${it[stock].currencySymbol} "+arraylist[position].categoryValue.toString()
-                    holder.binding.statasCatagoryvalue.setTextColor(ContextCompat.getColor(holder.itemView.context,R.color.green))
+                it.forEach {
+                    if (inEx == 0) {
+                        holder.binding.statasCatagoryvalue.text =
+                            "${it.currencySymbol} " + arraylist[position].categoryValue.toString()
+                        holder.binding.statasCatagoryvalue.setTextColor(
+                            ContextCompat.getColor(
+                                holder.itemView.context,
+                                R.color.blue
+                            )
+                        )
 
-                }
-                else{
-                    val stores="-${it[stock].currencySymbol} "+arraylist[position].categoryValue.toString()
-                    holder.binding.statasCatagoryvalue.text=stores
+                    } else {
+                        val stores =
+                            "-${it.currencySymbol} " + arraylist[position].categoryValue.toString()
+                        holder.binding.statasCatagoryvalue.text = stores
+                    }
                 }
             }
         }

@@ -88,5 +88,8 @@
     <string name="category_rent">Rent</string>
     <string name="category_other">Other</string>
 
-
+    <string name="aboutLong">Expense Finance: Money Manager is an easy-to-use app that helps you take charge of your money.</string>
+    <string name="aboutLong1">Expense Finance: Money Manager is a comprehensive financial management app designed to empower individuals to take control of their finances with ease and efficiency. This user-friendly app offers a wide range of features to help users manage their money effectively. From tracking daily expenses and creating personalized budgets to setting financial goals and monitoring investments, Expense Finance provides a holistic view of one\'s financial life.</string>
+    <string name="aboutLong2">With its intuitive interface and robust tools, users can gain insights into their spending habits, avoid overspending, and work towards achieving their financial aspirations. Whether it\'s keeping up with bill payments, analyzing income trends, or optimizing investments, this app serves as a valuable companion on the journey to financial success</string>
+    <string name="aboutLong3"> Expense Finance is dedicated to ensuring the security of users\' financial data, making it a trustworthy partner in their financial management journey.</string>
 </resources>

@@ -17,8 +17,10 @@ import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.hasan_cottage.finalmoneymanager.R
+import com.hasan_cottage.finalmoneymanager.activity.About_my_app
 import com.hasan_cottage.finalmoneymanager.activity.PrivacyPolicyActivity
 import com.hasan_cottage.finalmoneymanager.activity.SearchActivity
+import com.hasan_cottage.finalmoneymanager.activity.TakeCalender
 import com.hasan_cottage.finalmoneymanager.databinding.FragmentMoreBinding
 import com.hasan_cottage.finalmoneymanager.fragment.MainFragment
 import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
@@ -30,7 +32,6 @@ import kotlinx.coroutines.launch
 
 class MoreFragment : Fragment() {
     private lateinit var binding: FragmentMoreBinding
-    private var alertDialog: AlertDialog.Builder? = null
     private lateinit var reviewManager: ReviewManager
     private var reviewInfo: ReviewInfo? = null
 
@@ -49,6 +50,9 @@ class MoreFragment : Fragment() {
         // Click search button
         binding.searce.setOnClickListener {
             startActivity(Intent(requireContext(), SearchActivity::class.java))
+        }
+        binding.dittles.setOnClickListener {
+            startActivity(Intent(context, TakeCalender::class.java))
         }
 
         // item_one
@@ -118,6 +122,11 @@ class MoreFragment : Fragment() {
                 }
                 .create()
                 .show()
+        }
+
+        // item nine
+        binding.itemNine.setOnClickListener {
+            startActivity(Intent(requireContext(),About_my_app::class.java))
         }
 
         // item_three

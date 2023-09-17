@@ -72,9 +72,9 @@ class AdapterMainRecyclerview(
         val sharedPreferences = context.getSharedPreferences("Name", Context.MODE_PRIVATE)
         val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
 
-        databaseTow.getAllDaoTow().getData().observe(context) {
+        databaseTow.getAllDaoTow().getDataId(stock).observe(context) {
 
-            if (it.isNullOrEmpty()) {
+            if (it.isNullOrEmpty()){
                 if (arrayList[position].type == HelperClass.INCOME) {
                     holder.binding.amount.setTextColor(context.getColor(R.color.blue))
                     holder.binding.amount.text = "$ " + arrayList[position].amount.toString()
@@ -83,14 +83,16 @@ class AdapterMainRecyclerview(
                     val stores = "-$ " + arrayList[position].amount
                     holder.binding.amount.text = stores
                 }
-            } else {
-                if (arrayList[position].type == HelperClass.INCOME) {
-                    holder.binding.amount.setTextColor(context.getColor(R.color.blue))
-                    holder.binding.amount.text = "${it[stock].currencySymbol} "+ arrayList[position].amount.toString()
-                } else {
-                    holder.binding.amount.setTextColor(context.getColor(R.color.red))
-                    val stores = "- ${it[stock].currencySymbol} " + arrayList[position].amount
-                    holder.binding.amount.text = stores
+            }else{
+                it.forEach {
+                    if (arrayList[position].type == HelperClass.INCOME) {
+                        holder.binding.amount.setTextColor(context.getColor(R.color.blue))
+                        holder.binding.amount.text = "${it.currencySymbol} "+ arrayList[position].amount.toString()
+                    } else {
+                        holder.binding.amount.setTextColor(context.getColor(R.color.red))
+                        val stores = "- ${it.currencySymbol} " + arrayList[position].amount
+                        holder.binding.amount.text = stores
+                    }
                 }
             }
 

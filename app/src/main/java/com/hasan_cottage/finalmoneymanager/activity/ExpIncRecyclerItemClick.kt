@@ -349,7 +349,7 @@ class ExpIncRecyclerItemClick : AppCompatActivity() {
         val sharedPreferences =this.getSharedPreferences("Name", Context.MODE_PRIVATE)
         val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
 
-        databaseTow.getAllDaoTow().getData().observe(this) {
+        databaseTow.getAllDaoTow().getDataId(stock).observe(this) {
 
             if (it.isNullOrEmpty()) {
 
@@ -363,16 +363,17 @@ class ExpIncRecyclerItemClick : AppCompatActivity() {
 
 
             } else {
+                it.forEach {
 
-                if (type == HelperClass.INCOME){
-                    val stores = "${it[stock].currencySymbol} $storeT"
-                    binding.expanseS.text = stores
-                }else{
-                    val stores = "-${it[stock].currencySymbol} $storeT"
-                    binding.expanseS.text = stores
+                    if (type == HelperClass.INCOME) {
+                        val stores = "${it.currencySymbol} $storeT"
+                        binding.expanseS.text = stores
+                    } else {
+                        val stores = "-${it.currencySymbol} $storeT"
+                        binding.expanseS.text = stores
+                    }
+
                 }
-
-
             }
         }
 

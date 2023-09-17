@@ -46,8 +46,6 @@ class CalendarFragment : Fragment() {
     private val calendar = Calendar.getInstance()
     private val calendar7 = Calendar.getInstance()
 
-    private var symble:String=""
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -312,22 +310,21 @@ class CalendarFragment : Fragment() {
         val sharedPreferences = requireContext().getSharedPreferences("Name", Context.MODE_PRIVATE)
         val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
 
-        databaseTow.getAllDaoTow().getData().observe(viewLifecycleOwner) {
-
-            if (it.isNullOrEmpty()) {
-                symble="$"
-
+        databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
+            if(it.isNullOrEmpty()){
+                val symble = "$"
                 binding.totalS.text = "$symble $storeT"
-                binding.incomeS.text ="$symble $incomeT"
+                binding.incomeS.text = "$symble $incomeT"
                 val stores = "-$symble $expenseT"
                 binding.expanseS.text = stores
-            } else {
-                symble=it[stock].currencySymbol
-
-                binding.totalS.text = "$symble $storeT"
-                binding.incomeS.text ="$symble $incomeT"
-                val stores = "-$symble $expenseT"
-                binding.expanseS.text = stores
+            }else {
+                it.forEach {
+                    val symble = it.currencySymbol
+                    binding.totalS.text = "$symble $storeT"
+                    binding.incomeS.text = "$symble $incomeT"
+                    val stores = "-$symble $expenseT"
+                    binding.expanseS.text = stores
+                }
             }
 
         }

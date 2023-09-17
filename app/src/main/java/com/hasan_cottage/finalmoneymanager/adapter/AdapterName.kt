@@ -11,20 +11,22 @@ import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.roomDatabaseNot.DataSignup
 import com.hasan_cottage.finalmoneymanager.roomDatabaseNot.DatabaseTow
 import com.hasan_cottage.finalmoneymanager.databinding.DegineForNameBinding
+import com.hasan_cottage.finalmoneymanager.fragment.MainFragment
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class AdapterName(
     val context: Context,
-    private val arrayList: List<DataSignup>,
+    private val arrayList: MutableList<DataSignup>,
     private var oldPosition: Int,
-    private var data2:ClickDataCome
+    private var data2:ClickDataCome,
 
     ) : RecyclerView.Adapter<AdapterName.ItemViewHolder>() {
 
     interface ClickDataCome{
         fun click(data: DataSignup)
+        fun dismis()
     }
 
 
@@ -44,33 +46,40 @@ class AdapterName(
 
     @OptIn(DelicateCoroutinesApi::class)
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val currentItem = arrayList[position]
+        if (position >= 0 && position < arrayList.size) {
+            val currentItem = arrayList[position]
 
-
-        holder.binding.nameR.text = arrayList[position].name
-        holder.binding.carrencyNameR.text = arrayList[position].currencySymbol
-
-        holder.binding.redioName.isChecked = (oldPosition == position)
-
-        holder.binding.closeItem.setOnClickListener {
-            val databaseDaoTow = DatabaseTow.getInstanceAllTow(context)
-            GlobalScope.launch {
-                databaseDaoTow.getAllDaoTow().deleteId(currentItem.id)
-                oldPosition=position
-            }
-        }
-        holder.itemView.setOnClickListener {
-            data2.click(currentItem)
             val sharedPreferences = context.getSharedPreferences("Name", Context.MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
-            editor.putInt("oldPosition", position)
-            editor.putString("databaseName", arrayList[position].name)
-            editor.apply()
-            notifyDataSetChanged()
-            val intent = Intent(context, MainActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            context.startActivity(intent)
-        }
 
+            var t=sharedPreferences.getInt("oldPosition",0)
+            if (t == 0){
+                holder.binding.redioName.isChecked = (oldPosition == position)
+            }else{
+                holder.binding.redioName.isChecked = (currentItem.id == oldPosition)
+            }
+
+
+            holder.binding.nameR.text = arrayList[position].name
+            holder.binding.carrencyNameR.text = arrayList[position].currencySymbol
+
+            holder.binding.closeItem.setOnClickListener {
+                val databaseDaoTow = DatabaseTow.getInstanceAllTow(context)
+                GlobalScope.launch {
+                    databaseDaoTow.getAllDaoTow().deleteId(currentItem.id)
+
+                }
+            }
+
+            holder.itemView.setOnClickListener {
+                data2.click(currentItem)
+                
+                val editor = sharedPreferences.edit()
+                editor.putInt("oldPosition", arrayList[position].id)
+                editor.apply()
+                notifyDataSetChanged()
+            }
+
+
+        }
     }
 }

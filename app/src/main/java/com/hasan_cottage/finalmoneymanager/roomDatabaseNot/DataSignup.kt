@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "dataBaseSing")
 data class DataSignup(
     @PrimaryKey(autoGenerate = true)
-    val id:Int=1,
+    val id:Int=0,
 
     val currencyName:String,
     val currencyCode:String,

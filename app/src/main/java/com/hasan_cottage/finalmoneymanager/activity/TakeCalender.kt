@@ -91,7 +91,7 @@ class TakeCalender : AppCompatActivity(), CalendarAdapter.OnItemListener {
             val sharedPreferences =this.getSharedPreferences("Name", Context.MODE_PRIVATE)
             val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
 
-            databaseTow.getAllDaoTow().getData().observe(this) {
+            databaseTow.getAllDaoTow().getDataId(stock).observe(this) {
 
                 if (it.isNullOrEmpty()) {
 
@@ -102,11 +102,13 @@ class TakeCalender : AppCompatActivity(), CalendarAdapter.OnItemListener {
 
                 } else {
 
-                    binding.totalS.text = "${it[stock].currencySymbol} $storeT"
-                    binding.incomeS.text = "${it[stock].currencySymbol} $incomeT"
-                    val stores = "-${it[stock].currencySymbol} $expenseT"
-                    binding.expanseS.text = stores
+                    it.forEach {
+                        binding.totalS.text = "${it.currencySymbol} $storeT"
+                        binding.incomeS.text = "${it.currencySymbol} $incomeT"
+                        val stores = "-${it.currencySymbol} $expenseT"
+                        binding.expanseS.text = stores
 
+                    }
                 }
 
 

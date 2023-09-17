@@ -187,54 +187,55 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun forAllDataSet(it:List<ModelM>,context: Context) {
+    private fun forAllDataSet(it: List<ModelM>, context: Context) {
         arrayListRecyclerview.addAll(it)
         var storeT = 0.0
         var incomeT = 0.0
         var expenseT = 0.0
-        it.forEach { data ->
 
-            storeT += data.amount
+        if (it.isNotEmpty()) {
+            for (data in it) {
+                storeT += data.amount
 
-            if (data.type == HelperClass.INCOME) {
-                incomeT += data.amount
-            } else if (data.type == HelperClass.EXPENSE) {
-                expenseT += data.amount
+                if (data.type == HelperClass.INCOME) {
+                    incomeT += data.amount
+                } else if (data.type == HelperClass.EXPENSE) {
+                    expenseT += data.amount
+                }
             }
         }
-
 
         val databaseTow = DatabaseTow.getInstanceAllTow(context)
-        // set name .......
+        // Set name .......
         val sharedPreferences = context.getSharedPreferences("Name", Context.MODE_PRIVATE)
-        val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
-        databaseTow.getAllDaoTow().getData().observe(viewLifecycleOwner) {
+        val stock = sharedPreferences.getInt("oldPosition", 0) // Come from (adapter_name)
 
-            if (it.isNullOrEmpty()) {
-                binding.Name.setText(R.string.project_name)
-                binding.symble.text ="($)"
-                symble="$"
-
-                binding.totalS.text = "$symble $storeT"
-                binding.incomeS.text ="$symble $incomeT"
-                val stores = "-$symble $expenseT"
-                binding.expanseS.text = stores
-            } else {
-                binding.Name.text = it[stock].name
-                binding.symble.text="(${it[stock].currencySymbol})"
-                symble=it[stock].currencySymbol
+        databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
+            if (it.isNullOrEmpty()){
+                binding.Name.text = "Transaction"
+                binding.symble.text = "($)"
+                val symble = "$"
 
                 binding.totalS.text = "$symble $storeT"
-                binding.incomeS.text ="$symble $incomeT"
+                binding.incomeS.text = "$symble $incomeT"
                 val stores = "-$symble $expenseT"
                 binding.expanseS.text = stores
+            }else{
+                it.forEach {
+                    binding.Name.text = it.name
+                    binding.symble.text = "(${it.currencySymbol})"
+                    val symble = it.currencySymbol
+
+                    binding.totalS.text = "$symble $storeT"
+                    binding.incomeS.text = "$symble $incomeT"
+                    val stores = "-$symble $expenseT"
+                    binding.expanseS.text = stores
+                }
             }
-
         }
 
+
         Log.d("Monthly", it.toString())
-
-
 
         val adapter = AdapterMainRecyclerview(requireActivity() as AppCompatActivity, it)
         binding.recyclerView.adapter = adapter
@@ -246,5 +247,6 @@ class MainFragment : Fragment() {
         )
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
     }
+
 
 }

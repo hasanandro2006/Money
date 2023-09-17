@@ -20,7 +20,7 @@
         <RelativeLayout
             android:id="@+id/top"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="60dp">
 
             <TextView
                 android:id="@+id/Name"
@@ -54,6 +54,15 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="10dp"
                 android:src="@drawable/search" />
+
+            <ImageButton
+                android:id="@+id/dittles"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@+id/moreItem"
+                android:background="@android:color/transparent"
+                android:src="@drawable/alltrangtion" />
 
 
         </RelativeLayout>
@@ -274,6 +283,18 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <ImageView
+                    android:id="@+id/active"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/degine_for_nagative"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/textView5"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/pieChart"
@@ -282,10 +303,10 @@
                     android:layout_gravity="start"
                     app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView5"
-                    app:layout_constraintVertical_bias="0.86" />
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/linearLayout2"
@@ -348,7 +369,18 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-
+                <ImageView
+                    android:id="@+id/active2"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/degine_for_active"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/textView"
+                    app:layout_constraintTop_toTopOf="parent" />
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/pieChart2"
                     android:layout_width="match_parent"
