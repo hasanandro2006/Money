@@ -4,6 +4,7 @@ package com.hasan_cottage.finalmoneymanager.fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.provider.ContactsContract.Data
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -43,8 +44,7 @@ class MainFragment : Fragment() {
         FragmentMainBinding.inflate(layoutInflater)
     }
 
-    private lateinit var reviewManager: ReviewManager
-    private var reviewInfo: ReviewInfo? = null
+
 
     companion object {
         lateinit var myViewModel: AppViewModel
@@ -54,7 +54,11 @@ class MainFragment : Fragment() {
     private val calenderM = Calendar.getInstance()
     private val calenderD = Calendar.getInstance()
 
-    private var symble:String=""
+
+    private lateinit var databaseTow:DatabaseTow
+    private  var stock=0
+    private var storeAccountId:Int?=null
+
 
 
     override fun onCreateView(
@@ -72,6 +76,22 @@ class MainFragment : Fragment() {
         myViewModel =
             ViewModelProvider(this, ViewModelFactory(repository))[AppViewModel::class.java]
 
+        // Set name .......
+       databaseTow = DatabaseTow.getInstanceAllTow(context)
+        val sharedPreferences = context.getSharedPreferences("Name", Context.MODE_PRIVATE)
+       stock = sharedPreferences.getInt("oldPosition", 0) // Come from (adapter_name)
+        databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
+
+            if (stock==0){
+                storeAccountId = 0
+            }else{
+                it.forEach {
+                   storeAccountId=it.id
+
+                }
+            }
+
+        }
 
         binding.addAccount.setOnClickListener {
             val bottomSheetFragment = BottomSheetFragmentTow()
@@ -145,17 +165,20 @@ class MainFragment : Fragment() {
 
         val day = HelperClass.dateFormat(calenderD.time)
         Log.d("Daily", day)
-        myViewModel.getDataDaily(day).observe(viewLifecycleOwner) {
-            if (it.isEmpty()){
-                binding.noDataI.visibility=View.VISIBLE
-                binding.noDataT.visibility=View.VISIBLE
-                forAllDataSet(it,context)
-            }else {
-                binding.noDataI.visibility=View.GONE
-                binding.noDataT.visibility=View.GONE
-                forAllDataSet(it,context)
+
+            myViewModel.getDataDaily(day).observe(viewLifecycleOwner) {
+                if (it.isEmpty()){
+                    binding.noDataI.visibility=View.VISIBLE
+                    binding.noDataT.visibility=View.VISIBLE
+                    forAllDataSet(it,context)
+                } else {
+                    binding.noDataI.visibility=View.GONE
+                    binding.noDataT.visibility=View.GONE
+                    forAllDataSet(it,context)
+
             }
         }
+
     }
 
     fun monthlyTranslation(context: Context) {
@@ -205,10 +228,7 @@ class MainFragment : Fragment() {
             }
         }
 
-        val databaseTow = DatabaseTow.getInstanceAllTow(context)
-        // Set name .......
-        val sharedPreferences = context.getSharedPreferences("Name", Context.MODE_PRIVATE)
-        val stock = sharedPreferences.getInt("oldPosition", 0) // Come from (adapter_name)
+
 
         databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
             if (it.isNullOrEmpty()){

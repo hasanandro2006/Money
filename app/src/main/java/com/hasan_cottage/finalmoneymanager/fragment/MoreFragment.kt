@@ -17,12 +17,11 @@ import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.hasan_cottage.finalmoneymanager.R
-import com.hasan_cottage.finalmoneymanager.activity.About_my_app
+import com.hasan_cottage.finalmoneymanager.activity.AboutMyApp
 import com.hasan_cottage.finalmoneymanager.activity.PrivacyPolicyActivity
 import com.hasan_cottage.finalmoneymanager.activity.SearchActivity
 import com.hasan_cottage.finalmoneymanager.activity.TakeCalender
 import com.hasan_cottage.finalmoneymanager.databinding.FragmentMoreBinding
-import com.hasan_cottage.finalmoneymanager.fragment.MainFragment
 import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
@@ -126,7 +125,7 @@ class MoreFragment : Fragment() {
 
         // item nine
         binding.itemNine.setOnClickListener {
-            startActivity(Intent(requireContext(),About_my_app::class.java))
+            startActivity(Intent(requireContext(),AboutMyApp::class.java))
         }
 
         // item_three

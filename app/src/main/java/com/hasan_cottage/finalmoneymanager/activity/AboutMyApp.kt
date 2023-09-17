@@ -6,11 +6,9 @@ import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import com.hasan_cottage.finalmoneymanager.R
 import com.hasan_cottage.finalmoneymanager.databinding.ActivityAboutMyAppBinding
 
-class About_my_app : AppCompatActivity() {
+class AboutMyApp : AppCompatActivity() {
 
     val binding by lazy {
         ActivityAboutMyAppBinding.inflate(layoutInflater)

@@ -58,6 +58,7 @@ class BottomSheetFragment(private val intId: Int, private  val string: String) :
     private var getMonth: String? = null
     private var yearC: String? = null
     private var weekNumber: Int? = null
+    private var storeAccountId:Int?=null
 
 
     private lateinit var myViewModel: AppViewModel
@@ -73,20 +74,20 @@ class BottomSheetFragment(private val intId: Int, private  val string: String) :
 
         val applicationContext = requireContext().applicationContext
 
-
-
+        
         val databaseTow = DatabaseTow.getInstanceAllTow(applicationContext)
         // set name .......
         val sharedPreferences = applicationContext.getSharedPreferences("Name", Context.MODE_PRIVATE)
         val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
 
-        databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) {
+        databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
 
             if (stock==0){
                 binding.symble.text = "$"
             }else{
                 it.forEach {
                     binding.symble.text = it.currencySymbol
+                    storeAccountId=it.id
                 }
             }
 
@@ -266,6 +267,9 @@ class BottomSheetFragment(private val intId: Int, private  val string: String) :
             // Add item
             else {
 
+
+              
+
                 val getEditText = binding.amount.text.toString()
                 getAmount = getEditText.toDoubleOrNull()
                 var getNote = binding.note.text.toString()
@@ -289,6 +293,7 @@ class BottomSheetFragment(private val intId: Int, private  val string: String) :
                                 getNote,
                                 yearC!!,
                                 weekNumber!!,
+                                storeAccountId!!
                                 )
                         )
                     }
