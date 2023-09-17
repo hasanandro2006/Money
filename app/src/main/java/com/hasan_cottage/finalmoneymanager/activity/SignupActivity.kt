@@ -48,6 +48,14 @@ class SignupActivity : AppCompatActivity() {
             editor.putString("name", "Transaction")
             editor.apply()
 
+            // Retrieve the current position from SharedPreferences
+            val sharedPreferences = getSharedPreferences("Name", Context.MODE_PRIVATE)
+            val currentPosition = sharedPreferences.getInt("oldPosition", 0)
+            val newPosition = currentPosition + 1
+            val editorr = sharedPreferences.edit()
+            editorr.putInt("oldPosition", newPosition)
+            editorr.apply()
+
             GlobalScope.launch {
                 databaseTow!!.getAllDaoTow().insert(DataSignup("cName!!", "cCode!!", "$", "Transaction"))
             }
@@ -104,10 +112,14 @@ class SignupActivity : AppCompatActivity() {
 
             }
 
+
+            // Retrieve the current position from SharedPreferences
             val sharedPreferences = getSharedPreferences("Name", Context.MODE_PRIVATE)
-            val edito= sharedPreferences.edit()
-            edito.putInt("oldPosition",1 )
-            edito.apply()
+            val currentPosition = sharedPreferences.getInt("oldPosition", 0)
+            val newPosition = currentPosition + 1
+            val editorr = sharedPreferences.edit()
+            editorr.putInt("oldPosition", newPosition)
+            editorr.apply()
 
             startActivity(Intent(this, MainActivity::class.java))
             finish()

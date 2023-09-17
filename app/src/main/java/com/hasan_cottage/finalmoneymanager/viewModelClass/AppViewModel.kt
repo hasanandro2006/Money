@@ -32,6 +32,9 @@ class AppViewModel(private val repository: Repository): ViewModel(){
     fun getDataDaily(day:String):LiveData<List<ModelM>>{
         return repository.getDataDaily(day)
     }
+    fun getDataDailyT(day: String, accountId: Int): LiveData<List<ModelM>>{
+        return repository.getDataDailyT(day,accountId)
+    }
     fun getDataCalender(day:String,category:String):LiveData<List<ModelM>>{
         return repository.getDataCalender(day,category)
     }

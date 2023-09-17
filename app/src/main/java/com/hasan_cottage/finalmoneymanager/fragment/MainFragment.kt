@@ -80,18 +80,6 @@ class MainFragment : Fragment() {
        databaseTow = DatabaseTow.getInstanceAllTow(context)
         val sharedPreferences = context.getSharedPreferences("Name", Context.MODE_PRIVATE)
        stock = sharedPreferences.getInt("oldPosition", 0) // Come from (adapter_name)
-        databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
-
-            if (stock==0){
-                storeAccountId = 0
-            }else{
-                it.forEach {
-                   storeAccountId=it.id
-
-                }
-            }
-
-        }
 
         binding.addAccount.setOnClickListener {
             val bottomSheetFragment = BottomSheetFragmentTow()

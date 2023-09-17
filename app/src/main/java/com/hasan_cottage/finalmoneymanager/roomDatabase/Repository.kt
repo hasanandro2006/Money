@@ -31,6 +31,9 @@ class Repository(private val databaseDaoM: DatabaseDaoM) {
     fun getDataDaily(day:String):LiveData<List<ModelM>>{
         return databaseDaoM.getDataDaily(day)
     }
+    fun getDataDailyT(day: String, accountId: Int): LiveData<List<ModelM>>{
+        return databaseDaoM.getDataDailyT(day,accountId)
+    }
     fun getDataCalender(day:String,category:String):LiveData<List<ModelM>>{
         return databaseDaoM.getDataCalender(day,category)
     }
