@@ -108,6 +108,7 @@
 
             <TextView
                 android:id="@+id/textView15"
+                android:textSize="14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -122,9 +123,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:padding="5dp"
+                android:textSize="14sp"
                 android:text="@string/aboutLong1" />
 
             <TextView
+                android:textSize="14sp"
                 android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -139,6 +142,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:paddingStart="5dp"
+                android:textSize="14sp"
+                android:layout_marginBottom="100dp"
                 android:text="@string/aboutLong3" />
 
         </LinearLayout>

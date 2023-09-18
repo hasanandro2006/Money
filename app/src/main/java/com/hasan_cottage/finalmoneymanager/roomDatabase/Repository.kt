@@ -14,37 +14,37 @@ class Repository(private val databaseDaoM: DatabaseDaoM) {
     fun updateM(model: ModelM){
         databaseDaoM.updateM(model)
     }
-    fun getIdData(id:Int):LiveData<List<ModelM>>{
-        return databaseDaoM.getIdData(id)
+    fun getIdData(id:Int,id1: Int):LiveData<List<ModelM>>{
+        return databaseDaoM.getIdData(id,id1)
     }
     fun deleteDataId(id:Int){
         return databaseDaoM.deleteDataId(id)
     }
-    fun getDataM():LiveData<List<ModelM>>{
-        return databaseDaoM.getDataM()
+    fun getDataM(id: Int):LiveData<List<ModelM>>{
+        return databaseDaoM.getDataM(id)
     }
 
-    fun getMonth(year:String): LiveData<List<ModelM>>{
-        return databaseDaoM.getDataMonth(year)
+    fun getMonth(year:String,id: Int): LiveData<List<ModelM>>{
+        return databaseDaoM.getDataMonth(year,id)
     }
 
-    fun getDataDaily(day:String):LiveData<List<ModelM>>{
-        return databaseDaoM.getDataDaily(day)
+    fun getDataDaily(day:String,id: Int):LiveData<List<ModelM>>{
+        return databaseDaoM.getDataDaily(day,id)
     }
     fun getDataDailyT(day: String, accountId: Int): LiveData<List<ModelM>>{
         return databaseDaoM.getDataDailyT(day,accountId)
     }
-    fun getDataCalender(day:String,category:String):LiveData<List<ModelM>>{
-        return databaseDaoM.getDataCalender(day,category)
+    fun getDataCalender(day:String,category:String,id: Int):LiveData<List<ModelM>>{
+        return databaseDaoM.getDataCalender(day,category,id)
     }
-    fun getDataCalenderCategory(category:String):LiveData<List<ModelM>>{
-        return databaseDaoM.getDataCalenderCategory(category)
+    fun getDataCalenderCategory(category:String,id: Int):LiveData<List<ModelM>>{
+        return databaseDaoM.getDataCalenderCategory(category,id)
     }
-    fun getDataBetweenDates(seekNumber:Int): LiveData<List<ModelM>>{
-        return databaseDaoM.getDataBetweenDates(seekNumber)
+    fun getDataBetweenDates(seekNumber:Int,id1: Int): LiveData<List<ModelM>>{
+        return databaseDaoM.getDataBetweenDates(seekNumber,id1)
     }
-    fun getDataYear(year: String):LiveData<List<ModelM>>{
-        return databaseDaoM.getDataYear(year)
+    fun getDataYear(year: String,id: Int):LiveData<List<ModelM>>{
+        return databaseDaoM.getDataYear(year,id)
     }
 
     fun updateAllData(type:String, category:String, account:String, date:String, amount:Double, dateMonth:String, id:Int, note:String, year:String){
@@ -52,18 +52,18 @@ class Repository(private val databaseDaoM: DatabaseDaoM) {
     }
 
 
-    fun getDataDaily2(day:String,category: String,typeC: String):LiveData<List<ModelM>>{
-        return databaseDaoM.getDataDaily2(day,category,typeC)
+    fun getDataDaily2(day:String,category: String,typeC: String,id: Int):LiveData<List<ModelM>>{
+        return databaseDaoM.getDataDaily2(day,category,typeC,id)
     }
 
-    fun getDataMonth2(year:String,category: String,typeC: String):LiveData<List<ModelM>>{
-        return databaseDaoM.getDataMonth2(year,category,typeC)
+    fun getDataMonth2(year:String,category: String,typeC: String,id: Int):LiveData<List<ModelM>>{
+        return databaseDaoM.getDataMonth2(year,category,typeC,id)
     }
-    fun getDataBetweenDates2(seekNumber:Int,category: String,typeC: String): LiveData<List<ModelM>>{
-        return databaseDaoM.getDataBetweenDates2(seekNumber,category,typeC)
+    fun getDataBetweenDates2(seekNumber:Int,category: String,typeC: String,id: Int): LiveData<List<ModelM>>{
+        return databaseDaoM.getDataBetweenDates2(seekNumber,category,typeC,id)
     }
-    fun getDataYear2(yearC: String,category: String,typeC: String):LiveData<List<ModelM>>{
-        return databaseDaoM.getDataYear2(yearC,category,typeC)
+    fun getDataYear2(yearC: String,category: String,typeC: String,id: Int):LiveData<List<ModelM>>{
+        return databaseDaoM.getDataYear2(yearC,category,typeC,id)
     }
     fun getDataM2(category: String):LiveData<List<ModelM>>{
         return databaseDaoM.getDataM2(category)

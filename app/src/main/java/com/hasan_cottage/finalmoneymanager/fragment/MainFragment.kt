@@ -57,7 +57,7 @@ class MainFragment : Fragment() {
 
     private lateinit var databaseTow:DatabaseTow
     private  var stock=0
-    private var storeAccountId:Int?=null
+
 
 
 
@@ -154,48 +154,69 @@ class MainFragment : Fragment() {
         val day = HelperClass.dateFormat(calenderD.time)
         Log.d("Daily", day)
 
-            myViewModel.getDataDaily(day).observe(viewLifecycleOwner) {
-                if (it.isEmpty()){
-                    binding.noDataI.visibility=View.VISIBLE
-                    binding.noDataT.visibility=View.VISIBLE
-                    forAllDataSet(it,context)
-                } else {
-                    binding.noDataI.visibility=View.GONE
-                    binding.noDataT.visibility=View.GONE
-                    forAllDataSet(it,context)
+        databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
 
+                it.forEach {
+                    myViewModel.getDataDailyT(day,it.id).observe(viewLifecycleOwner) {
+                        if (it.isEmpty()){
+                            binding.noDataI.visibility=View.VISIBLE
+                            binding.noDataT.visibility=View.VISIBLE
+                            forAllDataSet(it,context)
+                        } else {
+                            binding.noDataI.visibility=View.GONE
+                            binding.noDataT.visibility=View.GONE
+                            forAllDataSet(it,context)
+
+                        }
+                }
             }
         }
+
 
     }
 
     fun monthlyTranslation(context: Context) {
         val dateFormat = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
         val store = dateFormat.format(calenderM.time)
-        myViewModel.getMonth(store).observe(viewLifecycleOwner) {
-            if (it.isEmpty()){
-                binding.noDataI.visibility=View.VISIBLE
-                binding.noDataT.visibility=View.VISIBLE
-                forAllDataSet(it,context)
-            }else {
-                binding.noDataI.visibility=View.GONE
-                binding.noDataT.visibility=View.GONE
-                forAllDataSet(it,context)
+
+        databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
+
+            it.forEach { it ->
+                myViewModel.getMonth(store,it.id).observe(viewLifecycleOwner) {
+                    if (it.isEmpty()){
+                        binding.noDataI.visibility=View.VISIBLE
+                        binding.noDataT.visibility=View.VISIBLE
+                        forAllDataSet(it,context)
+                    }else {
+                        binding.noDataI.visibility=View.GONE
+                        binding.noDataT.visibility=View.GONE
+                        forAllDataSet(it,context)
+                    }
+                }
             }
         }
+  
     }
     fun allTranslation(context: Context) {
-        myViewModel.getDataM().observe(viewLifecycleOwner) {
-            if (it.isEmpty()){
-                binding.noDataI.visibility=View.VISIBLE
-                binding.noDataT.visibility=View.VISIBLE
-                forAllDataSet(it,context)
-            }else {
-                binding.noDataI.visibility=View.GONE
-                binding.noDataT.visibility=View.GONE
-                forAllDataSet(it,context)
+
+
+        databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
+
+            it.forEach {
+                myViewModel.getDataM(it.id).observe(viewLifecycleOwner) {
+                    if (it.isEmpty()){
+                        binding.noDataI.visibility=View.VISIBLE
+                        binding.noDataT.visibility=View.VISIBLE
+                        forAllDataSet(it,context)
+                    }else {
+                        binding.noDataI.visibility=View.GONE
+                        binding.noDataT.visibility=View.GONE
+                        forAllDataSet(it,context)
+                    }
+                }
             }
         }
+
     }
 
     private fun forAllDataSet(it: List<ModelM>, context: Context) {

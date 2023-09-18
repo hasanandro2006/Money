@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModelProvider
@@ -23,6 +24,7 @@ import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.ModelM
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
 import com.hasan_cottage.finalmoneymanager.databinding.ActivityExpenseIncomeStructerBinding
+import com.hasan_cottage.finalmoneymanager.fragment.MainFragment
 import com.hasan_cottage.finalmoneymanager.roomDatabaseNot.DatabaseTow
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
 import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
@@ -47,6 +49,8 @@ class ExpenseIncomeChart : AppCompatActivity() {
     private var weekNumber: Int? = null
     private var weekData: String? = null
 
+    private lateinit var databaseTow:DatabaseTow
+    private  var stock=0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +62,9 @@ class ExpenseIncomeChart : AppCompatActivity() {
         myViewModel =
             ViewModelProvider(this, ViewModelFactory(repository))[AppViewModel::class.java]
 
-
+       databaseTow = DatabaseTow.getInstanceAllTow(this)
+        val sharedPreferencesA =this.getSharedPreferences("Name", Context.MODE_PRIVATE)
+        stock = sharedPreferencesA.getInt("oldPosition", 0)//come from (adapter_name)
 
         val sharedPreferences = getSharedPreferences("Time", Context.MODE_PRIVATE)
 
@@ -439,69 +445,119 @@ class ExpenseIncomeChart : AppCompatActivity() {
 
 
     private fun chartDayIncome(store: String) {
-        myViewModel.getDataDaily(store).observe(this) {
-            Log.d("day", it.toString())
-            oneChartIncome(it)
+
+        databaseTow.getAllDaoTow().getDataId(stock).observe(this) { it ->
+            it.forEach {
+                myViewModel.getDataDailyT(store,it.id).observe(this) {
+                    oneChartIncome(it)
+                }
+            }
         }
     }
 
     private fun chartDayExpense(store: String) {
-        myViewModel.getDataDaily(store).observe(this) {
-            oneChartExpense(it)
+        databaseTow.getAllDaoTow().getDataId(stock).observe(this) { it ->
+            it.forEach {
+                myViewModel.getDataDailyT(store,it.id).observe(this) {
+                    oneChartExpense(it)
+                }
+            }
         }
     }
 
     private fun chartWeekIncome() {
-        myViewModel.getDataBetweenDates(weekNumber!!).observe(this) {
-            oneChartIncome(it)
+
+        databaseTow.getAllDaoTow().getDataId(stock).observe(this) { it ->
+            it.forEach {
+                myViewModel.getDataBetweenDates(weekNumber!!,it.id).observe(this) {
+                    oneChartIncome(it)
+                }
+            }
         }
     }
 
     private fun chartWeekExpense() {
-        myViewModel.getDataBetweenDates(weekNumber!!).observe(this) {
-            oneChartExpense(it)
+
+        databaseTow.getAllDaoTow().getDataId(stock).observe(this) { it ->
+            it.forEach {
+                myViewModel.getDataBetweenDates(weekNumber!!,it.id).observe(this) {
+                    oneChartExpense(it)
+                }
+            }
         }
     }
 
     private fun chartMonthIncome(store: String) {
 
-        myViewModel.getMonth(store).observe(this) {
-            oneChartIncome(it)
+        databaseTow.getAllDaoTow().getDataId(stock).observe(this) { it ->
+            it.forEach {
+                myViewModel.getMonth(store,it.id).observe(this) {
+                    oneChartIncome(it)
+                    }
+                }
+            }
+
         }
-    }
+
 
 
     private fun chartMonthExpense(store: String) {
-        myViewModel.getMonth(store).observe(this) {
-            oneChartExpense(it)
+        databaseTow.getAllDaoTow().getDataId(stock).observe(this) { it ->
+            it.forEach {
+                myViewModel.getMonth(store,it.id).observe(this) {
+                    oneChartExpense(it)
+                }
+            }
         }
     }
 
     private fun chartYearIncome(store: String) {
 
-        myViewModel.getDataYear(store).observe(this) {
-            oneChartIncome(it)
+        databaseTow.getAllDaoTow().getDataId(stock).observe(this) { it ->
+            it.forEach {
+                myViewModel.getDataYear(store,it.id).observe(this) {
+                    oneChartIncome(it)
+                }
+            }
+
         }
     }
 
 
     private fun chartYearExpense(store: String) {
-        myViewModel.getDataYear(store).observe(this) {
-            oneChartExpense(it)
+
+        databaseTow.getAllDaoTow().getDataId(stock).observe(this) { it ->
+            it.forEach {
+                myViewModel.getDataYear(store,it.id).observe(this) {
+                    oneChartExpense(it)
+                }
+            }
+
         }
+
     }
 
     private fun chartAllIncome() {
 
-        myViewModel.getDataM().observe(this) {
-            oneChartIncome(it)
+        databaseTow.getAllDaoTow().getDataId(stock).observe(this) { it ->
+            it.forEach {
+                myViewModel.getDataM(it.id).observe(this) {
+                    oneChartIncome(it)
+                }
+            }
         }
+
     }
 
 
     private fun chartAllExpense() {
-        myViewModel.getDataM().observe(this) {
-            oneChartExpense(it)
+
+        databaseTow.getAllDaoTow().getDataId(stock).observe(this) { it ->
+            it.forEach {
+                myViewModel.getDataM(it.id).observe(this) {
+                    oneChartExpense(it)
+                }
+            }
         }
     }
 
@@ -783,9 +839,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
             chart.setDrawEntryLabels(false)
 
 
-            val databaseTow = DatabaseTow.getInstanceAllTow(this)
-            val sharedPreferences =this.getSharedPreferences("Name", Context.MODE_PRIVATE)
-            val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
+
 
             databaseTow.getAllDaoTow().getDataId(stock).observe(this) {
 

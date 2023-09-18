@@ -23,30 +23,31 @@ interface DatabaseDaoM{
     fun deleteAllItems()
 
 
-    @Query("select * from mainTable order by date asc")
-    fun getDataM():LiveData<List<ModelM>>
+    @Query("select * from mainTable WHERE accountId = :id  order by date asc")
+    fun getDataM(id: Int):LiveData<List<ModelM>>
 
-    @Query("SELECT * FROM mainTable WHERE dateMonth= :year")
-    fun getDataMonth(year:String):LiveData<List<ModelM>>
+    @Query("SELECT * FROM mainTable WHERE dateMonth= :year and accountId=:id")
+    fun getDataMonth(year:String,id:Int):LiveData<List<ModelM>>
 
-    @Query("select * from mainTable where year=:yearC")
-    fun getDataYear(yearC: String):LiveData<List<ModelM>>
+    @Query("select * from mainTable where year=:yearC and accountId=:id")
+    fun getDataYear(yearC: String,id: Int):LiveData<List<ModelM>>
 
-    @Query("SELECT * FROM mainTable WHERE date= :day")
-      fun getDataDaily(day:String):LiveData<List<ModelM>>
+    @Query("SELECT * FROM mainTable WHERE date= :day and accountId=:id")
+      fun getDataDaily(day:String,id: Int):LiveData<List<ModelM>>
 
+      // optional
     @Query("SELECT * FROM mainTable WHERE date = :day AND accountId = :accountId")
     fun getDataDailyT(day: String, accountId: Int): LiveData<List<ModelM>>
 
-    @Query("SELECT * FROM mainTable WHERE date= :day and category= :category")
-    fun getDataCalender(day:String,category:String):LiveData<List<ModelM>>
-    @Query("SELECT * FROM mainTable WHERE  category= :category")
-    fun getDataCalenderCategory(category:String):LiveData<List<ModelM>>
-    @Query("SELECT * FROM mainTable WHERE  weekNumber =:seekNumber")
-    fun getDataBetweenDates(seekNumber:Int): LiveData<List<ModelM>>
+    @Query("SELECT * FROM mainTable WHERE date= :day and category= :category and accountId=:id")
+    fun getDataCalender(day:String,category:String,id: Int):LiveData<List<ModelM>>
+    @Query("SELECT * FROM mainTable WHERE  category= :category and accountId=:id")
+    fun getDataCalenderCategory(category:String,id: Int):LiveData<List<ModelM>>
+    @Query("SELECT * FROM mainTable WHERE  weekNumber =:seekNumber and accountId=:id")
+    fun getDataBetweenDates(seekNumber:Int,id:Int): LiveData<List<ModelM>>
 
-    @Query("select * from mainTable where id=:idC")
-    fun getIdData(idC:Int):LiveData<List<ModelM>>
+    @Query("select * from mainTable where id=:idC and accountId=:id")
+    fun getIdData(idC:Int,id:Int):LiveData<List<ModelM>>
     @Query("delete  from mainTable where id=:idD")
     fun deleteDataId(idD:Int)
 
@@ -55,14 +56,14 @@ interface DatabaseDaoM{
 
 
 
-    @Query("SELECT * FROM mainTable WHERE date= :day and category=:category and type=:typeC")
-    fun getDataDaily2(day:String,category: String,typeC: String):LiveData<List<ModelM>>
-    @Query("SELECT * FROM mainTable WHERE dateMonth= :year and category=:category and type=:typeC")
-    fun getDataMonth2(year:String,category: String,typeC: String):LiveData<List<ModelM>>
-    @Query("SELECT * FROM mainTable WHERE  weekNumber =:seekNumber and category=:category and type=:typeC")
-    fun getDataBetweenDates2(seekNumber:Int,category: String,typeC: String): LiveData<List<ModelM>>
-    @Query("select * from mainTable where year=:yearC and category=:category and type=:typeC")
-    fun getDataYear2(yearC: String,category: String,typeC: String):LiveData<List<ModelM>>
+    @Query("SELECT * FROM mainTable WHERE date= :day and category=:category and type=:typeC and accountId=:id")
+    fun getDataDaily2(day:String,category: String,typeC: String,id: Int):LiveData<List<ModelM>>
+    @Query("SELECT * FROM mainTable WHERE dateMonth= :year and category=:category and type=:typeC and accountId=:id")
+    fun getDataMonth2(year:String,category: String,typeC: String,id: Int):LiveData<List<ModelM>>
+    @Query("SELECT * FROM mainTable WHERE  weekNumber =:seekNumber and category=:category and type=:typeC and accountId=:id")
+    fun getDataBetweenDates2(seekNumber:Int,category: String,typeC: String,id: Int): LiveData<List<ModelM>>
+    @Query("select * from mainTable where year=:yearC and category=:category and type=:typeC and accountId=:id")
+    fun getDataYear2(yearC: String,category: String,typeC: String,id: Int):LiveData<List<ModelM>>
     @Query("SELECT * FROM mainTable WHERE category = :category ORDER BY date ASC")
     fun getDataM2(category: String):LiveData<List<ModelM>>
 

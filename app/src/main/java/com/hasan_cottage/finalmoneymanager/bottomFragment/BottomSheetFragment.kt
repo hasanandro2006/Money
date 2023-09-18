@@ -60,6 +60,8 @@ class BottomSheetFragment(private val intId: Int, private  val string: String) :
     private var weekNumber: Int? = null
     private var storeAccountId:Int?=null
 
+    private lateinit var databaseTow:DatabaseTow
+    private  var stock=0
 
     private lateinit var myViewModel: AppViewModel
     private val calendar: Calendar = Calendar.getInstance()
@@ -75,10 +77,10 @@ class BottomSheetFragment(private val intId: Int, private  val string: String) :
         val applicationContext = requireContext().applicationContext
 
         
-        val databaseTow = DatabaseTow.getInstanceAllTow(applicationContext)
+         databaseTow = DatabaseTow.getInstanceAllTow(applicationContext)
         // set name .......
         val sharedPreferences = applicationContext.getSharedPreferences("Name", Context.MODE_PRIVATE)
-        val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
+         stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
 
         databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
 
@@ -208,33 +210,37 @@ class BottomSheetFragment(private val intId: Int, private  val string: String) :
 
 
     private fun updateAllWork(applicationContext: Context) {
-
-        myViewModel.getIdData(intId).observe(viewLifecycleOwner) { it ->
+        databaseTow.getAllDaoTow().getDataId(stock).observe(this) { it ->
             it.forEach {
-                binding.date.setText(it.date)
-                binding.amount.setText(it.amount.toString())
-                binding.category.setText(it.category)
-                binding.account.setText(it.account)
-                if (it.note != "Not any note") {
-                    binding.note.setText(it.note)
-                }
-                if (it.type == HelperClass.INCOME) {
-                    incomeSetButton(applicationContext)
-                } else {
-                    expenseSetButton(applicationContext)
-                }
-                getMonth = it.dateMonth
+                myViewModel.getIdData(intId,it.id).observe(viewLifecycleOwner) { it ->
+                    it.forEach {
+                        binding.date.setText(it.date)
+                        binding.amount.setText(it.amount.toString())
+                        binding.category.setText(it.category)
+                        binding.account.setText(it.account)
+                        if (it.note != "Not any note") {
+                            binding.note.setText(it.note)
+                        }
+                        if (it.type == HelperClass.INCOME) {
+                            incomeSetButton(applicationContext)
+                        } else {
+                            expenseSetButton(applicationContext)
+                        }
+                        getMonth = it.dateMonth
 
-                // come update data set
-                dataType = it.type
-                categoryName = it.category
-                accountName = it.account
-                getDate = it.date
-                getAmount = it.amount
-                getDateMonth = it.dateMonth
-                yearC = it.year
+                        // come update data set
+                        dataType = it.type
+                        categoryName = it.category
+                        accountName = it.account
+                        getDate = it.date
+                        getAmount = it.amount
+                        getDateMonth = it.dateMonth
+                        yearC = it.year
+                    }
+                }
             }
         }
+
 
     }
 

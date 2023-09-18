@@ -49,6 +49,9 @@ class StatsFragment : Fragment() {
     private lateinit var entries: ArrayList<PieEntry>
 
     private var symble: String? = null
+
+    private lateinit var databaseTow:DatabaseTow
+    private  var stock=0
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -67,6 +70,10 @@ class StatsFragment : Fragment() {
                 startActivity(Intent(context, SearchActivity::class.java))
             }
         }
+
+         databaseTow = DatabaseTow.getInstanceAllTow(requireContext())
+        val sharedPreferencesA= requireContext().getSharedPreferences("Name", Context.MODE_PRIVATE)
+         stock = sharedPreferencesA.getInt("oldPosition", 0)//come from (adapter_name)
 
         val sharedPreferences = context.getSharedPreferences("Time", Context.MODE_PRIVATE)
         val daily: Int = sharedPreferences.getInt("Daily", 1)
@@ -252,42 +259,73 @@ class StatsFragment : Fragment() {
 
     private fun dateFormatAll() {
         binding.monthSet.setText(R.string.all_transaction)
-        myViewModel.getDataM().observe(viewLifecycleOwner) {
-            allCodeExpense(it)
-            allCodeIncome(it)
+        databaseTow.getAllDaoTow().getDataId(stock).observe(requireActivity()) { it ->
+            it.forEach {
+                myViewModel.getDataM(it.id).observe(viewLifecycleOwner) {
+                    allCodeExpense(it)
+                    allCodeIncome(it)
+                }
+            }
+
         }
+
+
 
     }
 
 
     // come data from view-model........
     private fun dayExpenseIncome() {
-        myViewModel.getDataDaily(store!!).observe(viewLifecycleOwner) {
-            allCodeIncome(it)
-            allCodeExpense(it)
+        databaseTow.getAllDaoTow().getDataId(stock).observe(requireActivity()) { it ->
+            it.forEach {
+                myViewModel.getDataDaily(store!!,it.id).observe(viewLifecycleOwner) {
+                    allCodeIncome(it)
+                    allCodeExpense(it)
+                }
+            }
+
         }
+
     }
 
     private fun weekExpenseIncome() {
-        myViewModel.getDataBetweenDates(weekNumber!!).observe(viewLifecycleOwner) {
-            allCodeIncome(it)
-            allCodeExpense(it)
+        databaseTow.getAllDaoTow().getDataId(stock).observe(requireActivity()) { it ->
+            it.forEach {
+                myViewModel.getDataBetweenDates(weekNumber!!,it.id).observe(viewLifecycleOwner) {
+                    allCodeIncome(it)
+                    allCodeExpense(it)
+                }
+            }
+
         }
+
     }
 
     private fun monthExpenseIncome() {
-        myViewModel.getMonth(store!!).observe(viewLifecycleOwner) {
-            allCodeIncome(it)
-            allCodeExpense(it)
+        databaseTow.getAllDaoTow().getDataId(stock).observe(requireActivity()) { it ->
+            it.forEach {
+                myViewModel.getMonth(store!!,it.id).observe(viewLifecycleOwner) {
+                    allCodeIncome(it)
+                    allCodeExpense(it)
+                }
+            }
+
         }
+
     }
 
     private fun yearExpenseIncome() {
 
-            myViewModel.getDataYear(store!!).observe(viewLifecycleOwner) {
-                allCodeIncome(it)
-                allCodeExpense(it)
+        databaseTow.getAllDaoTow().getDataId(stock).observe(requireActivity()) { it ->
+            it.forEach {
+                myViewModel.getDataYear(store!!,it.id).observe(viewLifecycleOwner) {
+                    allCodeIncome(it)
+                    allCodeExpense(it)
+                }
             }
+
+        }
+
 
     }
 
@@ -387,9 +425,7 @@ class StatsFragment : Fragment() {
 
 
 
-        val databaseTow = DatabaseTow.getInstanceAllTow(requireContext())
-        val sharedPreferences = requireContext().getSharedPreferences("Name", Context.MODE_PRIVATE)
-        val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
+
 
         databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
 

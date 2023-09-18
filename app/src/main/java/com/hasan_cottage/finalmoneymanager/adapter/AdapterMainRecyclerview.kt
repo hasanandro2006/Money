@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.view.ContextThemeWrapper
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +13,10 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.PopupMenu
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hasan_cottage.finalmoneymanager.activity.RecordActivity
 import com.hasan_cottage.finalmoneymanager.bottomFragment.BottomSheetFragment
@@ -98,14 +101,7 @@ class AdapterMainRecyclerview(
 
         }
 
-//        if (arrayList[position].type == HelperClass.INCOME) {
-//            holder.binding.amount.setTextColor(context.getColor(R.color.blue))
-//            holder.binding.amount.text = arrayList[position].amount.toString()
-//        } else {
-//            holder.binding.amount.setTextColor(context.getColor(R.color.red))
-//            val stores = "- "+ arrayList[position].amount
-//            holder.binding.amount.text = stores
-//        }
+
 
         holder.itemView.setOnClickListener {
             val intent = Intent(context, RecordActivity::class.java)
@@ -114,8 +110,10 @@ class AdapterMainRecyclerview(
             context.startActivity(intent)
         }
 
-        holder.itemView.setOnLongClickListener {
-            val popupMenu = PopupMenu(context, it)
+        holder.itemView.setOnLongClickListener { work ->
+
+            val contextWrapper = ContextThemeWrapper(context, R.style.PopupMenuStyle)
+            val popupMenu = PopupMenu(contextWrapper, work)
             popupMenu.inflate(R.menu.popap)
 
             popupMenu.setOnMenuItemClickListener { menuItem ->
@@ -130,9 +128,11 @@ class AdapterMainRecyclerview(
                     }
 
                     R.id.delete -> {
-                        AlertDialog.Builder(context)
-                            .setTitle("DELETE THIS")
-                            .setMessage("Are you sure delete this item")
+                      val alertDialog =  AlertDialog.Builder(
+                            ContextThemeWrapper(context, R.style.CustomAlertDialogStyle)
+                        )
+                            .setTitle("Delete Transaction")
+                            .setMessage("Are you sure delete this transaction ?")
                             .setPositiveButton("OK") { _, _ ->
                                 GlobalScope.launch {
                                     MainFragment.myViewModel.deleteDataId(arrayList[position].id)
@@ -143,7 +143,10 @@ class AdapterMainRecyclerview(
                                 Toast.makeText(context, "Not Deleted", Toast.LENGTH_SHORT).show()
                             }
                             .create()
-                            .show()
+                        val messageTextView = alertDialog.findViewById(android.R.id.message) as? TextView
+                        messageTextView?.setTextColor(ContextCompat.getColor(context, R.color.black))
+
+                        alertDialog.show()
                         true
                     }
 

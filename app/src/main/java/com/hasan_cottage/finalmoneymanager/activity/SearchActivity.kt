@@ -26,6 +26,7 @@ import com.hasan_cottage.finalmoneymanager.helper.HelperClass
 import com.hasan_cottage.finalmoneymanager.model.CategoryModel
 import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
+import com.hasan_cottage.finalmoneymanager.roomDatabaseNot.DatabaseTow
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
 import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
 import kotlinx.coroutines.Dispatchers
@@ -45,6 +46,9 @@ class SearchActivity : AppCompatActivity(), AdapterCategory.CategoryClick {
     private val selectedDateLiveData = MutableLiveData<String>()
     private val categoryName = MutableLiveData<String>()
 
+    private lateinit var databaseTow:DatabaseTow
+    private  var stock=0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -55,6 +59,11 @@ class SearchActivity : AppCompatActivity(), AdapterCategory.CategoryClick {
             ViewModelProvider(this, ViewModelFactory(repository))[AppViewModel::class.java]
 
         val calendar = Calendar.getInstance()
+
+        databaseTow = DatabaseTow.getInstanceAllTow(this)
+        val sharedPreferencesA =this.getSharedPreferences("Name", Context.MODE_PRIVATE)
+        stock = sharedPreferencesA.getInt("oldPosition", 0)//come from (adapter_name)
+
         // Back Event
         binding.back.setOnClickListener { onBackPressed() }
 
@@ -140,98 +149,105 @@ class SearchActivity : AppCompatActivity(), AdapterCategory.CategoryClick {
     private fun ifCategoryDateHave(){
 
         // Observe LiveData changes
-        selectedDateLiveData.observe(this) { selectedDate ->
-            categoryName.observe(this) {
+        databaseTow.getAllDaoTow().getDataId(stock).observe(this) { work ->
+            work.forEach { workItem ->
+                selectedDateLiveData.observe(this) { selectedDate ->
+                    categoryName.observe(this) { category ->
+                        // Use workItem.id in your query or other parts of your code
+                        myViewModel.getDataCalender(selectedDate, category, workItem.id).observe(this) { data ->
+                            if (data.isEmpty()) {
+                                binding.empty.visibility = View.VISIBLE
+                            } else {
+                                binding.empty.visibility = View.GONE
+                            }
 
-                myViewModel.getDataCalender(selectedDate,it).observe(this) { data ->
-                    if (data.isEmpty()) {
-                        binding.empty.visibility = View.VISIBLE
-                        adapter = AdapterMainRecyclerview(this, data)
-                        binding.recyclerView.adapter = adapter
-                        binding.recyclerView.setHasFixedSize(true)
-                        binding.recyclerView.addItemDecoration(
-                            DividerItemDecoration(
-                                this, DividerItemDecoration.VERTICAL
+                            // Update the RecyclerView with the data
+                            adapter = AdapterMainRecyclerview(this, data)
+                            binding.recyclerView.adapter = adapter
+                            binding.recyclerView.setHasFixedSize(true)
+                            binding.recyclerView.addItemDecoration(
+                                DividerItemDecoration(
+                                    this, DividerItemDecoration.VERTICAL
+                                )
                             )
-                        )
-                        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-                    } else {
-                        binding.empty.visibility = View.GONE
-                       adapter= AdapterMainRecyclerview(this, data)
-                        binding.recyclerView.adapter = adapter
-                        binding.recyclerView.setHasFixedSize(true)
-                        binding.recyclerView.addItemDecoration(
-                            DividerItemDecoration(
-                                this, DividerItemDecoration.VERTICAL
-                            )
-                        )
-                        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+                            binding.recyclerView.layoutManager = LinearLayoutManager(this)
+                        }
                     }
                 }
-
             }
         }
+
     }
     private fun ifDateHave(){
 
         // Observe LiveData changes
-        selectedDateLiveData.observe(this) { selectedDate ->
-            myViewModel.getDataDaily(selectedDate).observe(this) { data ->
-                if (data.isEmpty()) {
-                    binding.empty.visibility = View.VISIBLE
-                     adapter = AdapterMainRecyclerview(this, data)
-                    binding.recyclerView.adapter = adapter
-                    binding.recyclerView.setHasFixedSize(true)
-                    binding.recyclerView.addItemDecoration(
-                        DividerItemDecoration(
-                            this, DividerItemDecoration.VERTICAL
-                        )
-                    )
-                    binding.recyclerView.layoutManager = LinearLayoutManager(this)
-                } else {
-                    binding.empty.visibility = View.GONE
-                    adapter = AdapterMainRecyclerview(this, data)
-                    binding.recyclerView.adapter = adapter
-                    binding.recyclerView.setHasFixedSize(true)
-                    binding.recyclerView.addItemDecoration(
-                        DividerItemDecoration(
-                            this, DividerItemDecoration.VERTICAL
-                        )
-                    )
-                    binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        databaseTow.getAllDaoTow().getDataId(stock).observe(this) { work ->
+            work.forEach { workId ->
+                selectedDateLiveData.observe(this) { selectedDate ->
+                    myViewModel.getDataDaily(selectedDate,workId.id).observe(this) { data ->
+                        if (data.isEmpty()) {
+                            binding.empty.visibility = View.VISIBLE
+                            adapter = AdapterMainRecyclerview(this, data)
+                            binding.recyclerView.adapter = adapter
+                            binding.recyclerView.setHasFixedSize(true)
+                            binding.recyclerView.addItemDecoration(
+                                DividerItemDecoration(
+                                    this, DividerItemDecoration.VERTICAL
+                                )
+                            )
+                            binding.recyclerView.layoutManager = LinearLayoutManager(this)
+                        } else {
+                            binding.empty.visibility = View.GONE
+                            adapter = AdapterMainRecyclerview(this, data)
+                            binding.recyclerView.adapter = adapter
+                            binding.recyclerView.setHasFixedSize(true)
+                            binding.recyclerView.addItemDecoration(
+                                DividerItemDecoration(
+                                    this, DividerItemDecoration.VERTICAL
+                                )
+                            )
+                            binding.recyclerView.layoutManager = LinearLayoutManager(this)
+                        }
+                    }
                 }
             }
         }
+
 
     }
     private fun ifCategoryHave(){
 
         // Observe LiveData changes
-        categoryName.observe(this) { selectedDate ->
-            myViewModel.getDataCalenderCategory(selectedDate).observe(this) { data ->
-                if (data.isEmpty()) {
-                    binding.empty.visibility = View.VISIBLE
-                   adapter = AdapterMainRecyclerview(this, data)
-                    binding.recyclerView.adapter = adapter
-                    binding.recyclerView.setHasFixedSize(true)
-                    binding.recyclerView.addItemDecoration(
-                        DividerItemDecoration(
-                            this, DividerItemDecoration.VERTICAL
-                        )
-                    )
-                    binding.recyclerView.layoutManager = LinearLayoutManager(this)
-                } else {
-                    binding.empty.visibility = View.GONE
-                  adapter = AdapterMainRecyclerview(this, data)
-                    binding.recyclerView.adapter = adapter
-                    binding.recyclerView.setHasFixedSize(true)
-                    binding.recyclerView.addItemDecoration(
-                        DividerItemDecoration(
-                            this, DividerItemDecoration.VERTICAL
-                        )
-                    )
-                    binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        databaseTow.getAllDaoTow().getDataId(stock).observe(this) { work ->
+            work.forEach { workId ->
+                categoryName.observe(this) { selectedDate ->
+                    myViewModel.getDataCalenderCategory(selectedDate,workId.id).observe(this) { data ->
+                        if (data.isEmpty()) {
+                            binding.empty.visibility = View.VISIBLE
+                            adapter = AdapterMainRecyclerview(this, data)
+                            binding.recyclerView.adapter = adapter
+                            binding.recyclerView.setHasFixedSize(true)
+                            binding.recyclerView.addItemDecoration(
+                                DividerItemDecoration(
+                                    this, DividerItemDecoration.VERTICAL
+                                )
+                            )
+                            binding.recyclerView.layoutManager = LinearLayoutManager(this)
+                        } else {
+                            binding.empty.visibility = View.GONE
+                            adapter = AdapterMainRecyclerview(this, data)
+                            binding.recyclerView.adapter = adapter
+                            binding.recyclerView.setHasFixedSize(true)
+                            binding.recyclerView.addItemDecoration(
+                                DividerItemDecoration(
+                                    this, DividerItemDecoration.VERTICAL
+                                )
+                            )
+                            binding.recyclerView.layoutManager = LinearLayoutManager(this)
+                        }
+                    }
                 }
+
             }
         }
 

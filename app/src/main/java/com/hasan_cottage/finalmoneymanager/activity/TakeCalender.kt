@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -40,6 +41,9 @@ class TakeCalender : AppCompatActivity(), CalendarAdapter.OnItemListener {
     lateinit var myViewModel: AppViewModel
     private lateinit var daysInMonth: ArrayList<String>
 
+    private lateinit var databaseTow:DatabaseTow
+    private  var stock=0
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +54,11 @@ class TakeCalender : AppCompatActivity(), CalendarAdapter.OnItemListener {
         val repository = Repository(daoM)
         myViewModel =
             ViewModelProvider(this, ViewModelFactory(repository))[AppViewModel::class.java]
+
+
+         databaseTow = DatabaseTow.getInstanceAllTow(this)
+        val sharedPreferences =this.getSharedPreferences("Name", Context.MODE_PRIVATE)
+        stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
 
         binding.searce.setOnClickListener {
             MainScope().launch(Dispatchers.Default){
@@ -73,48 +82,53 @@ class TakeCalender : AppCompatActivity(), CalendarAdapter.OnItemListener {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setIncomeExpense() {
         val data = monthYearFromDate(selectedDate)
-        myViewModel.getMonth(data).observe(this) {
-            var storeT = 0.0
-            var incomeT = 0.0
-            var expenseT = 0.0
-            it.forEach { data ->
-                storeT += data.amount
-                if (data.type == HelperClass.INCOME) {
-                    incomeT += data.amount
-                } else if (data.type == HelperClass.EXPENSE) {
-                    expenseT += data.amount
-                }
-            }
-            Log.d("main2", it.toString())
 
-            val databaseTow = DatabaseTow.getInstanceAllTow(this)
-            val sharedPreferences =this.getSharedPreferences("Name", Context.MODE_PRIVATE)
-            val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
+        databaseTow.getAllDaoTow().getDataId(stock).observe(this) { work ->
+            work.forEach { workId ->
 
-            databaseTow.getAllDaoTow().getDataId(stock).observe(this) {
+                myViewModel.getMonth(data,workId.id).observe(this) {
+                    var storeT = 0.0
+                    var incomeT = 0.0
+                    var expenseT = 0.0
+                    it.forEach { data ->
+                        storeT += data.amount
+                        if (data.type == HelperClass.INCOME) {
+                            incomeT += data.amount
+                        } else if (data.type == HelperClass.EXPENSE) {
+                            expenseT += data.amount
+                        }
+                    }
+                    Log.d("main2", it.toString())
 
-                if (it.isNullOrEmpty()) {
 
-                    binding.totalS.text = "$ $storeT"
-                    binding.incomeS.text = "$ $incomeT"
-                    val stores = "-$ $expenseT"
-                    binding.expanseS.text = stores
 
-                } else {
+                    databaseTow.getAllDaoTow().getDataId(stock).observe(this) {
 
-                    it.forEach {
-                        binding.totalS.text = "${it.currencySymbol} $storeT"
-                        binding.incomeS.text = "${it.currencySymbol} $incomeT"
-                        val stores = "-${it.currencySymbol} $expenseT"
-                        binding.expanseS.text = stores
+                        if (it.isNullOrEmpty()) {
+
+                            binding.totalS.text = "$ $storeT"
+                            binding.incomeS.text = "$ $incomeT"
+                            val stores = "-$ $expenseT"
+                            binding.expanseS.text = stores
+
+                        } else {
+
+                            it.forEach {
+                                binding.totalS.text = "${it.currencySymbol} $storeT"
+                                binding.incomeS.text = "${it.currencySymbol} $incomeT"
+                                val stores = "-${it.currencySymbol} $expenseT"
+                                binding.expanseS.text = stores
+
+                            }
+                        }
+
 
                     }
+
                 }
-
-
             }
-
         }
+
     }
 
 
@@ -169,7 +183,7 @@ class TakeCalender : AppCompatActivity(), CalendarAdapter.OnItemListener {
         daysInMonth = daysInMonthArray(selectedDate)
         val data = monthYearFromDate(selectedDate)
 
-        val calendarAdapter = CalendarAdapter(daysInMonth, this, myViewModel, data)
+        val calendarAdapter = CalendarAdapter(daysInMonth, this, myViewModel, data, databaseTow,stock)
         val layoutManager = GridLayoutManager(applicationContext, 7)
         calendarRecyclerView.layoutManager = layoutManager
         calendarRecyclerView.adapter = calendarAdapter

@@ -46,6 +46,8 @@ class CalendarFragment : Fragment() {
     private val calendar = Calendar.getInstance()
     private val calendar7 = Calendar.getInstance()
 
+    private lateinit var databaseTow:DatabaseTow
+    private  var stock=0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,6 +58,11 @@ class CalendarFragment : Fragment() {
         val context = requireContext().applicationContext// get Context
         val sharedPreferences = context.getSharedPreferences("Time", Context.MODE_PRIVATE)
         val daily: Int = sharedPreferences.getInt("Daily", 1)
+
+
+       databaseTow = DatabaseTow.getInstanceAllTow(requireContext())
+        val sharedPreferencesA = requireContext().getSharedPreferences("Name", Context.MODE_PRIVATE)
+        stock = sharedPreferencesA.getInt("oldPosition", 0)//come from (adapter_name)
 
         SymbleGanarate(context)
 
@@ -215,78 +222,109 @@ class CalendarFragment : Fragment() {
 
     // set data with livedata---------
     private fun setForDay(context: Context) {
+        databaseTow.getAllDaoTow().getDataId(stock).observe(requireActivity()) { it ->
+            it.forEach {
+                myViewModel.getDataDaily(store!!,it.id).observe(viewLifecycleOwner) {
+                    if (it.isEmpty()){
+                        binding.noDataI.visibility=View.VISIBLE
+                        binding.noDataT.visibility=View.VISIBLE
+                        sameCodeSet(context, it)
+                    }else {
+                        binding.noDataI.visibility=View.GONE
+                        binding.noDataT.visibility=View.GONE
+                        sameCodeSet(context, it)
 
-        myViewModel.getDataDaily(store!!).observe(viewLifecycleOwner) {
-            if (it.isEmpty()){
-                binding.noDataI.visibility=View.VISIBLE
-                binding.noDataT.visibility=View.VISIBLE
-                sameCodeSet(context, it)
-            }else {
-                binding.noDataI.visibility=View.GONE
-                binding.noDataT.visibility=View.GONE
-                sameCodeSet(context, it)
-
+                    }
+                }
             }
+
         }
+
 
     }
 
     private fun setForMonth(context: Context) {
-        myViewModel.getMonth(store!!).observe(viewLifecycleOwner) {
-            if (it.isEmpty()){
-                binding.noDataI.visibility=View.VISIBLE
-                binding.noDataT.visibility=View.VISIBLE
-                sameCodeSet(context, it)
-            }else {
-                binding.noDataI.visibility=View.GONE
-                binding.noDataT.visibility=View.GONE
-                sameCodeSet(context, it)
+        databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
+            it.forEach {
+                myViewModel.getMonth(store!!, it.id).observe(viewLifecycleOwner) { data ->
+                    // Ensure that the view is active before updating UI or accessing the data
+                    if (view != null) {
+                        if (data.isEmpty()) {
+                            binding.noDataI.visibility = View.VISIBLE
+                            binding.noDataT.visibility = View.VISIBLE
+                            sameCodeSet(context, data)
+                        } else {
+                            binding.noDataI.visibility = View.GONE
+                            binding.noDataT.visibility = View.GONE
+                            sameCodeSet(context, data)
+                        }
+                    }
+                }
             }
         }
-
     }
 
+
     private fun setForWeek() {
-        myViewModel.getDataBetweenDates(weekNumber!!).observe(viewLifecycleOwner) {
-            if (it.isEmpty()){
-                binding.noDataI.visibility=View.VISIBLE
-                binding.noDataT.visibility=View.VISIBLE
-                sameCodeSet(context, it)
-            }else {
-                binding.noDataI.visibility=View.GONE
-                binding.noDataT.visibility=View.GONE
-                sameCodeSet(context, it)
+        databaseTow.getAllDaoTow().getDataId(stock).observe(requireActivity()) { it ->
+            it.forEach {
+                myViewModel.getDataBetweenDates(weekNumber!!,it.id).observe(viewLifecycleOwner) {
+                    if (it.isEmpty()){
+                        binding.noDataI.visibility=View.VISIBLE
+                        binding.noDataT.visibility=View.VISIBLE
+                        sameCodeSet(context, it)
+                    }else {
+                        binding.noDataI.visibility=View.GONE
+                        binding.noDataT.visibility=View.GONE
+                        sameCodeSet(context, it)
+                    }
+                }
             }
+
         }
+
     }
 
     private fun setForYear() {
-        myViewModel.getDataYear(store!!).observe(viewLifecycleOwner) {
-            if (it.isEmpty()){
-                binding.noDataI.visibility=View.VISIBLE
-                binding.noDataT.visibility=View.VISIBLE
-                sameCodeSet(context, it)
-            }else {
-                binding.noDataI.visibility=View.GONE
-                binding.noDataT.visibility=View.GONE
-                sameCodeSet(context, it)
+        databaseTow.getAllDaoTow().getDataId(stock).observe(requireActivity()) { it ->
+            it.forEach {
+                myViewModel.getDataYear(store!!,it.id).observe(viewLifecycleOwner) {
+                    if (it.isEmpty()){
+                        binding.noDataI.visibility=View.VISIBLE
+                        binding.noDataT.visibility=View.VISIBLE
+                        sameCodeSet(context, it)
+                    }else {
+                        binding.noDataI.visibility=View.GONE
+                        binding.noDataT.visibility=View.GONE
+                        sameCodeSet(context, it)
+                    }
+                }
             }
+
         }
+
     }
 
     private fun setForAll(context: Context?) {
         binding.monthSet.setText(R.string.all_transaction)
-        myViewModel.getDataM().observe(viewLifecycleOwner) {
-            if (it.isEmpty()){
-                binding.noDataI.visibility=View.VISIBLE
-                binding.noDataT.visibility=View.VISIBLE
-                sameCodeSet(context, it)
-            }else {
-                binding.noDataI.visibility=View.GONE
-                binding.noDataT.visibility=View.GONE
-                sameCodeSet(context, it)
+        databaseTow.getAllDaoTow().getDataId(stock).observe(requireActivity()) { it ->
+            it.forEach {
+                myViewModel.getDataM(it.id).observe(viewLifecycleOwner) {
+                    if (it.isEmpty()){
+                        binding.noDataI.visibility=View.VISIBLE
+                        binding.noDataT.visibility=View.VISIBLE
+                        sameCodeSet(context, it)
+                    }else {
+                        binding.noDataI.visibility=View.GONE
+                        binding.noDataT.visibility=View.GONE
+                        sameCodeSet(context, it)
+                    }
+                }
             }
+
         }
+
+
     }
 
     private fun sameCodeSet(context: Context?, it: List<ModelM>) {
@@ -306,9 +344,7 @@ class CalendarFragment : Fragment() {
         }
 
 
-        val databaseTow = DatabaseTow.getInstanceAllTow(requireContext())
-        val sharedPreferences = requireContext().getSharedPreferences("Name", Context.MODE_PRIVATE)
-        val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
+
 
         databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
             if(it.isNullOrEmpty()){

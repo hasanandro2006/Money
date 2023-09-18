@@ -1,5 +1,6 @@
 package com.hasan_cottage.finalmoneymanager.bottomFragment
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import com.hasan_cottage.finalmoneymanager.adapter.AdapterMainRecyclerview
 import com.hasan_cottage.finalmoneymanager.databinding.FragmentBottomSheetCalenderBinding
 import com.hasan_cottage.finalmoneymanager.roomDatabase.DatabaseAll
 import com.hasan_cottage.finalmoneymanager.roomDatabase.Repository
+import com.hasan_cottage.finalmoneymanager.roomDatabaseNot.DatabaseTow
 import com.hasan_cottage.finalmoneymanager.viewModelClass.AppViewModel
 import com.hasan_cottage.finalmoneymanager.viewModelClass.ViewModelFactory
 
@@ -42,18 +44,29 @@ class BottomSheetFragmentCalender(private var day:String, private val monthYear:
 
         binding.textView10.text=data
 
-        myViewModel.getDataDaily(data).observe(viewLifecycleOwner) { dataList ->
-            Log.d("DataSize", "Data Size: ${dataList.size}")
-            if (dataList.isNotEmpty()) {
+        val databaseTow = DatabaseTow.getInstanceAllTow(context)
+        val sharedPreferencesA =context.getSharedPreferences("Name", Context.MODE_PRIVATE)
+       val stock = sharedPreferencesA.getInt("oldPosition", 0)//come from (adapter_name)
 
-                val adapter = AdapterMainRecyclerview(context, dataList)
-                binding.recyclerviewWo.adapter = adapter
-                binding.recyclerviewWo.setHasFixedSize(true)
-                binding.recyclerviewWo.layoutManager = LinearLayoutManager(requireContext())
-            } else {
-                Toast.makeText(context, "No data found", Toast.LENGTH_SHORT).show()
+        databaseTow.getAllDaoTow().getDataId(stock).observe(this) { it ->
+            it.forEach {
+
+                myViewModel.getDataDaily(data,it.id).observe(viewLifecycleOwner) { dataList ->
+                    Log.d("DataSize", "Data Size: ${dataList.size}")
+                    if (dataList.isNotEmpty()) {
+
+                        val adapter = AdapterMainRecyclerview(context, dataList)
+                        binding.recyclerviewWo.adapter = adapter
+                        binding.recyclerviewWo.setHasFixedSize(true)
+                        binding.recyclerviewWo.layoutManager = LinearLayoutManager(requireContext())
+                    } else {
+                        Toast.makeText(context, "No data found", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
+
         }
+
 
         binding.addData.setOnClickListener {
             val bottomSheetFragment=BottomSheetFragment(-1,data)

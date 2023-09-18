@@ -7,10 +7,13 @@ import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Bundle
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.play.core.review.ReviewInfo
@@ -105,9 +108,11 @@ class MoreFragment : Fragment() {
 
         // item eight
         binding.itemEight.setOnClickListener {
-            AlertDialog.Builder(requireContext())
-                .setTitle("DELETE THIS")
-                .setMessage("Are you sure you want to delete this item?")
+            val alertDialog =AlertDialog.Builder(
+                ContextThemeWrapper(requireContext(), R.style.CustomAlertDialogStyle)
+            )
+                .setTitle("Delete All Transaction")
+                .setMessage("Are you sure delete all transaction ?")
                 .setPositiveButton("OK") { _, _ ->
                     GlobalScope.launch {
                         myViewModel.deleteAllItems()
@@ -120,7 +125,9 @@ class MoreFragment : Fragment() {
                     Toast.makeText(requireContext(), "Not Deleted", Toast.LENGTH_SHORT).show()
                 }
                 .create()
-                .show()
+            val messageTextView = alertDialog.findViewById(android.R.id.message) as? TextView
+            messageTextView?.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            alertDialog.show()
         }
 
         // item nine

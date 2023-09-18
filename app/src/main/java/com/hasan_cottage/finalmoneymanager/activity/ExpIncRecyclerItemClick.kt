@@ -42,6 +42,10 @@ class ExpIncRecyclerItemClick : AppCompatActivity() {
     private val calendar7 = Calendar.getInstance()
     private var type: String? = null
     private var category: String? = null
+
+    private lateinit var databaseTow:DatabaseTow
+    private  var stock=0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -49,6 +53,10 @@ class ExpIncRecyclerItemClick : AppCompatActivity() {
         binding.back.setOnClickListener {
             onBackPressed()
         }
+
+        databaseTow = DatabaseTow.getInstanceAllTow(this)
+        val sharedPreferencesA =this.getSharedPreferences("Name", Context.MODE_PRIVATE)
+         stock = sharedPreferencesA.getInt("oldPosition", 0)//come from (adapter_name)
 
         binding.searce.setOnClickListener {
             MainScope().launch(Dispatchers.Default) {
@@ -256,65 +264,86 @@ class ExpIncRecyclerItemClick : AppCompatActivity() {
     // set data with livedata---------
     private fun setForDay(context: Context) {
 
-        myViewModel.getDataDaily2(store!!, category!!, type!!).observe(this) { it ->
-            if (it.isEmpty()) {
-                binding.noDataI.visibility = View.VISIBLE
-                binding.noDataT.visibility = View.VISIBLE
-                sameCodeSet(context, it)
-            } else {
-                binding.noDataI.visibility = View.GONE
-                binding.noDataT.visibility = View.GONE
-                sameCodeSet(context, it)
+        databaseTow.getAllDaoTow().getDataId(stock).observe(this) { it ->
+            it.forEach {
+                myViewModel.getDataDaily2(store!!, category!!, type!!,it.id).observe(this) { it ->
+                    if (it.isEmpty()) {
+                        binding.noDataI.visibility = View.VISIBLE
+                        binding.noDataT.visibility = View.VISIBLE
+                        sameCodeSet(context, it)
+                    } else {
+                        binding.noDataI.visibility = View.GONE
+                        binding.noDataT.visibility = View.GONE
+                        sameCodeSet(context, it)
+                    }
+                }
             }
         }
 
     }
 
     private fun setForMonth(context: Context) {
-        myViewModel.getDataMonth2(store!!, category!!, type!!).observe(this) { it ->
 
-            if (it.isEmpty()) {
-                binding.noDataI.visibility = View.VISIBLE
-                binding.noDataT.visibility = View.VISIBLE
-                sameCodeSet(context, it)
-            } else {
-                binding.noDataI.visibility = View.GONE
-                binding.noDataT.visibility = View.GONE
-                sameCodeSet(context, it)
+        databaseTow.getAllDaoTow().getDataId(stock).observe(this) { it ->
+            it.forEach {
+                myViewModel.getDataMonth2(store!!, category!!, type!!,it.id).observe(this) { it ->
+
+                    if (it.isEmpty()) {
+                        binding.noDataI.visibility = View.VISIBLE
+                        binding.noDataT.visibility = View.VISIBLE
+                        sameCodeSet(context, it)
+                    } else {
+                        binding.noDataI.visibility = View.GONE
+                        binding.noDataT.visibility = View.GONE
+                        sameCodeSet(context, it)
+                    }
+
+                }
             }
-
         }
 
     }
 
     private fun setForWeek(context: Context) {
-        myViewModel.getDataBetweenDates2(weekNumber!!, category!!, type!!).observe(this) { it ->
 
-            if (it.isEmpty()) {
-                binding.noDataI.visibility = View.VISIBLE
-                binding.noDataT.visibility = View.VISIBLE
-                sameCodeSet(context, it)
-            } else {
-                binding.noDataI.visibility = View.GONE
-                binding.noDataT.visibility = View.GONE
-                sameCodeSet(context, it)
+
+        databaseTow.getAllDaoTow().getDataId(stock).observe(this) { it ->
+            it.forEach {
+                myViewModel.getDataBetweenDates2(weekNumber!!, category!!, type!!,it.id).observe(this) { it ->
+
+                    if (it.isEmpty()) {
+                        binding.noDataI.visibility = View.VISIBLE
+                        binding.noDataT.visibility = View.VISIBLE
+                        sameCodeSet(context, it)
+                    } else {
+                        binding.noDataI.visibility = View.GONE
+                        binding.noDataT.visibility = View.GONE
+                        sameCodeSet(context, it)
+                    }
+
+                }
             }
-
         }
     }
 
     private fun setForYear(context: Context) {
-        myViewModel.getDataYear2(store!!, category!!, type!!).observe(this) { it ->
-            if (it.isEmpty()) {
-                binding.noDataI.visibility = View.VISIBLE
-                binding.noDataT.visibility = View.VISIBLE
-                sameCodeSet(context, it)
-            } else {
-                binding.noDataI.visibility = View.GONE
-                binding.noDataT.visibility = View.GONE
-                sameCodeSet(context, it)
-            }
 
+
+        databaseTow.getAllDaoTow().getDataId(stock).observe(this) { it ->
+            it.forEach {
+                myViewModel.getDataYear2(store!!, category!!, type!!,it.id).observe(this) { it ->
+                    if (it.isEmpty()) {
+                        binding.noDataI.visibility = View.VISIBLE
+                        binding.noDataT.visibility = View.VISIBLE
+                        sameCodeSet(context, it)
+                    } else {
+                        binding.noDataI.visibility = View.GONE
+                        binding.noDataT.visibility = View.GONE
+                        sameCodeSet(context, it)
+                    }
+
+                }
+            }
         }
     }
 
@@ -345,9 +374,7 @@ class ExpIncRecyclerItemClick : AppCompatActivity() {
         }
         Log.d("main2", it.toString())
 
-        val databaseTow = DatabaseTow.getInstanceAllTow(this)
-        val sharedPreferences =this.getSharedPreferences("Name", Context.MODE_PRIVATE)
-        val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
+
 
         databaseTow.getAllDaoTow().getDataId(stock).observe(this) {
 
