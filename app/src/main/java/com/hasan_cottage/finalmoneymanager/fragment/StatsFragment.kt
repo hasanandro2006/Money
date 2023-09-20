@@ -344,6 +344,19 @@ class StatsFragment : Fragment() {
         var rent = 0.0
         var other = 0.0
 
+        var ills = 0.0
+        var lothing = 0.0
+        var ducation = 0.0
+        var ntertainment = 0.0
+        var itness = 0.0
+        var ood = 0.0
+        var ifts = 0.0
+        var ealth = 0.0
+        var urniture = 0.0
+        var hopping = 0.0
+        var ransportation = 0.0
+        var ravel = 0.0
+
         it.forEach { data ->
             total += data.amount
             if (data.type == HelperClass.INCOME) {
@@ -371,6 +384,44 @@ class StatsFragment : Fragment() {
                 if (data.category == HelperClass.Other) {
                     other += data.amount
                 }
+
+                if (data.category == HelperClass.Bills) {
+                    ills += data.amount
+                }
+                if (data.category == HelperClass.Clothing) {
+                    lothing += data.amount
+                }
+                if (data.category == HelperClass.Education) {
+                    ducation += data.amount
+                }
+                if (data.category == HelperClass.Entertainment) {
+                    ntertainment += data.amount
+                }
+                if (data.category == HelperClass.Fitness) {
+                    itness += data.amount
+                }
+                if (data.category == HelperClass.Food) {
+                    ood += data.amount
+                }
+                if (data.category == HelperClass.Gifts) {
+                    ifts += data.amount
+                }
+
+                if (data.category == HelperClass.Health) {
+                    ealth += data.amount
+                }
+                if (data.category == HelperClass.Furniture) {
+                    urniture += data.amount
+                }
+                if (data.category == HelperClass.Shopping) {
+                    hopping += data.amount
+                }
+                if (data.category == HelperClass.Transportation) {
+                    ransportation += data.amount
+                }
+                if (data.category == HelperClass.Travel) {
+                    ravel += data.amount
+                }
             } else if (data.type == HelperClass.EXPENSE) {
                 expense += data.amount
 
@@ -379,7 +430,7 @@ class StatsFragment : Fragment() {
 
         }
 
-        Log.d("all", "$home=$business=$loan=$investment=$planing =$rent =$other")
+//        Log.d("all", "$home=$business=$loan=$investment=$planing =$rent =$other")
 
 
         val homeP = ((home / income) * 100).toInt()
@@ -390,8 +441,19 @@ class StatsFragment : Fragment() {
         val rentP = ((rent / income) * 100).toInt()
         val otherP = ((other / income) * 100).toInt()
 
+        val illsP = ((ills / income) * 100).toInt()
+        val loathingP = ((lothing/ income) * 100).toInt()
+        val ducationP = ((ducation / income) * 100).toInt()
+        val ntertainmentP = ((ntertainment / income) * 100).toInt()
+        val itnessP = ((itness / income) * 100).toInt()
+        val oodP = ((ood / income) * 100).toInt()
+        val iftsP = ((ifts / income) * 100).toInt()
 
-        Log.d("allP", "$homeP=$businessP=$loanP=$investmentP=$planingP=$rentP=$otherP")
+        val ealthP = ((ealth / income) * 100).toInt()
+        val urnitureP = ((urniture/ income) * 100).toInt()
+        val hoppingP = ((hopping / income) * 100).toInt()
+        val ransportationP = ((ransportation / income) * 100).toInt()
+        val ravelP = ((ravel / income) * 100).toInt()
 
 
 
@@ -403,6 +465,20 @@ class StatsFragment : Fragment() {
         entries.add(PieEntry(planingP.toFloat(), "Planing"))
         entries.add(PieEntry(rentP.toFloat(), "Rent"))
         entries.add(PieEntry(otherP.toFloat(), "Other"))
+
+        entries.add(PieEntry(illsP.toFloat(), "Bills"))
+        entries.add(PieEntry(loathingP.toFloat(), "Clothing"))
+        entries.add(PieEntry(ducationP.toFloat(), "Education"))
+        entries.add(PieEntry(ntertainmentP.toFloat(), "Entertainment"))
+        entries.add(PieEntry(itnessP.toFloat(), "Fitness"))
+        entries.add(PieEntry(oodP.toFloat(), "Food"))
+        entries.add(PieEntry(iftsP.toFloat(), "Gifts"))
+
+        entries.add(PieEntry(ealthP.toFloat(), "Health"))
+        entries.add(PieEntry(urnitureP.toFloat(), "Furniture"))
+        entries.add(PieEntry(hoppingP.toFloat(), "Shopping"))
+        entries.add(PieEntry(ransportationP.toFloat(), "Transportation"))
+        entries.add(PieEntry(ravelP.toFloat(), "Travel"))
 
         val chart = binding.pieChart2
 
@@ -513,6 +589,19 @@ class StatsFragment : Fragment() {
         var rent = 0.0
         var other = 0.0
 
+        var ills = 0.0
+        var lothing = 0.0
+        var ducation = 0.0
+        var ntertainment = 0.0
+        var itness = 0.0
+        var ood = 0.0
+        var ifts = 0.0
+        var ealth = 0.0
+        var urniture = 0.0
+        var hopping = 0.0
+        var ransportation = 0.0
+        var ravel = 0.0
+
         it.forEach { data ->
             total += data.amount
             if (data.type == HelperClass.EXPENSE) {
@@ -540,6 +629,45 @@ class StatsFragment : Fragment() {
                 if (data.category == HelperClass.Other) {
                     other += data.amount
                 }
+
+
+                if (data.category == HelperClass.Bills) {
+                    ills += data.amount
+                }
+                if (data.category == HelperClass.Clothing) {
+                    lothing += data.amount
+                }
+                if (data.category == HelperClass.Education) {
+                    ducation += data.amount
+                }
+                if (data.category == HelperClass.Entertainment) {
+                    ntertainment += data.amount
+                }
+                if (data.category == HelperClass.Fitness) {
+                    itness += data.amount
+                }
+                if (data.category == HelperClass.Food) {
+                    ood += data.amount
+                }
+                if (data.category == HelperClass.Gifts) {
+                    ifts += data.amount
+                }
+
+                if (data.category == HelperClass.Health) {
+                    ealth += data.amount
+                }
+                if (data.category == HelperClass.Furniture) {
+                    urniture += data.amount
+                }
+                if (data.category == HelperClass.Shopping) {
+                    hopping += data.amount
+                }
+                if (data.category == HelperClass.Transportation) {
+                    ransportation += data.amount
+                }
+                if (data.category == HelperClass.Travel) {
+                    ravel += data.amount
+                }
             } else if (data.type == HelperClass.INCOME) {
                 income += data.amount
 
@@ -553,8 +681,6 @@ class StatsFragment : Fragment() {
         binding.totalStaI.text = total.toString()
 
 
-        Log.d("all", "$home=$business=$loan=$investment=$planing =$rent =$other")
-
 
         val homeP = ((home / expense) * 100).toInt()
         val businessP = ((business / expense) * 100).toInt()
@@ -564,8 +690,19 @@ class StatsFragment : Fragment() {
         val rentP = ((rent / expense) * 100).toInt()
         val otherP = ((other / expense) * 100).toInt()
 
+        val illsP = ((ills / expense) * 100).toInt()
+        val loathingP = ((lothing/ expense) * 100).toInt()
+        val ducationP = ((ducation / expense) * 100).toInt()
+        val ntertainmentP = ((ntertainment / expense) * 100).toInt()
+        val itnessP = ((itness / expense) * 100).toInt()
+        val oodP = ((ood / expense) * 100).toInt()
+        val iftsP = ((ifts / expense) * 100).toInt()
 
-        Log.d("allP", "$homeP=$businessP=$loanP=$investmentP=$planingP=$rentP=$otherP")
+        val ealthP = ((ealth / expense) * 100).toInt()
+        val urnitureP = ((urniture/ expense) * 100).toInt()
+        val hoppingP = ((hopping / expense) * 100).toInt()
+        val ransportationP = ((ransportation / expense) * 100).toInt()
+        val ravelP = ((ravel / expense) * 100).toInt()
 
 
 
@@ -577,6 +714,20 @@ class StatsFragment : Fragment() {
         entries.add(PieEntry(planingP.toFloat(), "Planing"))
         entries.add(PieEntry(rentP.toFloat(), "Rent"))
         entries.add(PieEntry(otherP.toFloat(), "Other"))
+
+        entries.add(PieEntry(illsP.toFloat(), "Bills"))
+        entries.add(PieEntry(loathingP.toFloat(), "Clothing"))
+        entries.add(PieEntry(ducationP.toFloat(), "Education"))
+        entries.add(PieEntry(ntertainmentP.toFloat(), "Entertainment"))
+        entries.add(PieEntry(itnessP.toFloat(), "Fitness"))
+        entries.add(PieEntry(oodP.toFloat(), "Food"))
+        entries.add(PieEntry(iftsP.toFloat(), "Gifts"))
+
+        entries.add(PieEntry(ealthP.toFloat(), "Health"))
+        entries.add(PieEntry(urnitureP.toFloat(), "Furniture"))
+        entries.add(PieEntry(hoppingP.toFloat(), "Shopping"))
+        entries.add(PieEntry(ransportationP.toFloat(), "Transportation"))
+        entries.add(PieEntry(ravelP.toFloat(), "Travel"))
 
         val chart = binding.pieChart
 

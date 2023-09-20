@@ -128,9 +128,7 @@ class AdapterMainRecyclerview(
                     }
 
                     R.id.delete -> {
-                      val alertDialog =  AlertDialog.Builder(
-                            ContextThemeWrapper(context, R.style.CustomAlertDialogStyle)
-                        )
+                        val alertDialog = AlertDialog.Builder(context)
                             .setTitle("Delete Transaction")
                             .setMessage("Are you sure delete this transaction ?")
                             .setPositiveButton("OK") { _, _ ->
@@ -147,6 +145,7 @@ class AdapterMainRecyclerview(
                         messageTextView?.setTextColor(ContextCompat.getColor(context, R.color.black))
 
                         alertDialog.show()
+
                         true
                     }
 

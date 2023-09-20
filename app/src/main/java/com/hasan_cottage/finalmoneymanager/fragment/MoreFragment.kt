@@ -108,9 +108,7 @@ class MoreFragment : Fragment() {
 
         // item eight
         binding.itemEight.setOnClickListener {
-            val alertDialog =AlertDialog.Builder(
-                ContextThemeWrapper(requireContext(), R.style.CustomAlertDialogStyle)
-            )
+            val alertDialog =AlertDialog.Builder(requireContext())
                 .setTitle("Delete All Transaction")
                 .setMessage("Are you sure delete all transaction ?")
                 .setPositiveButton("OK") { _, _ ->

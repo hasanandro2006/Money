@@ -11,6 +11,19 @@
     <color name="he">#A4A4A4</color>
     <color name="green">#00FF20</color>
     <color name="red">#FF0000</color>
+    <color name="bills">#673AB7</color>
+    <color name="cloth">#CDDC39</color>
+    <color name="education">#E91E63</color>
+    <color name="entertainment">#4CAF50</color>
+    <color name="fitness">#1E5E66</color>
+    <color name="foot">#1A237E</color>
+    <color name="gigt">#BF360C</color>
+    <color name="helth">#1DE9B6</color>
+    <color name="furniture">#FF8A80</color>
+    <color name="shopping">#A7FFEB</color>
+    <color name="transportation">#B388FF</color>
+    <color name="travel">#82B1FF</color>
+    <color name="others">#827717</color>
 
     <color name="blue">#2196F3</color>
     <color name="one">#F44336</color>

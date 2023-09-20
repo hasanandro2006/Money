@@ -580,6 +580,31 @@ class ExpenseIncomeChart : AppCompatActivity() {
         var other = 0.0
         var tranO = 0
 
+        var ills = 0.0
+        var ills1 = 0
+        var lothing = 0.0
+        var lothing1 = 0
+        var ducation = 0.0
+        var ducation1 = 0
+        var ntertainment = 0.0
+        var ntertainment1 = 0
+        var itness = 0.0
+        var itness1 = 0
+        var ood = 0.0
+        var ood1 = 0
+        var ifts = 0.0
+        var ifts1 = 0
+        var ealth = 0.0
+        var ealth1 = 0
+        var urniture = 0.0
+        var urniture1 = 0
+        var hopping = 0.0
+        var hopping1 = 0
+        var ransportation = 0.0
+        var ransportation1 = 0
+        var raveel = 0.0
+        var raveel1 = 0
+
         val type=HelperClass.INCOME
 
         if (it.isEmpty()) {
@@ -643,6 +668,71 @@ class ExpenseIncomeChart : AppCompatActivity() {
             )
 
 
+
+
+            arrayList.add(
+                StatsModel(
+                    R.drawable.bill, 0.0.toDouble(),"Bills", 0.0, 0.toString(), R.color.bills,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.tshirt,0.0.toDouble(), "Clothing",0.0,0.toString(),R.color.cloth,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.mortarboard,0.0.toDouble(), "Education",0.0,0.toString(), R.color.education,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.dancer,0.0.toDouble(), "Entertainment",0.0,0.toString(), R.color.entertainment,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.dumbbell,0.0.toDouble(), "Fitness",0.0,0.toString(), R.color.fitness,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.restaurant,0.0.toDouble(), "Food",0.0,0.toString(), R.color.foot,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.gift,0.0.toDouble(), "Gifts",0.0,0.toString(), R.color.gigt,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.protection,0.0.toDouble(), "Health",0.0,0.toString(), R.color.helth,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.sofa,0.0.toDouble(), "Furniture",0.0,0.toString(), R.color.furniture,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.shopping,0.0.toDouble(), "Shopping",0.0,0.toString(), R.color.shopping,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.transport,0.0.toDouble(), "Transportation",0.0,0.toString(), R.color.transportation,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.travel,0.0.toDouble(), "Travel",0.0,0.toString(), R.color.travel,type
+                )
+            )
+
+
+
             binding.statasRecyclerview.setHasFixedSize(true)
             binding.statasRecyclerview.adapter = AdapterStats(this, arrayList, 0,storeAll,weekNumber!!)
             binding.statasRecyclerview.layoutManager = LinearLayoutManager(this)
@@ -701,6 +791,60 @@ class ExpenseIncomeChart : AppCompatActivity() {
                         other += data.amount
                         tranO += 1
                     }
+
+
+
+
+                    if (data.category == HelperClass.Bills) {
+                        ills += data.amount
+                        ills1+=1
+                    }
+                    if (data.category == HelperClass.Clothing) {
+                        lothing += data.amount
+                        lothing1+=1
+                    }
+                    if (data.category == HelperClass.Education) {
+                        ducation += data.amount
+                        ducation1+=1
+                    }
+                    if (data.category == HelperClass.Entertainment) {
+                        ntertainment += data.amount
+                        ntertainment1+=1
+                    }
+                    if (data.category == HelperClass.Fitness) {
+                        itness += data.amount
+                        itness1+=1
+                    }
+                    if (data.category == HelperClass.Food) {
+                        ood += data.amount
+                        ood1+=1
+                    }
+                    if (data.category == HelperClass.Gifts) {
+                        ifts += data.amount
+                        ifts1+=1
+                    }
+
+                    if (data.category == HelperClass.Health) {
+                        ealth += data.amount
+                        ealth1+=1
+                    }
+                    if (data.category == HelperClass.Furniture) {
+                        urniture += data.amount
+                        urniture1+=1
+                    }
+                    if (data.category == HelperClass.Shopping) {
+                        hopping += data.amount
+                        hopping1+=1
+                    }
+                    if (data.category == HelperClass.Transportation) {
+                        ransportation += data.amount
+                        ransportation1+=1
+                    }
+                    if (data.category == HelperClass.Travel) {
+                        raveel  += data.amount
+                        raveel1+=1
+                    }
+
                 }
 
             }
@@ -714,78 +858,120 @@ class ExpenseIncomeChart : AppCompatActivity() {
             val rentP = ((rent / income) * 100).toInt()
             val otherP = ((other / income) * 100).toInt()
 
+            val illsP = ((ills / income) * 100).toInt()
+            val loathingP = ((lothing/ income) * 100).toInt()
+            val ducationP = ((ducation / income) * 100).toInt()
+            val ntertainmentP = ((ntertainment / income) * 100).toInt()
+            val itnessP = ((itness / income) * 100).toInt()
+            val oodP = ((ood / income) * 100).toInt()
+            val iftsP = ((ifts / income) * 100).toInt()
+
+            val ealthP = ((ealth / income) * 100).toInt()
+            val urnitureP = ((urniture/ income) * 100).toInt()
+            val hoppingP = ((hopping / income) * 100).toInt()
+            val ransportationP = ((ransportation / income) * 100).toInt()
+            val ravelP = ((raveel / income) * 100).toInt()
 
             val arrayList = ArrayList<StatsModel>()
             arrayList.add(
-                StatsModel(
-                    R.drawable.assets,
-                    homeP.toDouble(),
-                    "Home",
-                    home,
-                    tranH.toString(),
-                    R.color.one,type
+                StatsModel(R.drawable.assets, homeP.toDouble(), "Home", home, tranH.toString(), R.color.one,type
                 )
             )
             arrayList.add(
                 StatsModel(
-                    R.drawable.bars,
-                    businessP.toDouble(),
-                    "Business",
-                    business,
-                    tranB.toString(),
-                    R.color.tow,type
+                    R.drawable.bars, businessP.toDouble(), "Business", business, tranB.toString(), R.color.tow,type
                 )
             )
             arrayList.add(
                 StatsModel(
-                    R.drawable.database,
-                    loanP.toDouble(),
-                    "Loan",
-                    loan,
-                    tranL.toString(),
-                    R.color.four,type
+                    R.drawable.database, loanP.toDouble(), "Loan", loan, tranL.toString(), R.color.four,type
                 )
             )
             arrayList.add(
                 StatsModel(
-                    R.drawable.investment,
-                    investmentP.toDouble(),
-                    "Investment",
-                    investment,
-                    tranI.toString(),
-                    R.color.five,type
+                    R.drawable.investment, investmentP.toDouble(), "Investment", investment, tranI.toString(), R.color.five,type
                 )
             )
             arrayList.add(
                 StatsModel(
-                    R.drawable.planning,
-                    planingP.toDouble(),
-                    "Planing",
-                    planing,
-                    tranP.toString(),
-                    R.color.six,type
+                    R.drawable.planning, planingP.toDouble(), "Planing", planing, tranP.toString(), R.color.six,type
                 )
             )
             arrayList.add(
                 StatsModel(
-                    R.drawable.deal,
-                    rentP.toDouble(),
-                    "Rent",
-                    rent,
-                    tranR.toString(),
-                    R.color.hol,type
+                    R.drawable.deal, rentP.toDouble(), "Rent", rent, tranR.toString(), R.color.hol,type
                 )
             )
             arrayList.add(
                 StatsModel(
-                    R.drawable.reduction,
-                    otherP.toDouble(),
-                    "Other",
-                    other,
-                    tranO.toString(),
-                    R.color.hole_s,type
+                    R.drawable.reduction, otherP.toDouble(), "Other", other, tranO.toString(), R.color.hole_s,type
                 )
             )
+
+
+
+            arrayList.add(
+                StatsModel(
+                    R.drawable.bill, illsP.toDouble(),"Bills", ills, ills1.toString(), R.color.bills,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.tshirt,loathingP.toDouble(), "Clothing",lothing,lothing1.toString(),R.color.cloth,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.mortarboard,ducationP.toDouble(), "Education",ducation,ducation1.toString(), R.color.education,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.dancer,ntertainmentP.toDouble(), "Entertainment",ntertainment,ntertainment1.toString(), R.color.entertainment,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.dumbbell,itnessP.toDouble(), "Fitness",itness,itness1.toString(), R.color.fitness,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.restaurant,oodP.toDouble(), "Food",ood,ood1.toString(), R.color.foot,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.gift,iftsP.toDouble(), "Gifts",ifts,ifts1.toString(), R.color.gigt,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.protection,ealthP.toDouble(), "Health",ealth,ealth1.toString(), R.color.helth,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.sofa,urnitureP.toDouble(), "Furniture",urniture,urniture1.toString(), R.color.furniture,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.shopping,hoppingP.toDouble(), "Shopping",hopping,hopping1.toString(), R.color.shopping,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.transport,ransportationP.toDouble(), "Transportation",ransportation,ransportation1.toString(), R.color.transportation,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.travel,ravelP.toDouble(), "Travel",raveel,raveel1.toString(), R.color.travel,type
+                )
+            )
+
+
 
             binding.statasRecyclerview.setHasFixedSize(true)
             binding.statasRecyclerview.adapter = AdapterStats(this, arrayList, 0,storeAll,weekNumber!!)
@@ -805,6 +991,20 @@ class ExpenseIncomeChart : AppCompatActivity() {
             entries.add(PieEntry(rentP.toFloat(), "Rent"))
             entries.add(PieEntry(otherP.toFloat(), "Other"))
 
+            entries.add(PieEntry(illsP.toFloat(), "Bills"))
+            entries.add(PieEntry(loathingP.toFloat(), "Clothing"))
+            entries.add(PieEntry(ducationP.toFloat(), "Education"))
+            entries.add(PieEntry(ntertainmentP.toFloat(), "Entertainment"))
+            entries.add(PieEntry(itnessP.toFloat(), "Fitness"))
+            entries.add(PieEntry(oodP.toFloat(), "Food"))
+            entries.add(PieEntry(iftsP.toFloat(), "Gifts"))
+
+            entries.add(PieEntry(ealthP.toFloat(), "Health"))
+            entries.add(PieEntry(urnitureP.toFloat(), "Furniture"))
+            entries.add(PieEntry(hoppingP.toFloat(), "Shopping"))
+            entries.add(PieEntry(ransportationP.toFloat(), "Transportation"))
+            entries.add(PieEntry(ravelP.toFloat(), "Travel"))
+
             val chart = binding.pieChart
 
             val dataSet = PieDataSet(entries, "Data Description")
@@ -819,6 +1019,20 @@ class ExpenseIncomeChart : AppCompatActivity() {
                 Color.parseColor("#FFC107"), // Planing color
                 Color.parseColor("#4965FD"), // Rent color
                 Color.parseColor("#94FD8749"), // Other color
+
+                Color.parseColor("#673AB7"), // Bills color
+                Color.parseColor("#CDDC39"), //Clothing color
+                Color.parseColor("#E91E63"), // Education color
+                Color.parseColor("#4CAF50"), // Entertainment color
+                Color.parseColor("#1E5E66"), // Fitness color
+                Color.parseColor("#1A237E"), // Food color
+                Color.parseColor("#BF360C"), // Gifts color
+
+                Color.parseColor("#1DE9B6"), // Health color
+                Color.parseColor("#FF8A80"), // Furniture color
+                Color.parseColor("#A7FFEB"), // Shopping color
+                Color.parseColor("#B388FF"), // Transportation color
+                Color.parseColor("#82B1FF"), // Travel color
             )
 
             dataSet.colors = colors
@@ -895,6 +1109,31 @@ class ExpenseIncomeChart : AppCompatActivity() {
         var other = 0.0
         var tranO = 0
 
+        var ills = 0.0
+        var ills1 = 0
+        var lothing = 0.0
+        var lothing1 = 0
+        var ducation = 0.0
+        var ducation1 = 0
+        var ntertainment = 0.0
+        var ntertainment1 = 0
+        var itness = 0.0
+        var itness1 = 0
+        var ood = 0.0
+        var ood1 = 0
+        var ifts = 0.0
+        var ifts1 = 0
+        var ealth = 0.0
+        var ealth1 = 0
+        var urniture = 0.0
+        var urniture1 = 0
+        var hopping = 0.0
+        var hopping1 = 0
+        var ransportation = 0.0
+        var ransportation1 = 0
+        var raveel = 0.0
+        var raveel1 = 0
+
         val type=HelperClass.EXPENSE
 
         if (it.isEmpty()) {
@@ -956,6 +1195,68 @@ class ExpenseIncomeChart : AppCompatActivity() {
             )
 
 
+            arrayList.add(
+                StatsModel(
+                    R.drawable.bill, 0.0.toDouble(),"Bills", 0.0, 0.toString(), R.color.bills,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.tshirt,0.0.toDouble(), "Clothing",0.0,0.toString(),R.color.cloth,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.mortarboard,0.0.toDouble(), "Education",0.0,0.toString(), R.color.education,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.dancer,0.0.toDouble(), "Entertainment",0.0,0.toString(), R.color.entertainment,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.dumbbell,0.0.toDouble(), "Fitness",0.0,0.toString(), R.color.fitness,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.restaurant,0.0.toDouble(), "Food",0.0,0.toString(), R.color.foot,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.gift,0.0.toDouble(), "Gifts",0.0,0.toString(), R.color.gigt,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.protection,0.0.toDouble(), "Health",0.0,0.toString(), R.color.helth,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.sofa,0.0.toDouble(), "Furniture",0.0,0.toString(), R.color.furniture,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.shopping,0.0.toDouble(), "Shopping",0.0,0.toString(), R.color.shopping,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.transport,0.0.toDouble(), "Transportation",0.0,0.toString(), R.color.transportation,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.travel,0.0.toDouble(), "Travel",0.0,0.toString(), R.color.travel,type
+                )
+            )
+
+
             binding.statasRecyclerview.setHasFixedSize(true)
             binding.statasRecyclerview.adapter = AdapterStats(this, arrayList, 1,storeAll,weekNumber!!)
             binding.statasRecyclerview.layoutManager = LinearLayoutManager(this)
@@ -1012,6 +1313,61 @@ class ExpenseIncomeChart : AppCompatActivity() {
                         other += data.amount
                         tranO += 1
                     }
+
+
+
+
+
+
+                    if (data.category == HelperClass.Bills) {
+                        ills += data.amount
+                        ills1+=1
+                    }
+                    if (data.category == HelperClass.Clothing) {
+                        lothing += data.amount
+                        lothing1+=1
+                    }
+                    if (data.category == HelperClass.Education) {
+                        ducation += data.amount
+                        ducation1+=1
+                    }
+                    if (data.category == HelperClass.Entertainment) {
+                        ntertainment += data.amount
+                        ntertainment1+=1
+                    }
+                    if (data.category == HelperClass.Fitness) {
+                        itness += data.amount
+                        itness1+=1
+                    }
+                    if (data.category == HelperClass.Food) {
+                        ood += data.amount
+                        ood1+=1
+                    }
+                    if (data.category == HelperClass.Gifts) {
+                        ifts += data.amount
+                        ifts1+=1
+                    }
+
+                    if (data.category == HelperClass.Health) {
+                        ealth += data.amount
+                        ealth1+=1
+                    }
+                    if (data.category == HelperClass.Furniture) {
+                        urniture += data.amount
+                        urniture1+=1
+                    }
+                    if (data.category == HelperClass.Shopping) {
+                        hopping += data.amount
+                        hopping1+=1
+                    }
+                    if (data.category == HelperClass.Transportation) {
+                        ransportation += data.amount
+                        ransportation1+=1
+                    }
+                    if (data.category == HelperClass.Travel) {
+                        raveel  += data.amount
+                        raveel1+=1
+                    }
                 }
             }
 
@@ -1026,78 +1382,118 @@ class ExpenseIncomeChart : AppCompatActivity() {
             val rentP = ((rent / expense) * 100).toInt()
             val otherP = ((other / expense) * 100).toInt()
 
+            val illsP = ((ills / expense) * 100).toInt()
+            val loathingP = ((lothing/ expense) * 100).toInt()
+            val ducationP = ((ducation / expense) * 100).toInt()
+            val ntertainmentP = ((ntertainment / expense) * 100).toInt()
+            val itnessP = ((itness / expense) * 100).toInt()
+            val oodP = ((ood / expense) * 100).toInt()
+            val iftsP = ((ifts / expense) * 100).toInt()
+
+            val ealthP = ((ealth / expense) * 100).toInt()
+            val urnitureP = ((urniture/ expense) * 100).toInt()
+            val hoppingP = ((hopping / expense) * 100).toInt()
+            val ransportationP = ((ransportation / expense) * 100).toInt()
+            val ravelP = ((raveel / expense) * 100).toInt()
+
+
 
             Log.d("allP", "$homeP=$businessP=$loanP=$investmentP=$planingP=$rentP=$otherP")
 
             val arrayList = ArrayList<StatsModel>()
             arrayList.add(
                 StatsModel(
-                    R.drawable.assets,
-                    homeP.toDouble(),
-                    "Home",
-                    home,
-                    tranH.toString(),
-                    R.color.one,type
+                    R.drawable.assets, homeP.toDouble(), "Home", home,tranH.toString(),R.color.one,type
                 )
             )
             arrayList.add(
                 StatsModel(
-                    R.drawable.bars,
-                    businessP.toDouble(),
-                    "Business",
-                    business,
-                    tranB.toString(),
-                    R.color.tow,type
+                    R.drawable.bars,businessP.toDouble(), "Business", business, tranB.toString(), R.color.tow,type
                 )
             )
             arrayList.add(
                 StatsModel(
-                    R.drawable.database,
-                    loanP.toDouble(),
-                    "Loan",
-                    loan,
-                    tranL.toString(),
-                    R.color.four,type
+                    R.drawable.database, loanP.toDouble(), "Loan", loan, tranL.toString(), R.color.four,type
                 )
             )
             arrayList.add(
                 StatsModel(
-                    R.drawable.investment,
-                    investmentP.toDouble(),
-                    "Investment",
-                    investment,
-                    tranI.toString(),
-                    R.color.five,type
+                    R.drawable.investment, investmentP.toDouble(), "Investment", investment, tranI.toString(), R.color.five,type
                 )
             )
             arrayList.add(
                 StatsModel(
-                    R.drawable.planning,
-                    planingP.toDouble(),
-                    "Planing",
-                    planing,
-                    tranP.toString(),
-                    R.color.six,type
+                    R.drawable.planning, planingP.toDouble(), "Planing", planing, tranP.toString(), R.color.six,type
                 )
             )
             arrayList.add(
                 StatsModel(
-                    R.drawable.deal,
-                    rentP.toDouble(),
-                    "Rent",
-                    rent,
-                    tranR.toString(),
-                    R.color.hol,type
+                    R.drawable.deal, rentP.toDouble(), "Rent", rent, tranR.toString(), R.color.hol,type
                 )
             )
             arrayList.add(
                 StatsModel(
-                    R.drawable.reduction,
-                    otherP.toDouble(),
-                    "Other",
-                    other,
-                    tranO.toString(),
-                    R.color.hole_s,type
+                    R.drawable.reduction, otherP.toDouble(), "Other", other, tranO.toString(), R.color.hole_s,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.bill, illsP.toDouble(),"Bills", ills, ills1.toString(), R.color.bills,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.tshirt,loathingP.toDouble(), "Clothing",lothing,lothing1.toString(),R.color.cloth,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.mortarboard,ducationP.toDouble(), "Education",ducation,ducation1.toString(), R.color.education,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.dancer,ntertainmentP.toDouble(), "Entertainment",ntertainment,ntertainment1.toString(), R.color.entertainment,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.dumbbell,itnessP.toDouble(), "Fitness",itness,itness1.toString(), R.color.fitness,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.restaurant,oodP.toDouble(), "Food",ood,ood1.toString(), R.color.foot,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.gift,iftsP.toDouble(), "Gifts",ifts,ifts1.toString(), R.color.gigt,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.protection,ealthP.toDouble(), "Health",ealth,ealth1.toString(), R.color.helth,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.sofa,urnitureP.toDouble(), "Furniture",urniture,urniture1.toString(), R.color.furniture,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.shopping,hoppingP.toDouble(), "Shopping",hopping,hopping1.toString(), R.color.shopping,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.transport,ransportationP.toDouble(), "Transportation",ransportation,ransportation1.toString(), R.color.transportation,type
+                )
+            )
+            arrayList.add(
+                StatsModel(
+                    R.drawable.travel,ravelP.toDouble(), "Travel",raveel,raveel1.toString(), R.color.travel,type
                 )
             )
 
@@ -1119,6 +1515,20 @@ class ExpenseIncomeChart : AppCompatActivity() {
             entries.add(PieEntry(rentP.toFloat(), "Rent"))
             entries.add(PieEntry(otherP.toFloat(), "Other"))
 
+            entries.add(PieEntry(illsP.toFloat(), "Bills"))
+            entries.add(PieEntry(loathingP.toFloat(), "Clothing"))
+            entries.add(PieEntry(ducationP.toFloat(), "Education"))
+            entries.add(PieEntry(ntertainmentP.toFloat(), "Entertainment"))
+            entries.add(PieEntry(itnessP.toFloat(), "Fitness"))
+            entries.add(PieEntry(oodP.toFloat(), "Food"))
+            entries.add(PieEntry(iftsP.toFloat(), "Gifts"))
+
+            entries.add(PieEntry(ealthP.toFloat(), "Health"))
+            entries.add(PieEntry(urnitureP.toFloat(), "Furniture"))
+            entries.add(PieEntry(hoppingP.toFloat(), "Shopping"))
+            entries.add(PieEntry(ransportationP.toFloat(), "Transportation"))
+            entries.add(PieEntry(ravelP.toFloat(), "Travel"))
+
             val chart = binding.pieChart
 
             val dataSet = PieDataSet(entries, "Data Description")
@@ -1133,6 +1543,20 @@ class ExpenseIncomeChart : AppCompatActivity() {
                 Color.parseColor("#FFC107"), // Planing color
                 Color.parseColor("#4965FD"), // Rent color
                 Color.parseColor("#94FD8749"), // Other color
+
+                Color.parseColor("#673AB7"), // Bills color
+                Color.parseColor("#CDDC39"), //Clothing color
+                Color.parseColor("#E91E63"), // Education color
+                Color.parseColor("#4CAF50"), // Entertainment color
+                Color.parseColor("#1E5E66"), // Fitness color
+                Color.parseColor("#1A237E"), // Food color
+                Color.parseColor("#BF360C"), // Gifts color
+
+                Color.parseColor("#1DE9B6"), // Health color
+                Color.parseColor("#FF8A80"), // Furniture color
+                Color.parseColor("#A7FFEB"), // Shopping color
+                Color.parseColor("#B388FF"), // Transportation color
+                Color.parseColor("#82B1FF"), // Travel color
             )
 
             dataSet.colors = colors

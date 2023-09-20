@@ -189,9 +189,7 @@ class BottomSheetFragment(private val intId: Int, private  val string: String) :
 
 
         }
-
-
-
+        
 
         clickButtonSev(applicationContext)
         if (intId != -1) {
@@ -207,11 +205,10 @@ class BottomSheetFragment(private val intId: Int, private  val string: String) :
 
         return binding.root
     }
-
-
+    
     private fun updateAllWork(applicationContext: Context) {
         databaseTow.getAllDaoTow().getDataId(stock).observe(this) { it ->
-            it.forEach {
+            it.forEach { it ->
                 myViewModel.getIdData(intId,it.id).observe(viewLifecycleOwner) { it ->
                     it.forEach {
                         binding.date.setText(it.date)
@@ -240,8 +237,6 @@ class BottomSheetFragment(private val intId: Int, private  val string: String) :
                 }
             }
         }
-
-
     }
 
     @OptIn(DelicateCoroutinesApi::class)
@@ -273,14 +268,11 @@ class BottomSheetFragment(private val intId: Int, private  val string: String) :
             // Add item
             else {
 
-
-              
-
                 val getEditText = binding.amount.text.toString()
                 getAmount = getEditText.toDoubleOrNull()
                 var getNote = binding.note.text.toString()
                 if (getNote.isEmpty()) {
-                    getNote = "Not any note"
+                    getNote = "Empty note"
                 }
 
                 if (categoryName == null || accountName == null || getAmount == null) {
@@ -304,10 +296,7 @@ class BottomSheetFragment(private val intId: Int, private  val string: String) :
                         )
                     }
                     dismiss()
-                   
                 }
-
-
             }
         }
     }

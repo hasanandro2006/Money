@@ -40,9 +40,9 @@ class RecordActivity : AppCompatActivity() {
        val stock = sharedPreferencesA.getInt("oldPosition", 0)//come from (adapter_name)
 
         databaseTow.getAllDaoTow().getDataId(stock).observe(this) { it ->
-            it.forEach {
+            it.forEach { pape ->
 
-                myViewModel.getIdData(id,it.id).observe(this) { it ->
+                myViewModel.getIdData(id,pape.id).observe(this) { it ->
                     it.forEach {
                         binding.topCatagory.text = it.category
                         binding.CategoryR.text = it.category
@@ -50,14 +50,14 @@ class RecordActivity : AppCompatActivity() {
                         binding.AccountR.text = it.account
                         binding.NoteR.text = it.note
                         if (it.type == HelperClass.EXPENSE) {
-                            val amountText = getString(R.string.amount_text, it.amount.toString())
-                            binding.AmountR.text = amountText
+                            val stores = "-${pape.currencySymbol} ${it.amount}"
+                            binding.AmountR.text = stores
                             binding.AmountR.setTextColor(ContextCompat.getColor(this, R.color.red))
                             binding.TypeR.setTextColor(ContextCompat.getColor(this, R.color.red))
                             binding.active.setBackgroundResource(R.drawable.degine_for_nagative)
 
                         } else {
-                            binding.AmountR.text = it.amount.toString()
+                            binding.AmountR.text =" ${pape.currencySymbol} ${it.amount}"
                             binding.AmountR.setTextColor(ContextCompat.getColor(this, R.color.blue))
                             binding.TypeR.setTextColor(ContextCompat.getColor(this, R.color.blue))
                             binding.active.setBackgroundResource(R.drawable.degine_for_active)
@@ -74,9 +74,7 @@ class RecordActivity : AppCompatActivity() {
 
 
         binding.delete.setOnClickListener {
-            val alertDialog =  AlertDialog.Builder(
-                ContextThemeWrapper(this, R.style.CustomAlertDialogStyle)
-            )
+            val alertDialog =  AlertDialog.Builder(this)
                 .setTitle("Delete Transaction")
                 .setMessage("Are you sure delete this transaction ?")
                 .setPositiveButton("OK") { _, _ ->
