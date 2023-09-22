@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
@@ -69,12 +70,13 @@ class MainFragment : Fragment() {
 
 
         HelperClass.categoryItem()// HelperClass initialize in main activity . for this where open app automatic set recyclerview image color
-
-
         val daoM = DatabaseAll.getInstanceAll(context).getAllDaoM()
         val repository = Repository(daoM)
         myViewModel =
             ViewModelProvider(this, ViewModelFactory(repository))[AppViewModel::class.java]
+
+
+
 
         // Set name .......
        databaseTow = DatabaseTow.getInstanceAllTow(context)
@@ -86,10 +88,19 @@ class MainFragment : Fragment() {
             bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
         }
 
-        //first time not click this time run this code and come daily trans
-        dailyTranslation(context)
-        setTheName(context)
         binding.tabMode.getTabAt(0)?.select()
+
+        binding.dittles.setOnClickListener {
+            lifecycleScope.launch {
+                startActivity(Intent(context, TakeCalender::class.java))
+            }
+
+        }
+        binding.searce.setOnClickListener {
+            lifecycleScope.launch {
+                startActivity(Intent(context, SearchActivity::class.java))
+            }
+        }
 
         // Set Daily monthly all trans
         binding.tabMode.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -125,20 +136,11 @@ class MainFragment : Fragment() {
             }
         })
 
-        binding.dittles.setOnClickListener {
-            CoroutineScope(Dispatchers.Main).launch {
-                startActivity(Intent(context, TakeCalender::class.java))
-            }
 
-        }
-        binding.searce.setOnClickListener {
-            CoroutineScope(Dispatchers.Main).launch {
-                startActivity(Intent(context, SearchActivity::class.java))
-            }
-        }
+        //first time not click this time run this code and come daily trans
+        dailyTranslation(context)
+        setTheName(context)
 
-
-        
         return binding.root
     }
 

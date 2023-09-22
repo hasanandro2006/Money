@@ -52,6 +52,7 @@ class StatsFragment : Fragment() {
 
     private lateinit var databaseTow:DatabaseTow
     private  var stock=0
+    private var isViewCreated = false
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -65,10 +66,13 @@ class StatsFragment : Fragment() {
         myViewModel =
             ViewModelProvider(this, ViewModelFactory(repository))[AppViewModel::class.java]
 
+        isViewCreated=true
+
         binding.searce.setOnClickListener {
             MainScope().launch(Dispatchers.Default){
                 startActivity(Intent(context, SearchActivity::class.java))
             }
+
         }
 
          databaseTow = DatabaseTow.getInstanceAllTow(requireContext())
@@ -220,6 +224,30 @@ class StatsFragment : Fragment() {
     }
 
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        observeData()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        isViewCreated = false
+    }
+
+    private fun observeData() {
+        if (isViewCreated) {
+            databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
+                it.forEach {
+                    myViewModel.getDataDaily(store!!, it.id).observe(viewLifecycleOwner) {
+                        allCodeIncome(it)
+                        allCodeExpense(it)
+                    }
+                }
+            }
+        }
+    }
+
+
     // set date formed ..........
     private fun dateFormatDay() {
         store = HelperClass.dateFormat(calender.time)
@@ -276,14 +304,16 @@ class StatsFragment : Fragment() {
 
     // come data from view-model........
     private fun dayExpenseIncome() {
-        databaseTow.getAllDaoTow().getDataId(stock).observe(requireActivity()) { it ->
-            it.forEach {
-                myViewModel.getDataDaily(store!!,it.id).observe(viewLifecycleOwner) {
-                    allCodeIncome(it)
-                    allCodeExpense(it)
+        if (isViewCreated){
+            databaseTow.getAllDaoTow().getDataId(stock).observe(requireActivity()) { it ->
+                it.forEach {
+                    myViewModel.getDataDaily(store!!, it.id).observe(viewLifecycleOwner) {
+                        allCodeIncome(it)
+                        allCodeExpense(it)
+                    }
                 }
-            }
 
+            }
         }
 
     }
@@ -429,8 +459,6 @@ class StatsFragment : Fragment() {
             }
 
         }
-
-//        Log.d("all", "$home=$business=$loan=$investment=$planing =$rent =$other")
 
 
         val homeP = ((home / income) * 100).toInt()
