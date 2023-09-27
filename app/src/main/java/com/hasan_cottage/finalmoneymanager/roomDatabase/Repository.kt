@@ -47,7 +47,7 @@ class Repository(private val databaseDaoM: DatabaseDaoM) {
         return databaseDaoM.getDataYear(year,id)
     }
 
-    fun updateAllData(type:String, category:String, account:String, date:String, amount:Double, dateMonth:String, id:Int, note:String, year:String){
+    fun updateAllData(type:String, category:String, account:String, date:String, amount:Long, dateMonth:String, id:Int, note:String, year:String){
         return databaseDaoM.updateAllData(type,category,account,date,amount,dateMonth,id,note,year)
     }
 

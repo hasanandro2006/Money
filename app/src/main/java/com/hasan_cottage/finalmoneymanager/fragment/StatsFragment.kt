@@ -52,21 +52,22 @@ class StatsFragment : Fragment() {
 
     private lateinit var databaseTow:DatabaseTow
     private  var stock=0
-    private var isViewCreated = false
+
+//    private var isViewCreated = false
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View ?{
 
 
-        val context = requireContext().applicationContext
+        val context = requireActivity()
         val daoM = DatabaseAll.getInstanceAll(context).getAllDaoM()
         val repository = Repository(daoM)
         myViewModel =
             ViewModelProvider(this, ViewModelFactory(repository))[AppViewModel::class.java]
 
-        isViewCreated=true
+//        isViewCreated=true
 
         binding.searce.setOnClickListener {
             MainScope().launch(Dispatchers.Default){
@@ -81,6 +82,7 @@ class StatsFragment : Fragment() {
 
         val sharedPreferences = context.getSharedPreferences("Time", Context.MODE_PRIVATE)
         val daily: Int = sharedPreferences.getInt("Daily", 1)
+
 
 
         // when chose time .....
@@ -220,31 +222,9 @@ class StatsFragment : Fragment() {
         binding.dittles.setOnClickListener {
             startActivity(Intent(context, TakeCalender::class.java))
         }
+
+
         return binding.root
-    }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        observeData()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        isViewCreated = false
-    }
-
-    private fun observeData() {
-        if (isViewCreated) {
-            databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
-                it.forEach {
-                    myViewModel.getDataDaily(store!!, it.id).observe(viewLifecycleOwner) {
-                        allCodeIncome(it)
-                        allCodeExpense(it)
-                    }
-                }
-            }
-        }
     }
 
 
@@ -304,24 +284,24 @@ class StatsFragment : Fragment() {
 
     // come data from view-model........
     private fun dayExpenseIncome() {
-        if (isViewCreated){
+
             databaseTow.getAllDaoTow().getDataId(stock).observe(requireActivity()) { it ->
                 it.forEach {
-                    myViewModel.getDataDaily(store!!, it.id).observe(viewLifecycleOwner) {
+                    myViewModel.getDataDaily(store!!, it.id).observe(requireActivity()) {
                         allCodeIncome(it)
                         allCodeExpense(it)
                     }
                 }
 
             }
-        }
+
 
     }
 
     private fun weekExpenseIncome() {
         databaseTow.getAllDaoTow().getDataId(stock).observe(requireActivity()) { it ->
             it.forEach {
-                myViewModel.getDataBetweenDates(weekNumber!!,it.id).observe(viewLifecycleOwner) {
+                myViewModel.getDataBetweenDates(weekNumber!!,it.id).observe(requireActivity()) {
                     allCodeIncome(it)
                     allCodeExpense(it)
                 }
@@ -334,7 +314,7 @@ class StatsFragment : Fragment() {
     private fun monthExpenseIncome() {
         databaseTow.getAllDaoTow().getDataId(stock).observe(requireActivity()) { it ->
             it.forEach {
-                myViewModel.getMonth(store!!,it.id).observe(viewLifecycleOwner) {
+                myViewModel.getMonth(store!!,it.id).observe(requireActivity()) {
                     allCodeIncome(it)
                     allCodeExpense(it)
                 }
@@ -348,7 +328,7 @@ class StatsFragment : Fragment() {
 
         databaseTow.getAllDaoTow().getDataId(stock).observe(requireActivity()) { it ->
             it.forEach {
-                myViewModel.getDataYear(store!!,it.id).observe(viewLifecycleOwner) {
+                myViewModel.getDataYear(store!!,it.id).observe(requireActivity()) {
                     allCodeIncome(it)
                     allCodeExpense(it)
                 }
@@ -528,10 +508,7 @@ class StatsFragment : Fragment() {
         chart.setDrawEntryLabels(false)
 
 
-
-
-
-        databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
+        databaseTow.getAllDaoTow().getDataId(stock).observe(FragmentActivity()) { it ->
 
             if (it.isNullOrEmpty()) {
                 symble="$"
@@ -793,12 +770,7 @@ class StatsFragment : Fragment() {
 
 
 
-
-        val databaseTow = DatabaseTow.getInstanceAllTow(requireContext())
-        val sharedPreferences = requireContext().getSharedPreferences("Name", Context.MODE_PRIVATE)
-        val stock = sharedPreferences.getInt("oldPosition", 0)//come from (adapter_name)
-
-        databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) {
+        databaseTow.getAllDaoTow().getDataId(stock).observe(FragmentActivity()) {
 
             if (it.isNullOrEmpty()) {
                 symble="$"

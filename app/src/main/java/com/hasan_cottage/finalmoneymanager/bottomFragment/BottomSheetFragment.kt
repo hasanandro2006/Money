@@ -53,7 +53,7 @@ class BottomSheetFragment(private val intId: Int, private  val string: String) :
     private var accountName: String? = null
     private var getDate: String? = null
     private var getDateMonth: String? = null
-    private var getAmount: Double? = null
+    private var getAmount: Long? = null
     private var dataType: String? = null
     private var getMonth: String? = null
     private var yearC: String? = null
@@ -245,7 +245,13 @@ class BottomSheetFragment(private val intId: Int, private  val string: String) :
             // set update .........
             if (intId != -1) {
                 val getEditText = binding.amount.text.toString()
-                getAmount = getEditText.toDoubleOrNull()
+                try {
+                    getAmount = getEditText.toLong()
+                } catch (e: NumberFormatException) {
+                    // Handle the error, e.g., show a toast or set a default value
+                    Toast.makeText(applicationContext, "Invalid amount", Toast.LENGTH_SHORT).show()
+                    getAmount = 0L // Set a default value or handle it according to your app's logic
+                }
                 var getNote = binding.note.text.toString()
                 if (getNote.isEmpty()) {
                     getNote = "Not any note"
@@ -269,7 +275,7 @@ class BottomSheetFragment(private val intId: Int, private  val string: String) :
             else {
 
                 val getEditText = binding.amount.text.toString()
-                getAmount = getEditText.toDoubleOrNull()
+                getAmount = getEditText.toLong()
                 var getNote = binding.note.text.toString()
                 if (getNote.isEmpty()) {
                     getNote = "Empty note"

@@ -41,7 +41,7 @@ class MoreFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentMoreBinding.inflate(layoutInflater)
 
         val daoM = DatabaseAll.getInstanceAll(requireContext()).getAllDaoM()

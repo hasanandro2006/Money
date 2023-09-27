@@ -52,7 +52,7 @@ interface DatabaseDaoM{
     fun deleteDataId(idD:Int)
 
     @Query("update mainTable set type= :typeC, category=:categoryC, account=:account,date=:date,amount=:amount,dateMonth=:dateMonth,note=:note,year=:year where id=:id")
-    fun updateAllData(typeC:String, categoryC:String, account:String, date:String, amount:Double, dateMonth:String, id:Int, note:String, year:String)
+    fun updateAllData(typeC:String, categoryC:String, account:String, date:String, amount:Long, dateMonth:String, id:Int, note:String, year:String)
 
 
 

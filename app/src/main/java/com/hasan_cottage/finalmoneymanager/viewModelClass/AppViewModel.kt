@@ -47,7 +47,7 @@ class AppViewModel(private val repository: Repository): ViewModel(){
     fun getDataYear(year: String,id: Int):LiveData<List<ModelM>>{
         return repository.getDataYear(year,id)
     }
-    fun updateAllData(type:String, category:String, account:String, date:String, amount:Double, dateMonth:String, id:Int, note:String, year:String){
+    fun updateAllData(type:String, category:String, account:String, date:String, amount:Long, dateMonth:String, id:Int, note:String, year:String){
         return repository.updateAllData(type,category,account,date,amount,dateMonth,id,note,year)
     }
 

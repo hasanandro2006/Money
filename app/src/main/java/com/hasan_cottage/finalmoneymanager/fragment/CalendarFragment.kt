@@ -53,7 +53,7 @@ class CalendarFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View?{
 
         val context = requireContext().applicationContext// get Context
         val sharedPreferences = context.getSharedPreferences("Time", Context.MODE_PRIVATE)
