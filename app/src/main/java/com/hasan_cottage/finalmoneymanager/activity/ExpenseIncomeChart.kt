@@ -563,7 +563,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
 
     private fun oneChartIncome(it: List<ModelM>) {
 
-        var income = 0.0
+        var income:Long = 0
 
         var home = 0.0
         var tranH = 0
@@ -1092,7 +1092,7 @@ class ExpenseIncomeChart : AppCompatActivity() {
 
     private fun oneChartExpense(it: List<ModelM>) {
 
-        var expense = 0.0
+        var expense:Long = 0
 
         var home = 0.0
         var tranH = 0
@@ -1615,4 +1615,5 @@ class ExpenseIncomeChart : AppCompatActivity() {
             // Set the desired height in pixels
         }
     }
+
 }

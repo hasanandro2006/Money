@@ -52,6 +52,7 @@ class StatsFragment : Fragment() {
 
     private lateinit var databaseTow:DatabaseTow
     private  var stock=0
+    var isViewCreated=false
 
 //    private var isViewCreated = false
     override fun onCreateView(
@@ -67,7 +68,7 @@ class StatsFragment : Fragment() {
         myViewModel =
             ViewModelProvider(this, ViewModelFactory(repository))[AppViewModel::class.java]
 
-//        isViewCreated=true
+       isViewCreated=true
 
         binding.searce.setOnClickListener {
             MainScope().launch(Dispatchers.Default){
@@ -285,55 +286,63 @@ class StatsFragment : Fragment() {
     // come data from view-model........
     private fun dayExpenseIncome() {
 
-            databaseTow.getAllDaoTow().getDataId(stock).observe(requireActivity()) { it ->
+        if (isViewCreated) {
+            databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
                 it.forEach {
-                    myViewModel.getDataDaily(store!!, it.id).observe(requireActivity()) {
+                    myViewModel.getDataDaily(store!!, it.id).observe(viewLifecycleOwner) {
                         allCodeIncome(it)
                         allCodeExpense(it)
                     }
                 }
 
             }
-
+        }
 
     }
 
     private fun weekExpenseIncome() {
-        databaseTow.getAllDaoTow().getDataId(stock).observe(requireActivity()) { it ->
-            it.forEach {
-                myViewModel.getDataBetweenDates(weekNumber!!,it.id).observe(requireActivity()) {
-                    allCodeIncome(it)
-                    allCodeExpense(it)
+        if (isViewCreated) {
+            databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
+                it.forEach {
+                    myViewModel.getDataBetweenDates(weekNumber!!, it.id)
+                        .observe(viewLifecycleOwner) {
+                            allCodeIncome(it)
+                            allCodeExpense(it)
+                        }
                 }
-            }
 
+            }
         }
 
     }
 
     private fun monthExpenseIncome() {
-        databaseTow.getAllDaoTow().getDataId(stock).observe(requireActivity()) { it ->
-            it.forEach {
-                myViewModel.getMonth(store!!,it.id).observe(requireActivity()) {
-                    allCodeIncome(it)
-                    allCodeExpense(it)
+        if (isViewCreated) {
+            databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
+                it.forEach {
+                    myViewModel.getMonth(store!!, it.id).observe(viewLifecycleOwner) {
+                        allCodeIncome(it)
+                        allCodeExpense(it)
+                    }
                 }
-            }
 
+            }
         }
 
     }
 
     private fun yearExpenseIncome() {
 
-        databaseTow.getAllDaoTow().getDataId(stock).observe(requireActivity()) { it ->
-            it.forEach {
-                myViewModel.getDataYear(store!!,it.id).observe(requireActivity()) {
-                    allCodeIncome(it)
-                    allCodeExpense(it)
+        if (isViewCreated) {
+            databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
+                it.forEach {
+                    myViewModel.getDataYear(store!!, it.id).observe(viewLifecycleOwner) {
+                        allCodeIncome(it)
+                        allCodeExpense(it)
+                    }
                 }
-            }
 
+            }
         }
 
 
@@ -343,9 +352,9 @@ class StatsFragment : Fragment() {
     // all income expense .............
     private fun allCodeIncome(it: List<ModelM>) {
 
-        var total = 0.0
-        var income = 0.0
-        var expense = 0.0
+        var total:Long = 0
+        var income:Long = 0
+        var expense:Long= 0
         var home = 0.0
         var business = 0.0
         var loan = 0.0
@@ -508,7 +517,7 @@ class StatsFragment : Fragment() {
         chart.setDrawEntryLabels(false)
 
 
-        databaseTow.getAllDaoTow().getDataId(stock).observe(FragmentActivity()) { it ->
+        databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
 
             if (it.isNullOrEmpty()) {
                 symble="$"
@@ -582,9 +591,9 @@ class StatsFragment : Fragment() {
 
     private fun allCodeExpense(it: List<ModelM>) {
 
-        var total = 0.0
-        var income = 0.0
-        var expense = 0.0
+        var total:Long = 0
+        var income:Long = 0
+        var expense:Long = 0
 
         var home = 0.0
         var business = 0.0
@@ -769,8 +778,7 @@ class StatsFragment : Fragment() {
         chart.setDrawEntryLabels(false)
 
 
-
-        databaseTow.getAllDaoTow().getDataId(stock).observe(FragmentActivity()) {
+        databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) {
 
             if (it.isNullOrEmpty()) {
                 symble="$"
@@ -778,8 +786,6 @@ class StatsFragment : Fragment() {
 
             } else {
                 it.forEach {
-
-
                     symble = it.currencySymbol
 
                     chart.centerText = "Expense\n $symble $expense"

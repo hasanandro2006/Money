@@ -365,7 +365,7 @@ class ExpIncRecyclerItemClick : AppCompatActivity() {
 
     private fun sameCodeSet(context: Context?, it: List<ModelM>) {
         arrayListRecyclerview.addAll(it)
-        var storeT = 0.0
+        var storeT:Long = 0
 
         it.forEach { data ->
 

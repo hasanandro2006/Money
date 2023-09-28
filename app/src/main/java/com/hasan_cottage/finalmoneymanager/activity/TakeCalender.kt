@@ -87,9 +87,9 @@ class TakeCalender : AppCompatActivity(), CalendarAdapter.OnItemListener {
             work.forEach { workId ->
 
                 myViewModel.getMonth(data,workId.id).observe(this) {
-                    var storeT = 0.0
-                    var incomeT = 0.0
-                    var expenseT = 0.0
+                    var storeT:Long = 0
+                    var incomeT:Long = 0
+                    var expenseT:Long = 0
                     it.forEach { data ->
                         storeT += data.amount
                         if (data.type == HelperClass.INCOME) {

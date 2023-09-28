@@ -223,9 +223,9 @@ class MainFragment : Fragment() {
 
     private fun forAllDataSet(it: List<ModelM>, context: Context) {
         arrayListRecyclerview.addAll(it)
-        var storeT = 0.0
-        var incomeT = 0.0
-        var expenseT = 0.0
+        var storeT:Long = 0
+        var incomeT:Long = 0
+        var expenseT:Long = 0
 
         if (it.isNotEmpty()) {
             for (data in it) {

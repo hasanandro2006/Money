@@ -222,7 +222,7 @@ class CalendarFragment : Fragment() {
 
     // set data with livedata---------
     private fun setForDay(context: Context) {
-        databaseTow.getAllDaoTow().getDataId(stock).observe(requireActivity()) { it ->
+        databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
             it.forEach {
                 myViewModel.getDataDaily(store!!,it.id).observe(viewLifecycleOwner) {
                     if (it.isEmpty()){
@@ -266,7 +266,7 @@ class CalendarFragment : Fragment() {
 
 
     private fun setForWeek() {
-        databaseTow.getAllDaoTow().getDataId(stock).observe(requireActivity()) { it ->
+        databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
             it.forEach {
                 myViewModel.getDataBetweenDates(weekNumber!!,it.id).observe(viewLifecycleOwner) {
                     if (it.isEmpty()){
@@ -286,7 +286,7 @@ class CalendarFragment : Fragment() {
     }
 
     private fun setForYear() {
-        databaseTow.getAllDaoTow().getDataId(stock).observe(requireActivity()) { it ->
+        databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
             it.forEach {
                 myViewModel.getDataYear(store!!,it.id).observe(viewLifecycleOwner) {
                     if (it.isEmpty()){
@@ -307,7 +307,7 @@ class CalendarFragment : Fragment() {
 
     private fun setForAll(context: Context?) {
         binding.monthSet.setText(R.string.all_transaction)
-        databaseTow.getAllDaoTow().getDataId(stock).observe(requireActivity()) { it ->
+        databaseTow.getAllDaoTow().getDataId(stock).observe(viewLifecycleOwner) { it ->
             it.forEach {
                 myViewModel.getDataM(it.id).observe(viewLifecycleOwner) {
                     if (it.isEmpty()){
@@ -329,9 +329,9 @@ class CalendarFragment : Fragment() {
 
     private fun sameCodeSet(context: Context?, it: List<ModelM>) {
         arrayListRecyclerview.addAll(it)
-        var storeT = 0.0
-        var incomeT = 0.0
-        var expenseT = 0.0
+        var storeT:Long = 0
+        var incomeT:Long = 0
+        var expenseT:Long = 0
         it.forEach { data ->
 
             storeT += data.amount

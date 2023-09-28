@@ -33,7 +33,7 @@ class AdapterStats(val context: AppCompatActivity, val arraylist: ArrayList<Stat
 
             if (it.isNullOrEmpty()) {
                 if (inEx ==0){
-                    holder.binding.statasCatagoryvalue.text= "$ "+arraylist[position].categoryValue.toString()
+                    holder.binding.statasCatagoryvalue.text= "$ "+arraylist[position].categoryValue.toLong()
                     holder.binding.statasCatagoryvalue.setTextColor(ContextCompat.getColor(holder.itemView.context,R.color.blue))
 
                 }
